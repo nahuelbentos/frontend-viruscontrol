@@ -1,13 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 
 const routes: Routes = [
 
   {
     path: '',
-    component: HomeComponent,
+    component: NavMenuComponent,
+    children: [
+      {
+        path: 'dashboard',
+        component: HomeComponent
+      }
+    ]
   }
 ];
 @NgModule({
@@ -15,3 +22,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class HomeRoutingModule { }
+
+

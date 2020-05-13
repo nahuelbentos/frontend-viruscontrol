@@ -7,12 +7,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, NavMenuComponent],
+  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -24,7 +23,6 @@ import { LayoutModule } from '@angular/cdk/layout';
     HeaderComponent,
     FooterComponent,
     PageNotFoundComponent,
-    NavMenuComponent,
   ]
 })
 export class SharedModule { }

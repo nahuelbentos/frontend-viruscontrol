@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './layout/layout.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: LayoutComponent,
+    // component: LayoutComponent,
     children: [
       {
         path: '',
@@ -16,13 +15,17 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'home2',
+        loadChildren: () => import('./home2/home2.module').then(m => m.Home2Module)
       }
     ]
   },
-  // {
-  //   path: '**',
-  //   loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),
-  // }
+  {
+    path: '**',
+    loadChildren: () => import('./error/error.module').then(m => m.ErrorModule),
+  }
 ];
 
 

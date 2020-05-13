@@ -1,2 +1,22 @@
-<p>header works!</p>
-<mat-slider min="1" max="100" step="1" value="1"></mat-slider>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <div class="row between-xs middle-xs header-row">
+            <nav>
+                <a mat-button routerLink="/home/dashboard" routerLinkActive="active">Home</a>
+            </nav>
+            <div class="row">
+                <a mat-raised-button routerLink="/register" color="primary" class="a-margin">
+                    Registrarse
+                    <mat-icon>add_circle_outline
+                    </mat-icon>
+                </a>
+                <a mat-raised-button routerLink="/login" color="primary" class="a-margin">
+                    Log in
+                    <mat-icon>arrow_forward_ios
+                    </mat-icon>
+                </a>
+            </div>
+        </div>
+
+    </mat-toolbar-row>
+</mat-toolbar>
