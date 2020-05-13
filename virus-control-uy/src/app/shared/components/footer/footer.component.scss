@@ -8,8 +8,14 @@ footer {
   background-color: mat-color($primary);
 
   .box {
-    h3 {
+    h3,
+    h4 {
       color: white;
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
     }
 
     input {
