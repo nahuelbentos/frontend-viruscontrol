@@ -6,16 +6,18 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent],
+  declarations: [HeaderComponent, FooterComponent, PageNotFoundComponent, LoginComponent],
   imports: [
     CommonModule,
     RouterModule,
     MaterialModule,
+    FormsModule,
     ReactiveFormsModule,
     LayoutModule,
   ],
