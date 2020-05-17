@@ -10,10 +10,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { ListarVisitasComponent } from './components/listar-visitas/listar-visitas.component';
+import { SolicitarExamenComponent } from './components/solicitar-examen/solicitar-examen.component';
 
 
 @NgModule({
-  declarations: [ HomeMedicoComponent, NavMedicoComponent],
+  declarations: [ HomeMedicoComponent, NavMedicoComponent, ListarVisitasComponent, SolicitarExamenComponent],
   imports: [
     CommonModule,
     MedicoRoutingModule,
