@@ -5,10 +5,14 @@
 export const environment = {
   production: false,
   facebook: {
-    appId: '2880596572038563',
-    appSecret: '7ebe22baa22002c50503bfce87ed19d9'
-
-  }
+    clientId: '2880596572038563',
+    clientSecret: '7ebe22baa22002c50503bfce87ed19d9'
+  },
+  google: {
+    clientId: '539037543041-lj1s52blklduqff1ee7qcorjh92g50i6.apps.googleusercontent.com',
+    clientSecret: 'nXnukOI3wHJjPFh8fOcgZDtv'
+  },
+  url_backend: 'http://localhost:8080/VirusControl/rest/'
 };
 
 /*

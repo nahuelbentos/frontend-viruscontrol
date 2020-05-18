@@ -124,5 +124,29 @@ body {
 .buttons-redes-social {
   button {
     margin-top: 15px;
+    width: 235px;
+  }
+}
+
+.abcRioButtonIcon {
+  float: left;
+}
+
+.abcRioButtonSvg {
+  display: block;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+@media (min-width: 576px) {
+  .example-radio-group {
+    flex-direction: row;
   }
 }

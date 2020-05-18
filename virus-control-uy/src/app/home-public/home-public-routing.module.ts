@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './components/layout/layout.component';
 
 
-
 const routes: Routes = [
 
   {
@@ -16,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class Home2RoutingModule { }
+export class HomePublicRoutingModule { }

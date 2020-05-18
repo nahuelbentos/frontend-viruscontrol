@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
+import { AuthService, FacebookLoginProvider, SocialUser, GoogleLoginProvider } from 'angularx-social-login';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,12 @@ export class AutenticacionService {
 
   }
 
-  logoutWithFB() {
+
+  loginWithGoogle() {
+    return this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  logout() {
     return this.authService.signOut();
 
   }
