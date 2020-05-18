@@ -1,22 +1,44 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+<div class="row center-xs middle-xs">
 
-  <mat-card class="box">
-    <mat-card-header>
-      <mat-card-title>Log in</mat-card-title>
-    </mat-card-header>
+  <div class="col-xs-6">
+    <div class="box">
 
-    <form class="example-form">
-      <mat-card-content>
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Username">
-        </mat-form-field>
+      <div class="login-wrapper">
 
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password">
-        </mat-form-field>
-      </mat-card-content>
-      <button mat-stroked-button color="accent" class="btn-block">Log in</button>
-    </form>
-  </mat-card>
+        <mat-card class="box example-card">
+          <mat-card-header>
+            <mat-card-title>Log in</mat-card-title>
+          </mat-card-header>
 
+          <form class="example-form">
+            <mat-card-content>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Username">
+              </mat-form-field>
+
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Password">
+              </mat-form-field>
+            </mat-card-content>
+
+            <button mat-stroked-button color="accent" class="btn-block">Log in</button>
+
+          </form>
+
+
+          <mat-card-subtitle class="buttons-redes-social">
+            <button type="button" (click)="loginWithFB()" *ngIf="loggedIn===false" mat-flat-button color="primary">
+              <img class="img"
+                src="https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yN/r/szGrb_tkxMW.png?_nc_eui2=AeGp_6NbxITYFNK_Zr8_uko41khCDd6KELDWSEIN3ooQsCcUvOMvnMn3BnjjVbCoRb0"
+                alt="" width="24" height="24"> Iniciar sesión con Facebook</button>
+            <button type="button" (click)="logout()" *ngIf="loggedIn===true" mat-flat-button color="primary">
+              <img class="img"
+                src="https://z-p3-static.xx.fbcdn.net/rsrc.php/v3/yN/r/szGrb_tkxMW.png?_nc_eui2=AeGp_6NbxITYFNK_Zr8_uko41khCDd6KELDWSEIN3ooQsCcUvOMvnMn3BnjjVbCoRb0"
+                alt="" width="24" height="24"> Cerrar sesión </button>
+          </mat-card-subtitle>
+        </mat-card>
+
+      </div>
+    </div>
+  </div>
 </div>
