@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { SolicitarExamenComponent } from './solicitar-examen.component';
 

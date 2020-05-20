@@ -1,1 +1,65 @@
-<p>solicitar-examen works!</p>
+<div class="container">
+    <h1 class="mat-h1">Seleccione el exámen a realizar</h1>
+    <form [formGroup]="ExamForm" (ngSubmit)="onExamSubmit()">
+
+        <div class="row">
+            <div class="col">
+                <h4>Exámen a realizar</h4>
+                <mat-form-field>
+                <mat-label>Exámen a realizar</mat-label>
+                <mat-select formControlName="examenSeleccionado">
+                    <mat-option *ngFor="let examen of examenes" [value]="examen.value">
+                    {{examen.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="ExamForm.controls['examenSeleccionado'].hasError('required')">
+                    Debe seleccionar un examen de la lista.
+                </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h4>Ciudadano al cual realizar el exámen</h4>
+                <mat-form-field>
+                <mat-label>Ciudadano</mat-label>
+                <mat-select formControlName="ciudadanoSeleccionado">
+                    <mat-option *ngFor="let ciudadano of ciudadanos" [value]="ciudadano.value">
+                    {{ciudadano.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="ExamForm.controls['ciudadanoSeleccionado'].hasError('required')">
+                    Debe seleccionar un ciudadano de la lista.
+                </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h4>Laboratorio en el cual realizar exámen</h4>
+                <mat-form-field>
+                <mat-label>Laborariorio</mat-label>
+                <mat-select formControlName="proveedorSeleccionado">
+                    <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.value">
+                    {{proveedor.viewValue}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="ExamForm.controls['proveedorSeleccionado'].hasError('required')">
+                    Debe seleccionar un proveedor de la lista.
+                </mat-error>
+                </mat-form-field>
+                
+            </div>
+        </div>
+
+        <div>
+            <button mat-raised-button color="primary" type="submit">Confirmar</button>
+        </div>
+
+      </form>
+      <div *ngIf="isExamSubmitted">
+        <h4>Examen solicitado correctamente.</h4>
+    </div>                        
+</div>
