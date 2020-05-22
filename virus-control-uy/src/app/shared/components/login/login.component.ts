@@ -4,6 +4,8 @@ import { AutenticacionService } from '../../services/autenticacion.service';
 import { Router, NavigationExtras } from '@angular/router';
 import { Usuario } from '@shared/model/Usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuxiliaresService } from '@shared/services/auxiliares.service';
+import { Country } from '@shared/model/Country';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
   constructor(
     private autenticacionService: AutenticacionService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private auxiliaresService: AuxiliaresService
   ) {
 
   }
@@ -131,6 +134,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
       this.setUser(this.autenticacionService.user, this.autenticacionService.loggedIn);
       // si el es ciudadano y es primer ingreso => voy al perfil
       if (this.tipoUsuarioSelected === 'ciudadano' && res.value === 'PRIMERINGRESO') {
+        this.getPaises();
         this.goHome(this.tipoUsuarioSelected, usuario, res.value);
       } else {
         this.goHome(this.tipoUsuarioSelected, usuario);
@@ -143,7 +147,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
   goHome(modulo: string, usuario: any, perfil?: string) {
     console.log('Perfil: ', perfil);
     const url = (perfil) ? `/${modulo}/perfil` : `/${modulo}/home`;
-
     localStorage.setItem('usuario', JSON.stringify(usuario));
     this.router.navigate([url]);
 
@@ -155,5 +158,27 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.loggedIn = loggedIn;
   }
 
+
+  getPaises() {
+    console.log('1 getPaises: ');
+    this.auxiliaresService.getCountries()
+      .subscribe((res: Country[]) => {
+        console.log('Res paises: ', res);
+
+        // const reformattedArray 
+        const paises = res.map(obj => {
+          const rObj = {};
+
+          // tslint:disable-next-line: no-string-literal
+          rObj['nombre'] = obj.name;
+          return obj.name;
+        });
+
+        console.log('Res paises: ', paises);
+
+        localStorage.setItem('paises', JSON.stringify(paises));
+
+      });
+  }
 
 }

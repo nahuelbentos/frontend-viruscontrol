@@ -1,14 +1,36 @@
 <form [formGroup]="usuarioForm" novalidate (ngSubmit)="guardarCambios($event)">
-  <mat-card class="shipping-card">
+  <mat-card class="perfil-card">
     <mat-card-header>
       <mat-card-title>Validar Datos!</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+
+
+      <div class="row">
+
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Usuario" formControlName="username">
+            <mat-error *ngIf="usernameField.hasError('required')">
+              Usuario es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email">
+            <mat-error *ngIf="emailField.hasError('required')">
+              Email es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput placeholder="Nombre" formControlName="nombre">
-            <mat-error *ngIf="usuarioForm.controls['nombre'].hasError('required')">
+            <mat-error *ngIf="nombreField.hasError('required')">
               El nombre es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
@@ -16,43 +38,47 @@
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput placeholder="Apellido" formControlName="apellido">
-            <mat-error *ngIf="usuarioForm.controls['apellido'].hasError('required')">
+            <mat-error *ngIf="apellidoField.hasError('required')">
               Apellido es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
         </div>
       </div>
+
+
       <div class="row">
         <div class="col">
+
           <mat-form-field class="full-width">
-            <textarea matInput placeholder="Nacionalidad" formControlName="nacionalidad"></textarea>
-            <mat-error *ngIf="usuarioForm.controls['nacionalidad'].hasError('required')">
+            <input type="text" placeholder="Nacionalidad" aria-label="Number" matInput [matAutocomplete]="auto"
+              formControlName="nacionalidad">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="nacionalidadField.hasError('required')">
               Nacionalidad es <strong>requerida</strong>
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
         <div class="col">
-          <mat-form-field class="full-width">
-            <textarea matInput placeholder="Fecha de Nacimiento" formControlName="fechaNacimiento"></textarea>
+          <mat-form-field class="full-width" color="accent">
+            <mat-label>Fecha de Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
           </mat-form-field>
         </div>
       </div>
+
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput placeholder="Dirección" formControlName="direccion">
-            <mat-error *ngIf="usuarioForm.controls['direccion'].hasError('required')">
+            <mat-error *ngIf="direccionField.hasError('required')">
               Dirección es <strong>requerida</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="usuarioForm.controls['email'].hasError('required')">
-              Email es <strong>requerido</strong>
             </mat-error>
           </mat-form-field>
         </div>

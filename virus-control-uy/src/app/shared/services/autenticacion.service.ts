@@ -33,6 +33,7 @@ export class AutenticacionService {
     return this.authService.authState;
   }
 
+
   loginBackend(usuario: Usuario, tipo: string) {
     const url = `${this.baseUrl}/entrar/${tipo}`;
     console.log('url: ', url);
@@ -40,7 +41,7 @@ export class AutenticacionService {
   }
 
   validaDatos(usuario: Usuario) {
-    return this.http.put(`${this.baseUrl}/autenticacion/validaDatos`, usuario);
+    return this.http.put(`${this.baseUrl}/validaDatos`, usuario);
   }
 }
 

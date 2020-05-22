@@ -4,8 +4,13 @@ import { Usuario } from '@shared/model/Usuario';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AuxiliaresService } from '@shared/services/auxiliares.service';
+import { Country } from '@shared/model/Country';
+
+
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-perfil-ciudadano',
@@ -14,40 +19,59 @@ import { Observable } from 'rxjs';
 })
 export class PerfilCiudadanoComponent implements OnInit {
 
+  // autocomplete
+
+  paises: string[];
+  filteredOptions: Observable<string[]>;
+
   usuarioForm: FormGroup;
+
+
   constructor(
     private fb: FormBuilder,
     private autenticacionService: AutenticacionService,
     private route: ActivatedRoute) {
 
 
+    const paises: string[] = JSON.parse(localStorage.getItem('paises'));
+    localStorage.removeItem('paises');
+    this.paises = paises;
     this.buildForm();
   }
 
   ngOnInit(): void {
-    console.log('this.route.params: ', this.route.params);
-    this.route.params
-      .pipe(
-        map(
-          (params) => {
-            console.log(' params: ', params);
-          }
-        )
-      );
+
+    this.filteredOptions = this.nacionalidadField.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+
+  }
+
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.paises.filter(pais => pais.toLowerCase().indexOf(filterValue) === 0);
 
   }
 
   private buildForm() {
+
     const usuario: Usuario = JSON.parse(localStorage.getItem('usuario'));
-    console.log('usuario: ', usuario);
+    localStorage.removeItem('usuario');
+
+
     this.usuarioForm = this.fb.group({
       nombre: [usuario.nombre, Validators.required],
       apellido: [usuario.apellido, Validators.required],
-      nacionalidad: null,
+      nacionalidad: ['', Validators.required],
       fechaNacimiento: null,
       direccion: [null, Validators.required],
       email: [usuario.correo, Validators.required],
+      username: [usuario.username, Validators.required],
     });
+
 
   }
 
@@ -94,7 +118,13 @@ export class PerfilCiudadanoComponent implements OnInit {
   get direccionField() {
     return this.usuarioForm.get('direccion');
   }
+
+  get usernameField() {
+    return this.usuarioForm.get('username');
+  }
+
   get emailField() {
     return this.usuarioForm.get('email');
   }
+
 }
