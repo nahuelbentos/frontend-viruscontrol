@@ -1,4 +1,4 @@
-<div class="row center-xs middle-xs">
+<div class="row center-xs middle-xs" [formGroup]="loginForm">
 
   <div class="col-xs-6">
     <div class="box">
@@ -10,7 +10,7 @@
             <mat-card-title>Log in</mat-card-title>
           </mat-card-header>
 
-          <form class="example-form">
+          <!-- <form class="example-form">
             <mat-card-content>
               <mat-form-field class="example-full-width">
                 <input matInput placeholder="Username">
@@ -23,20 +23,39 @@
 
             <button mat-stroked-button color="accent" class="btn-block">Log in</button>
 
-            <!--  -->
-          </form>
+          </form> -->
 
 
           <div id="tipo-usuario" style="margin: 10px 0px; text-align: left;">
 
-            <label id="example-radio-group-label">Selecioná tu tipo de usuario</label>
-            <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-              [(ngModel)]="tipoUsuarioSelected">
-              <mat-radio-button class="example-radio-button" *ngFor="let tipoUsuario of tipoUsuarios"
-                [value]="tipoUsuario.value">
-                {{tipoUsuario.description}}
-              </mat-radio-button>
-            </mat-radio-group>
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Selecioná tu tipo de usuario" formControlName="selectTipoUsuario"
+                [(ngModel)]="tipoUsuarioSelected" cdkFocusInitial>
+                <mat-option *ngFor="let tipoUsuario of tipoUsuarios" [value]="tipoUsuario.value">
+                  {{tipoUsuario.description}}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="selectTipoUsuarioField.hasError('required')">
+
+                Seleccionar un tipo de usuario es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field>
+              <label id="example-radio-group-label">Selecioná tu tipo de usuario</label>
+              
+              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+                [(ngModel)]="tipoUsuarioSelected" formControlName="selectTipoUsuario">
+                <mat-radio-button class="example-radio-button" *ngFor="let tipoUsuario of tipoUsuarios"
+                  [value]="tipoUsuario.value">
+                  {{tipoUsuario.description}}
+                </mat-radio-button>
+                <mat-error
+                  *ngIf="selectTipoUsuarioField.hasError('required') && selectTipoUsuarioField.dirty && selectTipoUsuarioField.errors">
+                  El número del alumno <strong>es requerido.</strong>
+                </mat-error>
+              </mat-radio-group>
+            </mat-form-field> -->
 
           </div>
 
