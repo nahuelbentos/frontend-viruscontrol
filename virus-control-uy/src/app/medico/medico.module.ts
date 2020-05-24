@@ -5,13 +5,9 @@ import { MedicoRoutingModule } from './medico-routing.module';
 import { HomeMedicoComponent } from './components/home-medico/home-medico.component';
 import { NavMedicoComponent } from './components/nav-medico/nav-medico.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { ListarVisitasComponent } from './components/listar-visitas/listar-visitas.component';
 import { SolicitarExamenComponent } from './components/solicitar-examen/solicitar-examen.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -20,11 +16,7 @@ import { SolicitarExamenComponent } from './components/solicitar-examen/solicita
     CommonModule,
     MedicoRoutingModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
+    MaterialModule
   ]
 })
 export class MedicoModule { }
