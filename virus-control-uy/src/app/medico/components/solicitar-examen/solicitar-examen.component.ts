@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators  } from '@angular/forms';
-import { MedicoService } from './medico.service'
 
 interface Examen {
   value: string;
@@ -40,8 +39,7 @@ export class SolicitarExamenComponent implements OnInit {
 
 
   constructor(
-    public fb: FormBuilder,
-    protected medicoService: Me
+    public fb: FormBuilder
     ) { }
 
   /*########### Form ###########*/
