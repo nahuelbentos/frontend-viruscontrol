@@ -12,7 +12,7 @@ export const environment = {
     clientId: '539037543041-lj1s52blklduqff1ee7qcorjh92g50i6.apps.googleusercontent.com',
     clientSecret: 'nXnukOI3wHJjPFh8fOcgZDtv'
   },
-  url_backend: 'http://localhost:8088/viruscontrol-web/rest'
+  url_backend: 'http://localhost:8080/viruscontrol-web/rest'
 };
 
 /*
