@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators  } from '@angular/forms';
+import { MedicoService } from './medico.service'
 
 interface Examen {
   value: string;
@@ -24,11 +25,7 @@ export class SolicitarExamenComponent implements OnInit {
   isExamSubmitted = false;
 
 
-  examenes: Examen[] = [
-    {value: 'covid-19', viewValue: 'Covid'},
-    {value: 'neumo', viewValue: 'Neumococo'},
-    {value: 'vih', viewValue: 'VIH'}
-  ];
+  examenes: any[] = [];
 
   ciudadanos: Ciudadano[] = [
     {value: 'pepe', viewValue: 'Pepe Gonzalez'},
@@ -42,7 +39,10 @@ export class SolicitarExamenComponent implements OnInit {
   ];
 
 
-  constructor(public fb: FormBuilder) { }
+  constructor(
+    public fb: FormBuilder,
+    protected medicoService: Me
+    ) { }
 
   /*########### Form ###########*/
   ExamForm = this.fb.group({
