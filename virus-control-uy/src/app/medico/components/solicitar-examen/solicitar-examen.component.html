@@ -25,8 +25,8 @@
                 <h4>Exámen a realizar</h4>
                 <mat-form-field>
                 <mat-label>Exámen a realizar</mat-label>
-                <mat-select formControlName="examenSeleccionado" (change)='obtenerProveedores(examenSeleccionadoFiled.value)'>
-                    <mat-option *ngFor="let examen of examenes" [value]="examen.nombreEnfermedad">
+                <mat-select formControlName="examenSeleccionado"  (blur)='obtenerProveedores(examenSelected)' [(ngModel)]="examenSelected" >
+                    <mat-option *ngFor="let examen of examenes" [value]="examen.id">
                     {{examen.nombreEnfermedad}}
                     </mat-option>
                 </mat-select>
@@ -43,7 +43,7 @@
                 <mat-form-field>
                 <mat-label>Ciudadano</mat-label>
                 <mat-select formControlName="ciudadanoSeleccionado">
-                    <mat-option *ngFor="let ciudadano of ciudadanos" [value]="ciudadano.nombre">
+                    <mat-option *ngFor="let ciudadano of ciudadanos" [value]="ciudadano.idUsuario">
                     {{ciudadano.nombre}} {{ciudadano.apellido}}
                     </mat-option>
                 </mat-select>

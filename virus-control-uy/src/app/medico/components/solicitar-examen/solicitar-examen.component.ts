@@ -1,19 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators  } from '@angular/forms';
-import { MedicoService } from '../../../shared/services/medico.service';
+import { MedicoService, RequestSolicitarExamen } from '../../../shared/services/medico.service';
 import { Examen } from '../../../shared/model/Examen';
 import { Ciudadano } from '../../../shared/model/Ciudadano';
 import { ProveedorExamen } from '../../../shared/model/ProveedorExamen';
 import { Enfermedad } from '@shared/model/Enfermedad';
+import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
+import { AutenticacionService } from '@shared/services/autenticacion.service';
+import { Usuario } from '@shared/model/Usuario';
 
 
-interface ResponseSolicitarExamen {
-  idDepartamento: number;
-  idExamen: number;
-  idEnfermedad: number;
-  idPaciente: number;
-  idMedico: number;
-}
 
 @Component({
   selector: 'app-solicitar-examen',
@@ -28,16 +24,18 @@ export class SolicitarExamenComponent implements OnInit {
 
   examenes: Examen[];
 
-  ciudadanos: Ciudadano[];
+  ciudadanos: Usuario[];
 
   proveedores: ProveedorExamen[];
 
   enfermedades: Enfermedad[];
 
+  examenSelected: number;
 
   constructor(
     public fb: FormBuilder,
-    private medicoService: MedicoService
+    private medicoService: MedicoService,
+    private autenticacionService: AutenticacionService
     ) { }
 
 
@@ -58,11 +56,26 @@ export class SolicitarExamenComponent implements OnInit {
   onExamSubmit() {
     this.isExamSubmitted = true;
     if (!this.ExamForm.valid) {
-      return false;
-    } else {
-      alert(JSON.stringify(this.ExamForm.value));
-
+      return;
     }
+
+    const solicitarExamen: RequestSolicitarExamen = {
+      idDepartamento: 100, // se va a cambiar
+      idEnfermedad: 100, // se va a cambiar
+      idExamen: this.examenSeleccionadoFiled.value,
+      idMedico: 1,
+      // idMedico: this.autenticacionService.user.idUsuario,
+      idPaciente: this.ciudadanoSeleccionadoFiled.value
+
+    };
+
+    this.medicoService.solicitarExamen(solicitarExamen).subscribe( ok => {
+      console.log('ok: ', ok);
+      if(ok){
+        mensajeConfirmacion('Excelente!', 'Se ha solicitado el examen correctamente.');
+      }
+    });
+
 
   }
 
@@ -82,7 +95,7 @@ export class SolicitarExamenComponent implements OnInit {
 
     this.medicoService.getCiudadanosDeMedico()
     .subscribe(
-      (ciudadanos: Ciudadano[]) => { // Success
+      (ciudadanos: Usuario[]) => { // Success
         console.log(ciudadanos);
         this.ciudadanos = ciudadanos;
       },
@@ -110,5 +123,10 @@ export class SolicitarExamenComponent implements OnInit {
 
   get examenSeleccionadoFiled(){
     return this.ExamForm.get('examenSeleccionado'); // controls['examenSeleccionado'];
+  }
+
+
+  get ciudadanoSeleccionadoFiled(){
+    return this.ExamForm.get('ciudadanoSeleccionado'); // controls['examenSeleccionado'];
   }
 }
