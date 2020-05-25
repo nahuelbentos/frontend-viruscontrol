@@ -29,9 +29,26 @@ export class MedicoService {
   }
 
   public getProveedoresDeExamenes(id: number){
+    console.log('getproveedoresexamenes');
     return this.http.get(`${this.baseUrl}/proveedoresexamen/${id}`);
+  }
+
+  public solicitarExamen(solicitarExamen: RequestSolicitarExamen){
+
+    return this.http.post(`${this.baseUrl}/nuevocaso`, solicitarExamen);
+    // http://localhost:8080/viruscontrol-web/rest/medico/nuevocaso
   }
 
 
 
+}
+
+
+
+export interface RequestSolicitarExamen {
+  idDepartamento: number;
+  idExamen: number;
+  idEnfermedad: number;
+  idPaciente: number;
+  idMedico: number;
 }
