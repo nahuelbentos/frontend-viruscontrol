@@ -45,9 +45,7 @@ export class ListarVisitasComponent implements OnInit {
       .getVisitasPendientes()
        .subscribe((ciudadano: Ciudadano[]) => {
         console.log(ciudadano);
-        
-        
-       this.dataSource = new MatTableDataSource(ciudadano);
+        this.dataSource = new MatTableDataSource(ciudadano);
       });
   }
 }

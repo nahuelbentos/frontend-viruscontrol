@@ -1,27 +1,49 @@
 <div class="container">
     <h1 class="mat-h1">Listar visitas pendientes</h1>
 
-    <div class="example-container mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-            <ng-container matColumnDef="{{ column }}" *ngFor="let column of columnsToDisplay">
-                <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-                <td mat-cell *matCellDef="let element">{{ element[column | lowercase] }}</td>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort >
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="Nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let ciudadano"> {{ciudadano.nombre}} </td>
             </ng-container>
 
-            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+
+            <!-- Id Column -->
+            <ng-container matColumnDef="Apellido">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellido </th>
+                <td mat-cell *matCellDef="let ciudadano"> {{ciudadano.apellido}} </td>
+            </ng-container>
+
+
+            <!-- Nombre Column -->
+            <ng-container matColumnDef="Direccion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+                <td mat-cell *matCellDef="let ciudadano"> {{ciudadano.direccion}} </td>
+            </ng-container>
+
+
+            <!-- Estado Column -->
+            <ng-container matColumnDef="Fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                <td mat-cell *matCellDef="let ciudadano"> {{ciudadano.fecha}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="expandedDetail">
-                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                <td mat-cell *matCellDef="let ciudadano" [attr.colspan]="columnsToDisplay.length">
                     <div class="example-element-detail" [@detailExpand]="
-              element == expandedElement ? 'expanded' : 'collapsed'
+                    ciudadano == expandedElement ? 'expanded' : 'collapsed'
             ">
                         <div class="example-element-diagram">
-                            <div class="example-element-position">{{ element.position }}</div>
-                            <div class="example-element-symbol">{{ element.symbol }}</div>
-                            <div class="example-element-name">{{ element.name }}</div>
-                            <div class="example-element-weight">{{ element.weight }}</div>
+                            <div class="example-element-position">{{ ciudadano.nombre }}</div>
+                            <div class="example-element-symbol">{{ ciudadano.apellido }}</div>
+                            <div class="example-element-name">{{ ciudadano.direccion }}</div>
+                            <div class="example-element-weight">{{ ciudadano.fecha }}</div>
                         </div>
                         <div class="example-element-description">
-                            {{ element.description }}
+                            {{ ciudadano.nombre }}
                             <span class="example-element-description-attribution">
                                 -- Wikipedia
                             </span>
@@ -31,10 +53,16 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let element; columns: columnsToDisplay" class="example-element-row"
-                [class.example-expanded-row]="expandedElement === element"
-                (click)="expandedElement = expandedElement === element ? null : element"></tr>
+            <tr mat-row *matRowDef="let ciudadano; columns: columnsToDisplay" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === ciudadano"
+                (click)="expandedElement = expandedElement === ciudadano ? null : ciudadano"></tr>
             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+
+
+
     </div>
+
 </div>
