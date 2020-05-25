@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-home2',
-  templateUrl: './home2.component.html',
-  styleUrls: ['./home2.component.scss']
+  selector: 'app-home-public',
+  templateUrl: './home-public.component.html',
+  styleUrls: ['./home-public.component.scss']
 })
-export class Home2Component {
+export class HomePublicComponent implements OnInit {
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -29,5 +29,8 @@ export class Home2Component {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver) { }
+
+  ngOnInit(): void {
+  }
 }

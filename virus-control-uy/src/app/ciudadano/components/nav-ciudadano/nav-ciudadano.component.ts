@@ -6,11 +6,11 @@ import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-nav-medico',
-  templateUrl: './nav-medico.component.html',
-  styleUrls: ['./nav-medico.component.scss']
+  selector: 'app-nav-ciudadano',
+  templateUrl: './nav-ciudadano.component.html',
+  styleUrls: ['./nav-ciudadano.component.scss']
 })
-export class NavMedicoComponent {
+export class NavCiudadanoComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -22,7 +22,6 @@ export class NavMedicoComponent {
     private breakpointObserver: BreakpointObserver,
     private autenticacionService: AutenticacionService,
     private router: Router) { }
-
 
   logout() {
     this.autenticacionService.logoutBackend()

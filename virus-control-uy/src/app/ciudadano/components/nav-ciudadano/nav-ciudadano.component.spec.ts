@@ -1,35 +1,35 @@
 import { LayoutModule } from '@angular/cdk/layout';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
-import { Home2Component } from './home2.component';
+import { NavCiudadanoComponent } from './nav-ciudadano.component';
 
-describe('Home2Component', () => {
-  let component: Home2Component;
-  let fixture: ComponentFixture<Home2Component>;
+describe('NavCiudadanoComponent', () => {
+  let component: NavCiudadanoComponent;
+  let fixture: ComponentFixture<NavCiudadanoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [Home2Component],
+      declarations: [NavCiudadanoComponent],
       imports: [
         NoopAnimationsModule,
         LayoutModule,
         MatButtonModule,
-        MatCardModule,
-        MatGridListModule,
         MatIconModule,
-        MatMenuModule,
+        MatListModule,
+        MatSidenavModule,
+        MatToolbarModule,
       ]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(Home2Component);
+    fixture = TestBed.createComponent(NavCiudadanoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -20,7 +20,7 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('./home/home.module').then((m) => m.HomeModule),
+          import('./home-public/home-public.module').then((m) => m.HomePublicModule),
       },
       {
         path: 'medico',
@@ -28,10 +28,10 @@ const routes: Routes = [
           import('./medico/medico.module').then((m) => m.MedicoModule),
       },
       {
-        path: 'home2',
+        path: 'ciudadano',
         loadChildren: () =>
-          import('./home2/home2.module').then((m) => m.Home2Module),
-      },
+          import('./ciudadano/ciudadano.module').then((m) => m.CiudadanoModule),
+      }
     ],
   },
   {
