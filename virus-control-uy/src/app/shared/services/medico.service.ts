@@ -7,15 +7,15 @@ import { AutenticacionService } from './autenticacion.service';
   providedIn: 'root'
 })
 export class MedicoService {
-  
+
   constructor(private http: HttpClient, private autenticacionService: AutenticacionService) { }
 
-  public getVisitasPendientes(){
+  public getVisitasPendientes() {
     console.log('this.autenticacionService.user.email', this.autenticacionService.user);
-    
-    
 
-    return this.http.get(`${environment.url_backend}/medico/rodrigo.lame96@gmail.com/visita_pendiente/all`);
+
+
+    return this.http.get(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/all`);
   }
- 
+
 }
