@@ -11,6 +11,7 @@ import { Usuario } from '@shared/model/Usuario';
 export class AutenticacionService {
 
   user: SocialUser;
+
   loggedIn: boolean;
   baseUrl = `${environment.url_backend}/autenticacion`;
   constructor(private authService: AuthService, private http: HttpClient) { }

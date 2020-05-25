@@ -10,6 +10,7 @@ import { ListarVisitasComponent } from './components/listar-visitas/listar-visit
 import { SolicitarExamenComponent } from './components/solicitar-examen/solicitar-examen.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MedicoService } from '../shared/services/medico.service';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MaterialModule,
     FormsModule
-  ]
+  ],
+  providers: [MedicoService]
 })
 export class MedicoModule { }

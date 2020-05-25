@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators  } from '@angular/forms';
+import { MedicoService } from '../../../shared/services/medico.service';
+import { Examen } from '../../../shared/model/Examen';
+import { Ciudadano } from '../../../shared/model/Ciudadano';
+import { ProveedorExamen } from '../../../shared/model/ProveedorExamen';
+import { Enfermedad } from '@shared/model/Enfermedad';
 
-interface Examen {
-  value: string;
-  viewValue: string;
-}
-interface Ciudadano {
-  value: string;
-  viewValue: string;
-}
-interface Proveedor {
-  value: string;
-  viewValue: string;
+
+interface ResponseSolicitarExamen {
+  idDepartamento: number;
+  idExamen: number;
+  idEnfermedad: number;
+  idPaciente: number;
+  idMedico: number;
 }
 
 @Component({
@@ -24,30 +25,29 @@ export class SolicitarExamenComponent implements OnInit {
   isExamSubmitted = false;
 
 
-  examenes: any[] = [];
 
-  ciudadanos: Ciudadano[] = [
-    {value: 'pepe', viewValue: 'Pepe Gonzalez'},
-    {value: 'juan', viewValue: 'Juan Perez'},
-    {value: 'francisco', viewValue: 'Francisco Fernandez'}
-  ];
+  examenes: Examen[];
 
-  proveedores: Proveedor[] = [
-    {value: 'biolab', viewValue: 'Bio Lab'},
-    {value: 'Lab-20', viewValue: 'Lab 20'}
-  ];
+  ciudadanos: Ciudadano[];
+
+  proveedores: ProveedorExamen[];
+
+  enfermedades: Enfermedad[];
 
 
   constructor(
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private medicoService: MedicoService
     ) { }
+
+
 
   /*########### Form ###########*/
   ExamForm = this.fb.group({
     examenSeleccionado: [null, Validators.required],
     ciudadanoSeleccionado: [null, Validators.required],
     proveedorSeleccionado: [null, Validators.required]
-  })
+  });
 
   // Getter method to access formcontrols
   getExamenSeleccionado() {
@@ -60,14 +60,55 @@ export class SolicitarExamenComponent implements OnInit {
     if (!this.ExamForm.valid) {
       return false;
     } else {
-      alert(JSON.stringify(this.ExamForm.value))
+      alert(JSON.stringify(this.ExamForm.value));
+
     }
 
   }
 
 
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.medicoService.getExamenes()
+    .subscribe(
+      (examenes: Examen[]) => { // Success
+        console.log(examenes);
+        this.examenes = examenes;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    this.medicoService.getCiudadanosDeMedico()
+    .subscribe(
+      (ciudadanos: Ciudadano[]) => { // Success
+        console.log(ciudadanos);
+        this.ciudadanos = ciudadanos;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+
   }
 
+  obtenerProveedores(id: number){
+
+    this.medicoService.getProveedoresDeExamenes(id)
+    .subscribe(
+      (proveedores: ProveedorExamen[]) => { // Success
+        console.log(proveedores);
+        this.proveedores = proveedores;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
+  get examenSeleccionadoFiled(){
+    return this.ExamForm.get('examenSeleccionado'); // controls['examenSeleccionado'];
+  }
 }
