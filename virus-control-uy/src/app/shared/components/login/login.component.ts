@@ -131,11 +131,13 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
     this.autenticacionService.loginBackend(usuario, this.tipoUsuarioSelected).subscribe((res: any) => {
       console.log('res backend: ', res);
-      this.setUser(this.autenticacionService.user, this.autenticacionService.loggedIn);
-      // si el es ciudadano y es primer ingreso => voy al perfil
-      if (this.tipoUsuarioSelected === 'ciudadano' && res.value === 'PRIMERINGRESO') {
+
+      this.setUser(response, this.autenticacionService.loggedIn);
+      this.autenticacionService.setUser(usuario);
+      // si el usuario es ciudadano y es primer ingreso => voy al perfil
+      if (this.tipoUsuarioSelected === 'ciudadano' && res === 'PRIMERINGRESO') {
         this.getPaises();
-        this.goHome(this.tipoUsuarioSelected, usuario, res.value);
+        this.goHome(this.tipoUsuarioSelected, usuario, res);
       } else {
         this.goHome(this.tipoUsuarioSelected, usuario);
 

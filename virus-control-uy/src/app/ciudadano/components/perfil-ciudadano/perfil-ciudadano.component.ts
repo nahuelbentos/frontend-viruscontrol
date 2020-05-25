@@ -52,14 +52,18 @@ export class PerfilCiudadanoComponent implements OnInit {
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.paises.filter(pais => pais.toLowerCase().indexOf(filterValue) === 0);
+    return this.paises.filter((pais) => {
+      console.log('pais: ', pais);
+      return pais.toLowerCase().indexOf(filterValue) === 0;
+    });
 
   }
 
   private buildForm() {
 
-    const usuario: Usuario = JSON.parse(localStorage.getItem('usuario'));
-    localStorage.removeItem('usuario');
+    const usuario: Usuario = this.autenticacionService.user; //JSON.parse(localStorage.getItem('usuario'));
+    // this.autenticacionService.user
+    // localStorage.removeItem('usuario');
 
 
     this.usuarioForm = this.fb.group({

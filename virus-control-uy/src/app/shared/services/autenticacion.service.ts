@@ -10,8 +10,7 @@ import { Usuario } from '@shared/model/Usuario';
 })
 export class AutenticacionService {
 
-  user: SocialUser;
-
+  user: Usuario;
   loggedIn: boolean;
   baseUrl = `${environment.url_backend}/autenticacion`;
   constructor(private authService: AuthService, private http: HttpClient) { }
@@ -26,6 +25,7 @@ export class AutenticacionService {
   }
 
   logout() {
+
     return this.authService.signOut();
 
   }
@@ -34,6 +34,9 @@ export class AutenticacionService {
     return this.authService.authState;
   }
 
+  logoutBackend() {
+    return this.http.delete(`${this.baseUrl}/salir/${this.user.username}`);
+  }
 
   loginBackend(usuario: Usuario, tipo: string) {
     const url = `${this.baseUrl}/entrar/${tipo}`;
@@ -42,7 +45,11 @@ export class AutenticacionService {
   }
 
   validaDatos(usuario: Usuario) {
-    return this.http.put(`${this.baseUrl}/validaDatos`, usuario);
+    return this.http.put(`${this.baseUrl}/validar_datos`, usuario);
+  }
+
+  setUser(user: Usuario) {
+    this.user = user;
   }
 }
 
