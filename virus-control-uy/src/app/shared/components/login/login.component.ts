@@ -150,6 +150,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     console.log('Perfil: ', perfil);
     const url = (perfil) ? `/${modulo}/perfil` : `/${modulo}/home`;
     localStorage.setItem('usuario', JSON.stringify(usuario));
+    // temporal - luego se va
+    localStorage.setItem('usuarioLogueado', JSON.stringify(usuario));
     this.router.navigate([url]);
 
   }

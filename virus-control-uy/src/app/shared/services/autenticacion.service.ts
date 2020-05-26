@@ -13,7 +13,14 @@ export class AutenticacionService {
   user: Usuario;
   loggedIn: boolean;
   baseUrl = `${environment.url_backend}/autenticacion`;
-  constructor(private authService: AuthService, private http: HttpClient) { }
+  constructor(private authService: AuthService, private http: HttpClient) {
+
+    // esto es temporal
+    const aux: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+    if (aux !== null) {
+      this.user = aux;
+    }
+  }
 
   loginWithFB() {
     return this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
