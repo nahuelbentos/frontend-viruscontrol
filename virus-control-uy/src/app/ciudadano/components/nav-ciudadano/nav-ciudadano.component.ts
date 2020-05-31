@@ -45,9 +45,17 @@ export class NavCiudadanoComponent {
       localStorage.setItem('paises', JSON.stringify(paises));
       this.router.navigate(['/ciudadano/perfil']);
     });
-
   }
-
+  test() {
+    this.autenticacionService
+      .authStateFB()
+      .subscribe((res) => console.log('res: ', res));
+  }
+  test2() {
+    this.autenticacionService.logout().then((res) => {
+      console.log('res: ', res);
+    });
+  }
   logout() {
     this.autenticacionService.logoutBackend().subscribe((res) => {
       console.log('res logutbackend: ', res);
@@ -56,6 +64,8 @@ export class NavCiudadanoComponent {
         .then((response) => {
           console.log('response: ', response);
           this.autenticacionService.setUser(null);
+          this.autenticacionService.setloggedIn(false);
+          localStorage.setItem('loggedIn', 'false');
           this.router.navigate(['/home']);
         })
         .catch((reject) => {

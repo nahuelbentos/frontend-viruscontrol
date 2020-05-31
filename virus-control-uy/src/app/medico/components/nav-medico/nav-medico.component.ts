@@ -30,7 +30,9 @@ export class NavMedicoComponent {
         console.log('res logutbackend: ', res);
         this.autenticacionService.logout().then(response => {
           console.log('response: ', response);
-          this.autenticacionService.setUser(null);
+          this.autenticacionService.setUser(null);          
+          this.autenticacionService.setloggedIn(false);
+          localStorage.setItem('loggedIn', 'false');
           this.router.navigate(['/home']);
 
         })
