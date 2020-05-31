@@ -3,7 +3,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item routerLink='/medico/home'>home</a>
+      <a mat-list-item routerLink='/medico/home'>Home</a>
       <a mat-list-item routerLink='/medico/listar-visitas'>Listar visitas pendientes</a>
       <a mat-list-item routerLink='/medico/solicitar-examen'>Solicitar exámen para ciudadano</a>
       <a mat-list-item (click)="logout()">Cerrar Sesion</a>

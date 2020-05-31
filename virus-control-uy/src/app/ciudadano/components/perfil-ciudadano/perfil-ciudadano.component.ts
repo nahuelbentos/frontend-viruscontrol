@@ -15,10 +15,9 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-perfil-ciudadano',
   templateUrl: './perfil-ciudadano.component.html',
-  styleUrls: ['./perfil-ciudadano.component.scss']
+  styleUrls: ['./perfil-ciudadano.component.scss'],
 })
 export class PerfilCiudadanoComponent implements OnInit {
-
   // autocomplete
 
   paises: string[];
@@ -26,13 +25,11 @@ export class PerfilCiudadanoComponent implements OnInit {
 
   usuarioForm: FormGroup;
 
-
   constructor(
     private fb: FormBuilder,
     private autenticacionService: AutenticacionService,
-    private route: ActivatedRoute) {
-
-
+    private route: ActivatedRoute
+  ) {
     const paises: string[] = JSON.parse(localStorage.getItem('paises'));
     localStorage.removeItem('paises');
     this.paises = paises;
@@ -40,14 +37,11 @@ export class PerfilCiudadanoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.filteredOptions = this.nacionalidadField.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map((value) => this._filter(value))
     );
-
   }
-
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -56,50 +50,47 @@ export class PerfilCiudadanoComponent implements OnInit {
       console.log('pais: ', pais);
       return pais.toLowerCase().indexOf(filterValue) === 0;
     });
-
   }
 
   private buildForm() {
-
     const usuario: Usuario = this.autenticacionService.user; //JSON.parse(localStorage.getItem('usuario'));
     // this.autenticacionService.user
     // localStorage.removeItem('usuario');
-
 
     this.usuarioForm = this.fb.group({
       nombre: [usuario.nombre, Validators.required],
       apellido: [usuario.apellido, Validators.required],
       nacionalidad: ['', Validators.required],
+      cedula: ['', Validators.required],
+      telefono: ['', Validators.required],
       fechaNacimiento: null,
       direccion: [null, Validators.required],
       email: [usuario.correo, Validators.required],
       username: [usuario.username, Validators.required],
     });
-
-
   }
 
   guardarCambios(event: Event) {
     event.preventDefault();
 
     const usuario: Usuario = {
-
       username: this.emailField.value,
       nombre: this.nombreField.value,
       apellido: this.apellidoField.value,
       nacionalidad: this.nacionalidadField.value,
+
       direccion: this.direccionField.value,
       correo: this.emailField.value,
     };
 
-    this.autenticacionService.validaDatos(usuario).subscribe(
-      (res) => {
-        console.log('res: ', res);
-        mensajeConfirmacion('Excelente!', 'Se han modificado tus datos con exitó!');
-      }
-    );
+    this.autenticacionService.validaDatos(usuario).subscribe((res) => {
+      console.log('res: ', res);
+      mensajeConfirmacion(
+        'Excelente!',
+        'Se han modificado tus datos con exitó!'
+      );
+    });
   }
-
 
   get nombreField() {
     return this.usuarioForm.get('nombre');
@@ -109,11 +100,17 @@ export class PerfilCiudadanoComponent implements OnInit {
     return this.usuarioForm.get('apellido');
   }
 
+  get telefonoField() {
+    return this.usuarioForm.get('telefono');
+  }
+
+  get cedulaField() {
+    return this.usuarioForm.get('cedula');
+  }
 
   get nacionalidadField() {
     return this.usuarioForm.get('nacionalidad');
   }
-
 
   get fechaNacimientoField() {
     return this.usuarioForm.get('fechaNacimiento');
@@ -130,5 +127,4 @@ export class PerfilCiudadanoComponent implements OnInit {
   get emailField() {
     return this.usuarioForm.get('email');
   }
-
 }

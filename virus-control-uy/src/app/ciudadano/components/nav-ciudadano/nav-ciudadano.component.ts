@@ -4,39 +4,63 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { Router } from '@angular/router';
+import { AuxiliaresService } from '@shared/services/auxiliares.service';
+import { Country } from '@shared/model/Country';
 
 @Component({
   selector: 'app-nav-ciudadano',
   templateUrl: './nav-ciudadano.component.html',
-  styleUrls: ['./nav-ciudadano.component.scss']
+  styleUrls: ['./nav-ciudadano.component.scss'],
 })
 export class NavCiudadanoComponent {
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     );
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private autenticacionService: AutenticacionService,
-    private router: Router) { }
+    private auxiliaresService: AuxiliaresService,
+    private router: Router
+  ) {}
+
+  goPerfil() {
+    this.auxiliaresService.getCountries().subscribe((res: Country[]) => {
+      console.log('Res paises: ', res);
+
+      // const reformattedArray
+      const paises = res.map((obj) => {
+        const rObj = {};
+
+        // tslint:disable-next-line: no-string-literal
+        rObj['nombre'] = obj.name;
+        return obj.name;
+      });
+
+      console.log('Res paises: ', paises);
+
+      localStorage.setItem('paises', JSON.stringify(paises));
+      this.router.navigate(['/ciudadano/perfil']);
+    });
+
+  }
 
   logout() {
-    this.autenticacionService.logoutBackend()
-      .subscribe(res => {
-        console.log('res logutbackend: ', res);
-        this.autenticacionService.logout().then(response => {
+    this.autenticacionService.logoutBackend().subscribe((res) => {
+      console.log('res logutbackend: ', res);
+      this.autenticacionService
+        .logout()
+        .then((response) => {
           console.log('response: ', response);
           this.autenticacionService.setUser(null);
           this.router.navigate(['/home']);
-
         })
-          .catch(reject => {
-            console.log('reject logut: ', reject);
-          });
-      });
+        .catch((reject) => {
+          console.log('reject logut: ', reject);
+        });
+    });
   }
-
 }
