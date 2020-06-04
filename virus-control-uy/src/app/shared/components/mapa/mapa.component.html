@@ -1,19 +1,34 @@
+<agm-map
+  (mapClick)="agregarMarcador($event)"
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="7"
+  [styles]="styleMap"
+>
+  <agm-marker
+    *ngFor="let marcador of marcadores; let i = index"
+    [latitude]="marcador.lat"
+    [longitude]="marcador.lng"
+    iconUrl="/assets/icon-virus-control-uy-small.png"
+  >
+    <agm-info-window>
+      <h4>{{ marcador.titulo }}</h4>
+      <ng-container *ngIf="marcador.enfermedades; else elseTemplate">
+        <h5 *ngFor="let enfermedad of marcador.enfermedades" >
+          <strong>Enfermedad:</strong>  {{ enfermedad.nombreEnfermedad }} <br/>
+          <p *ngFor="let caso of enfermedad.casos">
+            <strong> Caso:</strong> {{ caso.casoTipo }} <br/>
+            <strong> Cantidad:</strong> {{ caso.cantidad }}
+          </p>
+        </h5>
+      </ng-container>
+      <ng-template #elseTemplate>
+          
+      <p>
+        {{ marcador.desc }}
+      </p>
+     </ng-template>
 
-        <agm-map (mapClick)="agregarMarcador( $event )" [latitude]="lat" [longitude]="lng" [zoom]="7"
-            [styles]="styleMap">
-
-            <agm-marker *ngFor="let marcador of marcadores; let i = index" [latitude]="marcador.lat"
-                [longitude]="marcador.lng" iconUrl="/assets/icon-virus-control-uy-small.png">
-
-                <agm-info-window>
-                    <strong>{{ marcador.titulo }}</strong>
-                    <p>
-                        {{ marcador.desc }}
-                    </p>
-
-
-                </agm-info-window>
-
-            </agm-marker>
-
-        </agm-map>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>

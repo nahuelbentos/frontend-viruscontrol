@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Departamento } from '../../model/departamento.model';
 import { MapTypeStyle } from '@agm/core';
 import { Marcador } from '@shared/model/marcador.class';
+import { Mapa, MapaInteractivo } from '@shared/model/mapa-interactivo.model';
+import { PublicService } from '@shared/services/public.service';
 
 @Component({
   selector: 'app-mapa',
@@ -9,7 +11,6 @@ import { Marcador } from '@shared/model/marcador.class';
   styleUrls: ['./mapa.component.scss'],
 })
 export class MapaComponent implements OnInit {
- 
   styleMap: MapTypeStyle[] = [
     {
       featureType: 'administrative.land_parcel',
@@ -89,18 +90,24 @@ export class MapaComponent implements OnInit {
     },
   ];
   marcadores: Marcador[] = [];
+  mapaInteractivo: MapaInteractivo;
 
   lat = -32.5227776;
   lng = -55.7658348;
 
-  constructor( ) {
+  constructor(private publicService: PublicService) {
     if (localStorage.getItem('marcadores')) {
       this.marcadores = JSON.parse(localStorage.getItem('marcadores'));
     }
   }
 
   ngOnInit() {
-    this.generarDeptos();
+    this.publicService.getMapaInteractivo()
+    .subscribe((mapa: MapaInteractivo) => {
+      console.log('mapa: ', mapa);
+      this.mapaInteractivo = mapa;
+      this.generarDeptos();
+    });
   }
 
   agregarMarcador(evento) {
@@ -119,8 +126,6 @@ export class MapaComponent implements OnInit {
     this.marcadores.splice(i, 1);
     this.guardarStorage();
   }
-
-  
 
   guardarStorage() {
     localStorage.setItem('marcadores', JSON.stringify(this.marcadores));
@@ -247,7 +252,12 @@ export class MapaComponent implements OnInit {
 
   addDepto(depto: Departamento) {
     const nuevoMarcador = new Marcador(depto.nombre, depto.lat, depto.lng);
-
+    const deptoInfo = this.mapaInteractivo.mapa.find( m => m.nombre === depto.nombre);
+    if (deptoInfo) {
+      nuevoMarcador.enfermedades = deptoInfo.enfermedades;
+    } else {
+      nuevoMarcador.desc = `No existen enfermedades registradas en ${nuevoMarcador.titulo}`;
+    }
     this.marcadores.push(nuevoMarcador);
   }
 }
