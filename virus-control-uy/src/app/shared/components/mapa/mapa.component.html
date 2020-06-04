@@ -1,0 +1,19 @@
+
+        <agm-map (mapClick)="agregarMarcador( $event )" [latitude]="lat" [longitude]="lng" [zoom]="7"
+            [styles]="styleMap">
+
+            <agm-marker *ngFor="let marcador of marcadores; let i = index" [latitude]="marcador.lat"
+                [longitude]="marcador.lng" iconUrl="/assets/icon-virus-control-uy-small.png">
+
+                <agm-info-window>
+                    <strong>{{ marcador.titulo }}</strong>
+                    <p>
+                        {{ marcador.desc }}
+                    </p>
+
+
+                </agm-info-window>
+
+            </agm-marker>
+
+        </agm-map>
