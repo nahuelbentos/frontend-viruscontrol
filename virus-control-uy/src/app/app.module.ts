@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { environment } from '@environments/environment';
+import { AgmCoreModule } from '@agm/core';
 
 
 const config = new AuthServiceConfig([
@@ -29,9 +30,7 @@ export function provideConfig() {
   return config;
 }
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,12 +41,14 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule,
+    SocialLoginModule
   ],
-  providers: [{
-    provide: AuthServiceConfig,
-    useFactory: provideConfig
-  }],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
