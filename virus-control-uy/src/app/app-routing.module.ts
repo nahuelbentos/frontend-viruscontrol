@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './shared/components/login/login.component';
+import { AutenticacionGuard } from '@shared/services/autenticacion.guard';
+import { AuthCiudadanoGuard } from '@shared/services/auth-ciudadano.guard';
+import { AuthMedicoGuard } from '@shared/services/auth-medico.guard';
 
 
 const routes: Routes = [
@@ -20,17 +23,19 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () =>
-          import('./home-public/home-public.module').then((m) => m.HomePublicModule),
+          import('./home-public/home-public.module').then((m) => m.HomePublicModule)
       },
       {
         path: 'medico',
         loadChildren: () =>
           import('./medico/medico.module').then((m) => m.MedicoModule),
+          canActivate: [AuthMedicoGuard]
       },
       {
         path: 'ciudadano',
         loadChildren: () =>
           import('./ciudadano/ciudadano.module').then((m) => m.CiudadanoModule),
+          canActivate: [AuthCiudadanoGuard]
       }
     ],
   },
