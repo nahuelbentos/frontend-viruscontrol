@@ -15,12 +15,16 @@ export class MedicoService {
     console.log('this.autenticacionService.user.email', this.autenticacionService.user);
 
 
+    // let headers = new Headers({ 'Content-Type': 'application/json' });
+    // headers.append('Authorization', 'Bearer ');
+    // let options = new RequestOptions({ headers: headers });
 
     return this.http.get(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/all`);
   }
 
 
   public getExamenes(){
+    
     return this.http.get(`${this.baseUrl}/examenesenfermedad/100`);
   }
 
