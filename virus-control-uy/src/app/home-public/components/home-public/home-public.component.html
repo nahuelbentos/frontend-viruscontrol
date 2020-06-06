@@ -16,7 +16,14 @@
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content class="dashboard-card-content">
-                    <div>Card Content Here</div>
+                    <ng-container *ngIf="card.id === 1; else elseTemplate">
+                        <app-mapa></app-mapa>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        
+                        <div>Card Content Here</div>
+                    </ng-template>
+                    
                 </mat-card-content>
             </mat-card>
         </mat-grid-tile>

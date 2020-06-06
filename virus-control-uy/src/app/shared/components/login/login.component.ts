@@ -132,14 +132,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.autenticacionService.loginBackend(usuario, this.tipoUsuarioSelected).subscribe((res: any) => {
       console.log('res backend: ', res);
 
-      this.setUser(response, this.autenticacionService.loggedIn);
+      localStorage.setItem('loggedIn', 'true');
+      localStorage.setItem('tipoUsuario', this.tipoUsuarioSelected);
+      this.autenticacionService.setloggedIn(true);
+      this.setUser(response, this.autenticacionService.getLoggedIn());
+      const usuario: Usuario = res.usuario;
+      usuario.sessionToken = res.sessionToken;
       this.autenticacionService.setUser(usuario);
       // si el usuario es ciudadano y es primer ingreso => voy al perfil
-      if (this.tipoUsuarioSelected === 'ciudadano' && res === 'PRIMERINGRESO') {
-        this.getPaises();
-        this.goHome(this.tipoUsuarioSelected, usuario, res);
+      if (this.tipoUsuarioSelected === 'ciudadano' && res.response === 'PRIMERINGRESO') {
+        this.getPaises(res.usuario, res.response);
       } else {
-        this.goHome(this.tipoUsuarioSelected, usuario);
+        this.goHome(this.tipoUsuarioSelected, res.usuario);
 
       }
 
@@ -163,7 +167,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
 
-  getPaises() {
+  getPaises(usuario, response) {
     console.log('1 getPaises: ');
     this.auxiliaresService.getCountries()
       .subscribe((res: Country[]) => {
@@ -181,6 +185,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         console.log('Res paises: ', paises);
 
         localStorage.setItem('paises', JSON.stringify(paises));
+        this.goHome(this.tipoUsuarioSelected, usuario, response);
 
       });
   }

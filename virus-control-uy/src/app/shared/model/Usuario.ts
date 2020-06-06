@@ -6,8 +6,10 @@ export interface Usuario {
     apellido: string;
     direccion?: string;
     telefono?: number;
+    cedula?: number;
     fechaNacimiento?: Date;
     nacionalidad?: string;
     correo: string;
     primerIngreso?: boolean;
+    sessionToken?: string;
 }

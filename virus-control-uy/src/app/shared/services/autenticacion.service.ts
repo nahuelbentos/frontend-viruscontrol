@@ -6,15 +6,13 @@ import { environment } from '@environments/environment';
 import { Usuario } from '@shared/model/Usuario';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AutenticacionService {
-
   user: Usuario;
-  loggedIn: boolean;
+  private loggedIn: boolean;
   baseUrl = `${environment.url_backend}/autenticacion`;
   constructor(private authService: AuthService, private http: HttpClient) {
-
     // esto es temporal
     const aux: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
     if (aux !== null) {
@@ -24,7 +22,6 @@ export class AutenticacionService {
 
   loginWithFB() {
     return this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-
   }
 
   loginWithGoogle() {
@@ -32,9 +29,7 @@ export class AutenticacionService {
   }
 
   logout() {
-
     return this.authService.signOut();
-
   }
 
   authStateFB(): Observable<SocialUser> {
@@ -42,7 +37,7 @@ export class AutenticacionService {
   }
 
   logoutBackend() {
-    return this.http.delete(`${this.baseUrl}/salir/${this.user.username}`);
+    return this.http.delete(`${this.baseUrl}/salir/`);
   }
 
   loginBackend(usuario: Usuario, tipo: string) {
@@ -57,6 +52,14 @@ export class AutenticacionService {
 
   setUser(user: Usuario) {
     this.user = user;
+  }
+
+  getLoggedIn(){
+    return this.loggedIn;
+  }
+
+  setloggedIn(loggedIn: boolean){
+    this.loggedIn = loggedIn;
   }
 }
 
