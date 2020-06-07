@@ -8,6 +8,7 @@ import { PublicService } from '@shared/services/public.service';
   templateUrl: './novedades.component.html',
   styleUrls: ['./novedades.component.scss']
 })
+
 export class NovedadesComponent implements OnInit {
 
   novedades: Novedad[];
@@ -44,5 +45,6 @@ export class NovedadesComponent implements OnInit {
   get enfermedadSeleccionadaFiled(){
     return this.EnfermedadForm.get('enfermedadSeleccionada'); // controls['examenSeleccionado'];
   }
+
 
 }

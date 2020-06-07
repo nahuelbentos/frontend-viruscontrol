@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 import { NgxTweetModule } from 'ngx-tweet';
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NgxTweetModule } from 'ngx-tweet';
       apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14',
     }),
     LayoutModule,
-    NgxTweetModule
+    NgxTweetModule,
+    NgxTwitterTimelineModule
   ],
   exports: [
     HeaderComponent,

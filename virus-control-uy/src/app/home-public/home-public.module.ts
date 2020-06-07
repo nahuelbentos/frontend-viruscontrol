@@ -8,6 +8,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MaterialModule } from '@material/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   declarations: [HomePublicComponent, LayoutComponent],
@@ -16,7 +17,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     HomePublicRoutingModule,
     SharedModule,
     MaterialModule,
-    LayoutModule
+    LayoutModule,
+    NgxTwitterTimelineModule
   ]
 })
 export class HomePublicModule { }

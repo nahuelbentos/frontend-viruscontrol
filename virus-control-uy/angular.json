@@ -31,8 +31,8 @@
             ],
             "scripts": [
               "node_modules/ngtweet/dist/ngtweet.js",
-              "src/assets/twitter.js",
-              "src/assets/facebook.js"
+              "src/assets/js/twitter.js",
+              "src/assets/js/facebook.js"
             ]
           },
           "configurations": {

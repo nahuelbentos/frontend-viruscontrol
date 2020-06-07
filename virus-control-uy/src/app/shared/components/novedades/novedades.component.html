@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col">
-    <form [formGroup]="EnfermedadForm" (ngSubmit)="OnEnfermedadSubmit()"></form>
+    <form [formGroup]="EnfermedadForm" (ngSubmit)="OnEnfermedadSubmit()">
       <mat-form-field>
       <mat-label>Seleccionar enfermedad</mat-label>
       <mat-select formControlName="enfermedadSeleccionada" >
@@ -10,8 +10,15 @@
           </mat-option>
       </mat-select>
       </mat-form-field>
+    </form>
     </div>
   <div class="col">
-    <a class="twitter-timeline" href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <!-- <ngx-twitter-timeline
+    [data]="{sourceType: 'url', url: 'https://twitter.com/twitterdev'}"
+    [opts]="{tweetLimit: 5}"
+></ngx-twitter-timeline>
+    <a class="twitter-timeline" href={{enfermedadSeleccionadaFiled.value}}></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+    <ngx-tweet tweetId="921670221710032896"></ngx-tweet>
   </div>
 </div>
+
