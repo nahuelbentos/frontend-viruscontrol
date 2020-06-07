@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MaterialModule } from './material/material.module';
@@ -13,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { environment } from '@environments/environment';
 import { AgmCoreModule } from '@agm/core';
+import { AuthInterceptor } from '@shared/services/auth.interceptor';
 import { NgxTweetModule } from 'ngx-tweet';
 
 
@@ -43,13 +44,17 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule,
-    NgxTweetModule
+    SocialLoginModule
   ],
   providers: [
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],

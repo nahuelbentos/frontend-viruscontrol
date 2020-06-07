@@ -37,7 +37,7 @@ export class AutenticacionService {
   }
 
   logoutBackend() {
-    return this.http.delete(`${this.baseUrl}/salir/${this.user.username}`);
+    return this.http.delete(`${this.baseUrl}/salir/`);
   }
 
   loginBackend(usuario: Usuario, tipo: string) {

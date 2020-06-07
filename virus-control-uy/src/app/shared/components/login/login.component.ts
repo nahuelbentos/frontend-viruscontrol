@@ -136,7 +136,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
       localStorage.setItem('tipoUsuario', this.tipoUsuarioSelected);
       this.autenticacionService.setloggedIn(true);
       this.setUser(response, this.autenticacionService.getLoggedIn());
-      this.autenticacionService.setUser(res.usuario);
+      const usuario: Usuario = res.usuario;
+      usuario.sessionToken = res.sessionToken;
+      this.autenticacionService.setUser(usuario);
       // si el usuario es ciudadano y es primer ingreso => voy al perfil
       if (this.tipoUsuarioSelected === 'ciudadano' && res.response === 'PRIMERINGRESO') {
         this.getPaises(res.usuario, res.response);

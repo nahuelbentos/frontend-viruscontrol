@@ -17,8 +17,7 @@
         <h5 *ngFor="let enfermedad of marcador.enfermedades" >
           <strong>Enfermedad:</strong>  {{ enfermedad.nombreEnfermedad }} <br/>
           <p *ngFor="let caso of enfermedad.casos">
-            <strong> Caso:</strong> {{ caso.casoTipo }} <br/>
-            <strong> Cantidad:</strong> {{ caso.cantidad }}
+            &nbsp;&nbsp;&nbsp;&nbsp; {{ caso.casoTipo }}: {{ caso.cantidad }}
           </p>
         </h5>
       </ng-container>
