@@ -17,10 +17,11 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@material/material.module';
+import { ResultadosExamenesComponent } from './components/resultados-examenes/resultados-examenes.component';
 
 
 @NgModule({
-  declarations: [HomeCiudadanoComponent, NavCiudadanoComponent, PerfilCiudadanoComponent],
+  declarations: [HomeCiudadanoComponent, NavCiudadanoComponent, PerfilCiudadanoComponent, ResultadosExamenesComponent],
   imports: [
     CommonModule,
     CiudadanoRoutingModule,
