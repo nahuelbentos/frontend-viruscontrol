@@ -8,13 +8,13 @@
               <h4>Enfermedad</h4>
               <mat-form-field>
               <mat-label>Seleccionar enfermedad</mat-label>
-              <mat-select formControlName="enfermedadSeleccionada" >
-                  <mat-option *ngFor="let examen of examenes" [value]="examen.nombreEnfermedad">
-                  {{examen.nombreEnfermedad}}
+              <mat-select formControlName="enfermedadSeleccionada" (blur)='obtenerExamenesDeEnfermedad(enfermedadSelected)' [(ngModel)]="enfermedadSelected">
+                  <mat-option *ngFor="let enfermedad of enfermedades" [value]="enfermedad.id">
+                  {{enfermedad.nombre}}
                   </mat-option>
               </mat-select>
-              <mat-error *ngIf="examenSeleccionadoFiled.hasError('required')">
-                  Debe seleccionar un examen de la lista.
+              <mat-error *ngIf="enfermedadSeleccionadaFiled.hasError('required')">
+                  Debe seleccionar una enfermedad de la lista.
               </mat-error>
               </mat-form-field>
           </div>

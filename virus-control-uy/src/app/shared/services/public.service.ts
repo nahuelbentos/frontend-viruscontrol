@@ -7,13 +7,17 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PublicService {
   baseUrl = `${environment.url_backend}/home`;
-  
+
   constructor(
     private http: HttpClient
   ) {}
 
   getMapaInteractivo() {
     return this.http.get(`${this.baseUrl}/mapa-interactivo`);
+  }
+
+  getNovedades() {
+    return this.http.get(`${environment.url_backend}/enfermedad/fuenteDatos`);
   }
 
 

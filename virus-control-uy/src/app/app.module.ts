@@ -13,6 +13,8 @@ import { SharedModule } from './shared/shared.module';
 import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { environment } from '@environments/environment';
 import { AgmCoreModule } from '@agm/core';
+import { NgxTweetModule } from 'ngx-tweet';
+
 
 
 const config = new AuthServiceConfig([
@@ -41,7 +43,8 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    NgxTweetModule
   ],
   providers: [
     {

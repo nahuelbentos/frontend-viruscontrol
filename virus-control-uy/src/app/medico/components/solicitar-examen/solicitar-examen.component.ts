@@ -30,6 +30,8 @@ export class SolicitarExamenComponent implements OnInit {
 
   enfermedades: Enfermedad[];
 
+  enfermedadSelected: number;
+
   examenSelected: number;
 
   constructor(
@@ -82,16 +84,18 @@ export class SolicitarExamenComponent implements OnInit {
 
 
   ngOnInit() {
-    this.medicoService.getExamenes()
+    this.medicoService.getEnfermedades()
     .subscribe(
-      (examenes: Examen[]) => { // Success
-        console.log(examenes);
-        this.examenes = examenes;
+      (enfermedades: Enfermedad[]) => { // Success
+        console.log(enfermedades);
+        this.enfermedades = enfermedades;
       },
       (error) => {
         console.error(error);
       }
     );
+
+
 
     this.medicoService.getCiudadanosDeMedico()
     .subscribe(
@@ -105,6 +109,19 @@ export class SolicitarExamenComponent implements OnInit {
     );
 
 
+  }
+
+  obtenerExamenesDeEnfermedad(id: number){
+    this.medicoService.getExamenes(id)
+    .subscribe(
+      (examenes: Examen[]) => { // Success
+        console.log(examenes);
+        this.examenes = examenes;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
 
   obtenerProveedores(id: number){
@@ -123,6 +140,10 @@ export class SolicitarExamenComponent implements OnInit {
 
   get examenSeleccionadoFiled(){
     return this.ExamForm.get('examenSeleccionado'); // controls['examenSeleccionado'];
+  }
+
+  get enfermedadSeleccionadaFiled(){
+    return this.ExamForm.get('enfermedadSeleccionada'); // controls['examenSeleccionado'];
   }
 
 

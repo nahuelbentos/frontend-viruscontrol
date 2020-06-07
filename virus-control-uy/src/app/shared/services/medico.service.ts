@@ -19,9 +19,12 @@ export class MedicoService {
     return this.http.get(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/all`);
   }
 
+  public getEnfermedades(){
+    return this.http.get(`${this.baseUrl}/enfermedadesaprobadas`);
+  }
 
-  public getExamenes(){
-    return this.http.get(`${this.baseUrl}/examenesenfermedad/100`);
+  public getExamenes(id: number){
+    return this.http.get(`${this.baseUrl}/examenesenfermedades/${id}`);
   }
 
   public getCiudadanosDeMedico(){ // TODO: Darle el id del medico cuando cambie el ws
@@ -31,6 +34,10 @@ export class MedicoService {
   public getProveedoresDeExamenes(id: number){
     console.log('getproveedoresexamenes');
     return this.http.get(`${this.baseUrl}/proveedoresexamen/${id}`);
+  }
+
+  public getDepartamentos(){
+    return this.http.get(`${this.baseUrl}/departamentos`);
   }
 
   public solicitarExamen(solicitarExamen: RequestSolicitarExamen){

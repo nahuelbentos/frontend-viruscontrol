@@ -29,7 +29,11 @@
               "./node_modules/flexboxgrid/dist/flexboxgrid.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/ngtweet/dist/ngtweet.js",
+              "src/assets/twitter.js",
+              "src/assets/facebook.js"
+            ]
           },
           "configurations": {
             "production": {

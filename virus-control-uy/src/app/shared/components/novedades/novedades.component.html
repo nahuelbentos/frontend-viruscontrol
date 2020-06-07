@@ -1,0 +1,17 @@
+
+<div class="row">
+  <div class="col">
+    <form [formGroup]="EnfermedadForm" (ngSubmit)="OnEnfermedadSubmit()"></form>
+      <mat-form-field>
+      <mat-label>Seleccionar enfermedad</mat-label>
+      <mat-select formControlName="enfermedadSeleccionada" >
+          <mat-option type="submit" *ngFor="let novedad of novedades" [value]="novedad.url">
+          {{novedad.enfermedad}}
+          </mat-option>
+      </mat-select>
+      </mat-form-field>
+    </div>
+  <div class="col">
+    <a class="twitter-timeline" href="https://twitter.com/TwitterDev?ref_src=twsrc%5Etfw">Tweets by TwitterDev</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  </div>
+</div>

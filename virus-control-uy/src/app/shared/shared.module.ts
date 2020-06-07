@@ -13,6 +13,8 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
+import { NovedadesComponent } from './components/novedades/novedades.component';
+import { NgxTweetModule } from 'ngx-tweet';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { AgmCoreModule } from '@agm/core';
     PageNotFoundComponent,
     LoginComponent,
     MapaComponent,
+    NovedadesComponent,
   ],
   imports: [
     CommonModule,
@@ -32,12 +35,14 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14',
     }),
     LayoutModule,
+    NgxTweetModule
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     PageNotFoundComponent,
     MapaComponent,
+    NovedadesComponent
   ],
 })
 export class SharedModule {}
