@@ -13,6 +13,7 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
+import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AgmCoreModule } from '@agm/core';
     PageNotFoundComponent,
     LoginComponent,
     MapaComponent,
+    ListaRecursosDisponiblesComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { AgmCoreModule } from '@agm/core';
     FooterComponent,
     PageNotFoundComponent,
     MapaComponent,
+    ListaRecursosDisponiblesComponent,
   ],
 })
 export class SharedModule {}

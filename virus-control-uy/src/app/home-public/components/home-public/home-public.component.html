@@ -24,6 +24,14 @@
                         
                         <div>Card Content Here</div>
                     </ng-template>
+
+                    <ng-container *ngIf="card.id === 3; else elseTemplate">
+                        <app-lista-recursos-disponibles></app-lista-recursos-disponibles>
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                        
+                        <div>Card Content Here</div>
+                    </ng-template>
                     
                 </mat-card-content>
             </mat-card>

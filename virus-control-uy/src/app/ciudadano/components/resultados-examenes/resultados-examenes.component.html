@@ -1,0 +1,16 @@
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="Examen">
+      <mat-header-cell *matHeaderCellDef> Exámen </mat-header-cell>
+      <mat-cell *matCellDef="let resultadoExamen"> {{resultadoExamen.nombre}} </mat-cell>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="Resultado">
+      <mat-header-cell *matHeaderCellDef> Resultado </mat-header-cell>
+      <mat-cell *matCellDef="let resultadoExamen"> {{resultadoExamen.name}} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let resultadoExamen; columns: displayedColumns;"></mat-row>
+  </mat-table>

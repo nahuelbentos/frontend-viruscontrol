@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { AutenticacionService } from './autenticacion.service';
+import { Ciudadano } from '@shared/model/Ciudadano';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicoService {
-
   baseUrl = `${environment.url_backend}/medico`;
   constructor(private http: HttpClient, private autenticacionService: AutenticacionService) { }
 
@@ -22,6 +22,9 @@ export class MedicoService {
     return this.http.get(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/all`);
   }
 
+  public confirmarVisitaPendiente(idVisita: number) {
+    return this.http.put(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/${idVisita}`,{});
+  }
 
   public getExamenes(){
     
@@ -43,6 +46,7 @@ export class MedicoService {
     // http://localhost:8080/viruscontrol-web/rest/medico/nuevocaso
   }
 
+ 
 
 
 }
