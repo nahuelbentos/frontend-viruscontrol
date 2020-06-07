@@ -21,4 +21,7 @@ export class PublicService {
   }
 
 
+  public getRecursos(){
+    return this.http.get(`${environment.url_backend}/recursos/obtener`);
+  }
 }

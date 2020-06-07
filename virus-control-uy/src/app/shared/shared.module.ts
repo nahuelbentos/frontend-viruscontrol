@@ -16,6 +16,7 @@ import { AgmCoreModule } from '@agm/core';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 import { NgxTweetModule } from 'ngx-tweet';
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     LoginComponent,
     MapaComponent,
     NovedadesComponent,
+    ListaRecursosDisponiblesComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +46,7 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     FooterComponent,
     PageNotFoundComponent,
     MapaComponent,
+    ListaRecursosDisponiblesComponent,
     NovedadesComponent
   ],
 })
