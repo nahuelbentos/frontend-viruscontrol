@@ -3,7 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Recurso } from '@shared/model/Recurso';
-import { PublicoService } from '@shared/services/publico.service';
+import { PublicService } from '@shared/services/public.service';
 
 @Component({
   selector: 'app-lista-recursos-disponibles',
@@ -18,16 +18,16 @@ export class ListaRecursosDisponiblesComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private publicoService: PublicoService) {}
+  constructor(private publicService: PublicService) {}
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    //this.dataSource.paginator = this.paginator;
+    //this.dataSource.sort = this.sort;
     this.getRecursos()
   }
 
   getRecursos(): void{
-    this.publicoService.getRecursos().subscribe((recurso: Recurso[])  => {
+    this.publicService.getRecursos().subscribe((recurso: Recurso[])  => {
       console.log(recurso);
       this.dataSource = new MatTableDataSource(recurso);
     });

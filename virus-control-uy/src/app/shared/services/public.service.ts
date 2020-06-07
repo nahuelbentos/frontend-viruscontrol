@@ -16,5 +16,7 @@ export class PublicService {
     return this.http.get(`${this.baseUrl}/mapa-interactivo`);
   }
 
-
+  public getRecursos(){
+    return this.http.get(`${environment.url_backend}/recursos/obtener`);
+  }
 }
