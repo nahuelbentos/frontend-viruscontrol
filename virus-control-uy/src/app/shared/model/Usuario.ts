@@ -11,4 +11,5 @@ export interface Usuario {
     nacionalidad?: string;
     correo: string;
     primerIngreso?: boolean;
+    sessionToken?: string;
 }
