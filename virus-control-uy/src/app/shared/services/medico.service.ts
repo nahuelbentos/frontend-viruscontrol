@@ -19,14 +19,14 @@ export class MedicoService {
     // headers.append('Authorization', 'Bearer ');
     // let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/all`);
+    return this.http.get(`${environment.url_backend}/medico/visita_pendiente/all`);
   }
 
   public getEnfermedades(){
     return this.http.get(`${this.baseUrl}/enfermedadesaprobadas`);
   }
   public confirmarVisitaPendiente(idVisita: number) {
-    return this.http.put(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/${idVisita}`,{});
+    return this.http.put(`${environment.url_backend}/medico/visita_pendiente/${idVisita}`,{});
   }
 
   public getExamenes(id: number){
