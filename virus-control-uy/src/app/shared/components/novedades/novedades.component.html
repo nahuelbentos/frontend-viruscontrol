@@ -1,24 +1,26 @@
+<!-- You can now use the library component in app.component.html -->
+
 
 <div class="row">
   <div class="col">
     <form [formGroup]="EnfermedadForm" (ngSubmit)="OnEnfermedadSubmit()">
       <mat-form-field>
       <mat-label>Seleccionar enfermedad</mat-label>
-      <mat-select formControlName="enfermedadSeleccionada" >
-          <mat-option type="submit" *ngFor="let novedad of novedades" [value]="novedad.url">
+      <mat-select formControlName="enfermedadSeleccionada" (click)="OnEnfermedadSubmit()" >
+          <mat-option  *ngFor="let novedad of novedades" [value]="novedad.url">
           {{novedad.enfermedad}}
           </mat-option>
       </mat-select>
       </mat-form-field>
     </form>
     </div>
-  <div class="col">
-    <!-- <ngx-twitter-timeline
-    [data]="{sourceType: 'url', url: 'https://twitter.com/twitterdev'}"
-    [opts]="{tweetLimit: 5}"
-></ngx-twitter-timeline>
-    <a class="twitter-timeline" href={{enfermedadSeleccionadaFiled.value}}></a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
-    <ngx-tweet tweetId="921670221710032896"></ngx-tweet>
-  </div>
+    <div class="col" *ngIf="urlNovedad">
+      asdadsa
+        <ngx-twitter-timeline
+      [data]="data"
+      [opts]="{tweetLimit: 5}"
+  ></ngx-twitter-timeline>
+    </div>
+
 </div>
 

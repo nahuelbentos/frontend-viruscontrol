@@ -14,8 +14,7 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLogi
 import { environment } from '@environments/environment';
 import { AgmCoreModule } from '@agm/core';
 import { AuthInterceptor } from '@shared/services/auth.interceptor';
-import { NgxTweetModule } from 'ngx-tweet';
-import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+
 
 
 
@@ -45,8 +44,7 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule,
-    NgxTwitterTimelineModule
+    SocialLoginModule
   ],
   providers: [
     {

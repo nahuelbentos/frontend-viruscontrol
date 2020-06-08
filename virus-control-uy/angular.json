@@ -30,8 +30,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/ngtweet/dist/ngtweet.js",
-              "src/assets/js/twitter.js",
               "src/assets/js/facebook.js"
             ]
           },

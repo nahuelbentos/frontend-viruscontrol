@@ -8,6 +8,7 @@ import { Enfermedad } from '@shared/model/Enfermedad';
 import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { Usuario } from '@shared/model/Usuario';
+import { Departamento } from '@shared/model/departamento.model';
 
 
 
@@ -30,6 +31,8 @@ export class SolicitarExamenComponent implements OnInit {
 
   enfermedades: Enfermedad[];
 
+  departamentos: Departamento[];
+
   enfermedadSelected: number;
 
   examenSelected: number;
@@ -44,9 +47,11 @@ export class SolicitarExamenComponent implements OnInit {
 
   /*########### Form ###########*/
   ExamForm = this.fb.group({
+    enfermedadSeleccionada: [null, Validators.required],
     examenSeleccionado: [null, Validators.required],
     ciudadanoSeleccionado: [null, Validators.required],
-    proveedorSeleccionado: [null, Validators.required]
+    proveedorSeleccionado: [null, Validators.required],
+    departamentoSeleccionado: [null, Validators.required]
   });
 
   // Getter method to access formcontrols
@@ -62,13 +67,12 @@ export class SolicitarExamenComponent implements OnInit {
     }
 
     const solicitarExamen: RequestSolicitarExamen = {
-      idDepartamento: 100, // se va a cambiar
-      idEnfermedad: 100, // se va a cambiar
+      idDepartamento: this.departamentoSeleccionadoFiled.value,
+      idEnfermedad: this.enfermedadSeleccionadaFiled.value,
       idExamen: this.examenSeleccionadoFiled.value,
-      idMedico: 1,
-      // idMedico: this.autenticacionService.user.idUsuario,
-      idPaciente: this.ciudadanoSeleccionadoFiled.value
-
+      idMedico: this.autenticacionService.user.idUsuario,
+      idPaciente: this.ciudadanoSeleccionadoFiled.value,
+      idProveedorExamen: this.proveedorSeleccionadoFiled.value
     };
 
     this.medicoService.solicitarExamen(solicitarExamen).subscribe( ok => {
@@ -95,7 +99,16 @@ export class SolicitarExamenComponent implements OnInit {
       }
     );
 
-
+    this.medicoService.getProveedoresDeExamenes()
+    .subscribe(
+      (proveedores: ProveedorExamen[]) => { // Success
+        console.log(proveedores);
+        this.proveedores = proveedores;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
 
     this.medicoService.getCiudadanosDeMedico()
     .subscribe(
@@ -108,35 +121,51 @@ export class SolicitarExamenComponent implements OnInit {
       }
     );
 
+    this.medicoService.getDepartamentos()
+    .subscribe(
+      (departamentos: Departamento[]) => { // Success
+        console.log(departamentos);
+        this.departamentos = departamentos;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
 
   }
+
+
 
   obtenerExamenesDeEnfermedad(id: number){
-    this.medicoService.getExamenes(id)
-    .subscribe(
-      (examenes: Examen[]) => { // Success
-        console.log(examenes);
-        this.examenes = examenes;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
+    if (id){
+      this.medicoService.getExamenes(id)
+      .subscribe(
+        (examenes: Examen[]) => { // Success
+          console.log(examenes);
+          this.examenes = examenes;
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+
+    }
   }
 
-  obtenerProveedores(id: number){
-
-    this.medicoService.getProveedoresDeExamenes(id)
-    .subscribe(
-      (proveedores: ProveedorExamen[]) => { // Success
-        console.log(proveedores);
-        this.proveedores = proveedores;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
+  // obtenerProveedores(id: number){
+  //   if (id){
+  //     this.medicoService.getProveedoresDeExamenesById(id)
+  //     .subscribe(
+  //       (proveedores: ProveedorExamen[]) => { // Success
+  //         console.log(proveedores);
+  //         this.proveedores = proveedores;
+  //       },
+  //       (error) => {
+  //         console.error(error);
+  //       }
+  //     );
+  //   }
+  // }
 
   get examenSeleccionadoFiled(){
     return this.ExamForm.get('examenSeleccionado'); // controls['examenSeleccionado'];
@@ -146,8 +175,15 @@ export class SolicitarExamenComponent implements OnInit {
     return this.ExamForm.get('enfermedadSeleccionada'); // controls['examenSeleccionado'];
   }
 
-
   get ciudadanoSeleccionadoFiled(){
     return this.ExamForm.get('ciudadanoSeleccionado'); // controls['examenSeleccionado'];
+  }
+
+  get departamentoSeleccionadoFiled(){
+    return this.ExamForm.get('departamentoSeleccionado'); // controls['examenSeleccionado'];
+  }
+
+  get proveedorSeleccionadoFiled(){
+    return this.ExamForm.get('proveedorSeleccionado'); // controls['examenSeleccionado'];
   }
 }
