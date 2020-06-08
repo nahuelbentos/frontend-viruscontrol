@@ -12,6 +12,6 @@ export class CiudadanoService {
   constructor(private http: HttpClient, private autenticacionService: AutenticacionService) {}
 
   public getResultadosExamenes() {
-    return this.http.get(`${this.baseUrl}/obtenerexamenes/${this.autenticacionService.user.username}`);
+    return this.http.get(`${this.baseUrl}/obtenerexamenes/${this.autenticacionService.user.idUsuario}`);
   }
 }
