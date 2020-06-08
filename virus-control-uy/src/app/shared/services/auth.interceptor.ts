@@ -22,15 +22,17 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>) {
-    const token = this.autenticacionService.user.sessionToken;
-    console.log('token', token);
-    if (token) {
-      request = request.clone({
-        setHeaders: {
-          authorization: token,
-        },
-      });
-      return request;
+    if (this.autenticacionService.user) {
+      const token = this.autenticacionService.user.sessionToken;
+      console.log('token', token);
+      if (token) {
+        request = request.clone({
+          setHeaders: {
+            authorization: token,
+          },
+        });
+        return request;
+      }
     }
     return request;
   }

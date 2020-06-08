@@ -12,7 +12,17 @@ export const environment = {
     clientId: '539037543041-lj1s52blklduqff1ee7qcorjh92g50i6.apps.googleusercontent.com',
     clientSecret: 'nXnukOI3wHJjPFh8fOcgZDtv'
   },
-  url_backend: 'http://localhost:8080/viruscontrol-web/rest'
+  url_backend: 'http://192.168.0.101:8080/viruscontrol-web/rest',
+  firebase: {
+    apiKey: 'AIzaSyAEFI0IB3lsyB4oc9btLYfeegmnx-n7Q60',
+    authDomain: 'virus-control-uy-gr14.firebaseapp.com',
+    databaseURL: 'https://virus-control-uy-gr14.firebaseio.com',
+    projectId: 'virus-control-uy-gr14',
+    storageBucket: 'virus-control-uy-gr14.appspot.com',
+    messagingSenderId: '339927537433',
+    appId: '1:339927537433:web:cc50f95f899110f0369788',
+    measurementId: 'G-YS4MGBY9H1'
+  }
 };
 
 /*

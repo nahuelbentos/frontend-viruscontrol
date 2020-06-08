@@ -11,10 +11,11 @@ import { SolicitarExamenComponent } from './components/solicitar-examen/solicita
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MedicoService } from '../shared/services/medico.service';
+import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 
 
 @NgModule({
-  declarations: [ HomeMedicoComponent, NavMedicoComponent, ListarVisitasComponent, SolicitarExamenComponent],
+  declarations: [ HomeMedicoComponent, NavMedicoComponent, ListarVisitasComponent, SolicitarExamenComponent, SalaChatComponent],
   imports: [
     CommonModule,
     MedicoRoutingModule,

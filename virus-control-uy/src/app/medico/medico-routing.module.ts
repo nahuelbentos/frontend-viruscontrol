@@ -4,6 +4,7 @@ import { HomeMedicoComponent } from './components/home-medico/home-medico.compon
 import { NavMedicoComponent } from './components/nav-medico/nav-medico.component';
 import { ListarVisitasComponent } from './components/listar-visitas/listar-visitas.component';
 import { SolicitarExamenComponent } from './components/solicitar-examen/solicitar-examen.component';
+import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 
 
 
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'solicitar-examen',
         component: SolicitarExamenComponent,
+      },
+      {
+        path: 'sala-chat',
+        component: SalaChatComponent,
       },
     ],
   },
