@@ -57,7 +57,7 @@ export class ListarVisitasComponent implements OnInit {
     this.medicoService.confirmarVisitaPendiente(idVisita)
     .subscribe( (res) => {
       console.log('res: ', res);
-      mensajeConfirmacion('pepito', 'sabe');
+      mensajeConfirmacion('Visita confirmada!', 'Visita confirmada!');
       this.getVisitasPendientes();
     });
 
