@@ -24,4 +24,8 @@ export class PublicService {
   public getRecursos(){
     return this.http.get(`${environment.url_backend}/recursos/obtener`);
   }
+
+  public getRecursosDisponibles(){
+    return this.http.get(`${environment.url_backend}/recursos/disponibles/ciudad/0/barrio/0`);
+  }
 }

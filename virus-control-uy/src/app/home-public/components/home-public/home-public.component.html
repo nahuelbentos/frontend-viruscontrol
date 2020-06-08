@@ -30,7 +30,9 @@
                     </ng-template>
 
                     <ng-container *ngIf="card.id === 3; else elseTemplate">
-                        <app-lista-recursos-disponibles></app-lista-recursos-disponibles>
+                        <div *ngIf="existeRecursos">
+                            <app-lista-recursos-disponibles [dataSource]="dataSource" ></app-lista-recursos-disponibles>
+                        </div>
                     </ng-container>
                     <ng-template #elseTemplate>
 

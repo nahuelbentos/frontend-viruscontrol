@@ -22,7 +22,7 @@ export class ResultadosExamenesComponent implements OnInit {
 
   getResultadosExamenes(): void {
     this.ciudadanoService.getResultadosExamenes().subscribe((resultadoExamen: ResultadoExamen[]) =>{
-      console.log(resultadoExamen);
+      console.log('res examen', resultadoExamen);
       this.dataSource = new MatTableDataSource(resultadoExamen);
     });
   }
