@@ -9,6 +9,8 @@ import { MaterialModule } from '@material/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
 
+
+
 @NgModule({
   declarations: [HomePublicComponent, LayoutComponent],
   imports: [
@@ -16,7 +18,7 @@ import { LayoutModule } from '@angular/cdk/layout';
     HomePublicRoutingModule,
     SharedModule,
     MaterialModule,
-    LayoutModule
+    LayoutModule,
   ]
 })
 export class HomePublicModule { }

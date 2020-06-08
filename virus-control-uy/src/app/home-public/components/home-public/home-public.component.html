@@ -1,4 +1,6 @@
 
+
+
 <div class="grid-container">
     <h1 class="mat-h1">Dashboard</h1>
     <mat-grid-list cols="2" rowHeight="350px">
@@ -20,19 +22,22 @@
                     <ng-container *ngIf="card.id === 1; else elseTemplate">
                         <app-mapa></app-mapa>
                     </ng-container>
+                    <mat-card-content class="dashboard-card-content"></mat-card-content>
+                    <ng-container *ngIf="card.id === 2; else elseTemplate">
+                      <app-novedades></app-novedades>
+
+                    </ng-container>
                     <ng-template #elseTemplate>
-                        
-                        <div>Card Content Here</div>
                     </ng-template>
 
                     <ng-container *ngIf="card.id === 3; else elseTemplate">
                         <app-lista-recursos-disponibles></app-lista-recursos-disponibles>
                     </ng-container>
                     <ng-template #elseTemplate>
-                        
+
                         <div>Card Content Here</div>
                     </ng-template>
-                    
+
                 </mat-card-content>
             </mat-card>
         </mat-grid-tile>

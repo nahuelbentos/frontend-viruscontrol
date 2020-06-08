@@ -16,6 +16,8 @@ import { AgmCoreModule } from '@agm/core';
 import { AuthInterceptor } from '@shared/services/auth.interceptor';
 
 
+
+
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -42,7 +44,7 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule,
+    SocialLoginModule
   ],
   providers: [
     {

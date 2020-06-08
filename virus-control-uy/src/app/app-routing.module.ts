@@ -5,6 +5,7 @@ import { AutenticacionGuard } from '@shared/services/autenticacion.guard';
 import { AuthCiudadanoGuard } from '@shared/services/auth-ciudadano.guard';
 import { AuthMedicoGuard } from '@shared/services/auth-medico.guard';
 
+import { NovedadesComponent } from './shared/components/novedades/novedades.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginComponent,
+      },
+      {
+        path: 'twitter',
+        component: NovedadesComponent,
       },
       {
         path: 'home',

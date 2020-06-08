@@ -13,7 +13,11 @@ import { MapaComponent } from './components/mapa/mapa.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
+import { NovedadesComponent } from './components/novedades/novedades.component';
+
 import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
+// Import ngx-twitter-timeline
+import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
 
 @NgModule({
   declarations: [
@@ -22,6 +26,7 @@ import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-d
     PageNotFoundComponent,
     LoginComponent,
     MapaComponent,
+    NovedadesComponent,
     ListaRecursosDisponiblesComponent,
   ],
   imports: [
@@ -34,6 +39,8 @@ import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-d
       apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14',
     }),
     LayoutModule,
+    // Specify library as an import
+    NgxTwitterTimelineModule
   ],
   exports: [
     HeaderComponent,
@@ -41,6 +48,7 @@ import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-d
     PageNotFoundComponent,
     MapaComponent,
     ListaRecursosDisponiblesComponent,
+    NovedadesComponent
   ],
 })
 export class SharedModule {}

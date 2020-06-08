@@ -22,31 +22,42 @@ export class MedicoService {
     return this.http.get(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/all`);
   }
 
+  public getEnfermedades(){
+    return this.http.get(`${this.baseUrl}/enfermedadesaprobadas`);
+  }
   public confirmarVisitaPendiente(idVisita: number) {
     return this.http.put(`${environment.url_backend}/medico/${this.autenticacionService.user.username}/visita_pendiente/${idVisita}`,{});
   }
 
-  public getExamenes(){
-    
-    return this.http.get(`${this.baseUrl}/examenesenfermedad/100`);
+  public getExamenes(id: number){
+    return this.http.get(`${this.baseUrl}/examenesenfermedades/${id}`);
   }
 
   public getCiudadanosDeMedico(){ // TODO: Darle el id del medico cuando cambie el ws
     return this.http.get(`${this.baseUrl}/ciudadanos`);
   }
 
-  public getProveedoresDeExamenes(id: number){
+  public getProveedoresDeExamenesById(id: number){
     console.log('getproveedoresexamenes');
     return this.http.get(`${this.baseUrl}/proveedoresexamen/${id}`);
   }
 
-  public solicitarExamen(solicitarExamen: RequestSolicitarExamen){
-
-    return this.http.post(`${this.baseUrl}/nuevocaso`, solicitarExamen);
-    // http://localhost:8080/viruscontrol-web/rest/medico/nuevocaso
+  public getProveedoresDeExamenes(){
+    console.log('getproveedoresexamenes');
+    return this.http.get(`${this.baseUrl}/proveedoresexamen`);
   }
 
- 
+  public getDepartamentos(){
+    return this.http.get(`${this.baseUrl}/departamentos`);
+  }
+
+  public solicitarExamen(solicitarExamen: RequestSolicitarExamen){
+    console.log(solicitarExamen);
+    return this.http.post(`${this.baseUrl}/nuevocaso`, solicitarExamen);
+
+  }
+
+
 
 
 }
@@ -59,4 +70,5 @@ export interface RequestSolicitarExamen {
   idEnfermedad: number;
   idPaciente: number;
   idMedico: number;
+  idProveedorExamen: number;
 }

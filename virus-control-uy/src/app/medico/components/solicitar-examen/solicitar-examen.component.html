@@ -8,13 +8,13 @@
               <h4>Enfermedad</h4>
               <mat-form-field>
               <mat-label>Seleccionar enfermedad</mat-label>
-              <mat-select formControlName="enfermedadSeleccionada" >
-                  <mat-option *ngFor="let examen of examenes" [value]="examen.nombreEnfermedad">
-                  {{examen.nombreEnfermedad}}
+              <mat-select formControlName="enfermedadSeleccionada" (blur)='obtenerExamenesDeEnfermedad(enfermedadSelected)' [(ngModel)]="enfermedadSelected">
+                  <mat-option *ngFor="let enfermedad of enfermedades" [value]="enfermedad.id">
+                  {{enfermedad.nombre}}
                   </mat-option>
               </mat-select>
-              <mat-error *ngIf="examenSeleccionadoFiled.hasError('required')">
-                  Debe seleccionar un examen de la lista.
+              <mat-error *ngIf="enfermedadSeleccionadaFiled.hasError('required')">
+                  Debe seleccionar una enfermedad de la lista.
               </mat-error>
               </mat-form-field>
           </div>
@@ -25,7 +25,8 @@
                 <h4>Exámen a realizar</h4>
                 <mat-form-field>
                 <mat-label>Exámen a realizar</mat-label>
-                <mat-select formControlName="examenSeleccionado"  (blur)='obtenerProveedores(examenSelected)' [(ngModel)]="examenSelected" >
+                <!-- <mat-select formControlName="examenSeleccionado"  (blur)='obtenerProveedores(examenSelected)' [(ngModel)]="examenSelected" > -->
+                <mat-select formControlName="examenSeleccionado"  [(ngModel)]="examenSelected" >
                     <mat-option *ngFor="let examen of examenes" [value]="examen.id">
                     {{examen.nombreEnfermedad}}
                     </mat-option>
@@ -60,7 +61,7 @@
                 <mat-form-field>
                 <mat-label>Laborariorio</mat-label>
                 <mat-select formControlName="proveedorSeleccionado">
-                    <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">
+                    <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
                     {{proveedor.nombre}}
                     </mat-option>
                 </mat-select>
@@ -72,12 +73,28 @@
             </div>
         </div>
 
+        <div class="row">
+          <div class="col">
+              <h4>Departamento del paciente</h4>
+              <mat-form-field>
+              <mat-label>Departamento</mat-label>
+              <mat-select formControlName="departamentoSeleccionado">
+                  <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
+                  {{departamento.nombre}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ExamForm.controls['departamentoSeleccionado'].hasError('required')">
+                  Debe seleccionar un departamento de la lista.
+              </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+
         <div>
             <button mat-raised-button color="primary" type="submit">Confirmar</button>
         </div>
 
       </form>
       <div *ngIf="isExamSubmitted">
-        <h4>Examen solicitado correctamente.</h4>
     </div>
 </div>

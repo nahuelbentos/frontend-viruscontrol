@@ -22,7 +22,7 @@ export class HomePublicComponent implements OnInit {
 
       return [
         { id: 1, title: 'Mapa', cols: 2, rows: 2 },
-        { id: 2, title: 'Car 2', cols: 1, rows: 1 },
+        { id: 2, title: 'Novedades de enfermedades', cols: 2, rows: 1 },
         { id: 3, title: 'Card 3', cols: 1, rows: 2 },
         { id: 4, title: 'Card 4', cols: 1, rows: 1 },
       ];

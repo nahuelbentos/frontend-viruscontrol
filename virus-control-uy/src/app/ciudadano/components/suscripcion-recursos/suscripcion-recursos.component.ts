@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CiudadanoService } from '@shared/services/medico.service';
 
 @Component({
   selector: 'app-suscripcion-recursos',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuscripcionRecursosComponent implements OnInit {
 
-  constructor() { }
+  barrio: string;
+  tipoRecurso: string;
+  formaNotificacion: string;
+
+  constructor(
+    public fb: FormBuilder,
+    private medicoService: MedicoService,
+  ) { }
 
   ngOnInit(): void {
   }
