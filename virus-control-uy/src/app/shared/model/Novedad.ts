@@ -4,4 +4,5 @@ export interface Novedad{
   url: string;
   enfermedad: number;
   fuente: string;
+  enfermedadNombre: string;
 }

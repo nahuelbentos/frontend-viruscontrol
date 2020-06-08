@@ -1,26 +1,25 @@
 <!-- You can now use the library component in app.component.html -->
 
 
-<div class="row">
-  <div class="col">
-    <form [formGroup]="EnfermedadForm" (ngSubmit)="OnEnfermedadSubmit()">
+<div class="row"  [formGroup]="EnfermedadForm">
+  <div class="col2">
+    <!-- <form (ngSubmit)="OnEnfermedadSubmit()"> -->
       <mat-form-field>
       <mat-label>Seleccionar enfermedad</mat-label>
-      <mat-select formControlName="enfermedadSeleccionada" (click)="OnEnfermedadSubmit()" >
+      <mat-select formControlName="enfermedadSeleccionada" (selectionChange)="OnEnfermedadSubmit()" >
           <mat-option  *ngFor="let novedad of novedades" [value]="novedad.url">
-          {{novedad.enfermedad}}
+            {{novedad.enfermedadNombre}}
           </mat-option>
       </mat-select>
-      </mat-form-field>
-    </form>
-    </div>
-    <div class="col" *ngIf="urlNovedad">
-      asdadsa
+    </mat-form-field>
+    <!-- </form> -->
+  </div>
+    <div class="col" *ngIf="displayed">
         <ngx-twitter-timeline
       [data]="data"
-      [opts]="{tweetLimit: 5}"
+      [opts]="{tweetLimit: 1, height: 180, chrome: 'noheader, nofooter, noborders'}"
   ></ngx-twitter-timeline>
+  <a class="twitter-timeline" data-height="550" href="{{this.urlNovedad}}"></a>
     </div>
 
 </div>
-
