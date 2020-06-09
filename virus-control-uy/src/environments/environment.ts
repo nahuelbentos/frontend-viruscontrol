@@ -12,7 +12,7 @@ export const environment = {
     clientId: '539037543041-lj1s52blklduqff1ee7qcorjh92g50i6.apps.googleusercontent.com',
     clientSecret: 'nXnukOI3wHJjPFh8fOcgZDtv'
   },
-  url_backend: 'http://localhost:8080/viruscontrol-web/rest',
+  url_backend: 'http://192.168.0.101:8080/viruscontrol-web/rest',
   firebase: {
     apiKey: 'AIzaSyAEFI0IB3lsyB4oc9btLYfeegmnx-n7Q60',
     authDomain: 'virus-control-uy-gr14.firebaseapp.com',
@@ -33,4 +33,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-//   url_backend: 'http://192.168.1.31:8080/viruscontrol-web/rest'
+// url_backend: 'http://192.168.0.101:8080/viruscontrol-web/rest',
