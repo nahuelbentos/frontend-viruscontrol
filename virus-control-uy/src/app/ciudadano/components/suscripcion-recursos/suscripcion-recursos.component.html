@@ -1,1 +1,65 @@
 <p>suscripcion-recursos works!</p>
+<div class="container">
+  <h1 class="mat-h1">Seleccione el exámen a realizar</h1>
+  <form [formGroup]="SuscripcionForm" (ngSubmit)="onFormSubmit()">
+
+
+      <div class="row">
+        <div class="col">
+            <h4>Barrio</h4>
+            <mat-form-field>
+            <mat-label>Seleccionar barrio</mat-label>
+            <mat-select formControlName="barrioSeleccionado" [(ngModel)]="barrioSeleccionado">
+                <mat-option *ngFor="let barrio of barrios" [value]="barrio">
+                {{barrio}}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="barrioSeleccionadoFiled.hasError('required')">
+                Debe seleccionar un barrio de la lista.
+            </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+      <div class="row">
+          <div class="col">
+              <h4>Tipo de recurso al que desea suscribirse</h4>
+              <mat-form-field>
+              <mat-label>Tipo de recurso</mat-label>
+              <mat-select formControlName="tipoRecursoSeleccionado"  [(ngModel)]="tipoRecursoSeleccionado" >
+                  <mat-option *ngFor="let tiporecurso of tiporecursos" [value]="tiporecurso">
+                  {{tiporecurso}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="tipoRecursoSeleccionadoFiled.hasError('required')">
+                  Debe seleccionar un tipo de recurso de la lista.
+              </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col">
+              <h4>Forma de notificación</h4>
+              <mat-form-field>
+              <mat-label>Forma de notificación</mat-label>
+              <mat-select formControlName="formaNotificacionSeleccionada">
+                  <mat-option *ngFor="let formaNotificacion of formaNotificaciones" [value]="formaNotificacion">
+                  {{formaNotificacion}}
+                  </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ExamForm.controls['formaNotificacionSeleccionada'].hasError('required')">
+                  Debe seleccionar una forma de notificación de la lista.
+              </mat-error>
+              </mat-form-field>
+          </div>
+      </div>
+
+      <div>
+          <button mat-raised-button color="primary" type="submit">Confirmar</button>
+      </div>
+
+    </form>
+    <div *ngIf="isFormSubmitted">
+  </div>
+</div>

@@ -15,3 +15,11 @@ export class CiudadanoService {
     return this.http.get(`${this.baseUrl}/obtenerexamenes/${this.autenticacionService.user.idUsuario}`);
   }
 }
+
+
+export interface RequestSuscripcionRecursos {
+  idUsuario: number;
+  barrio: string;
+  departamento: string;
+  tipoNotificacion: string;
+}
