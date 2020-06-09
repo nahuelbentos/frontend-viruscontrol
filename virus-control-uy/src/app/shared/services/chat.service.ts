@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '@shared/model/Usuario';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Chat } from '@shared/model/chat/chat.model';
 import { Conversacion } from '@shared/model/chat/conversacion.model';
 import { map } from 'rxjs/operators';
+import { Mensaje } from '@shared/model/chat/mensaje.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +18,14 @@ export class ChatService {
   showMensajes = false; // Toggle to select a conversation.
   mensaje = ''; // the  message to be sent
 
+  private mensajesCollection: AngularFirestoreCollection<Mensaje>;
+
   public messages = [];
 
   public conversacion: Conversacion = {
     idChat: '',
     mensajes: [],
-  };  
+  };
 
   conversationId;
 
@@ -63,7 +66,7 @@ export class ChatService {
     return this.firestore.collection('conversacion').add(conversacion);
   }
 
-  setCurrentConversacion(conversacion: Conversacion){
+  setCurrentConversacion(conversacion: Conversacion) {
     this.conversacion = conversacion;
   }
 
@@ -71,18 +74,41 @@ export class ChatService {
     return this.firestore.collection('conversacion').get();
   }
 
-  enviarMensaje( mensajes ) {
+  enviarMensaje(mensajes) {
     console.log('idconversacion: ', this.conversacion);
     console.log('idconversacion: ', this.conversacion.idConversacion);
-    
-    return this.firestore.doc('conversacion/' + this.conversacion.idConversacion).update({ mensajes });
+
+    return this.firestore
+      .doc('conversacion/' + this.conversacion.idConversacion)
+      .update({ mensajes });
   }
 
   // Mensajes
 
-  cargarMensajes(){
-    return this.firestore.doc('conversacion/' + this.conversacion.idConversacion).valueChanges();
+  cargarMensajes() {
+    return this.firestore.doc<Conversacion>('conversacion/' + this.conversacion.idConversacion).valueChanges();
+    
+
+    
   }
+
+  // cargarMensajes() {
+  //   this.mensajesCollection = this.firestore.collection<Mensaje>('chats', (ref) =>
+  //     ref.orderBy('fecha', 'desc').limit(5)
+  //   );
+
+  //   return this.itemsCollection.valueChanges().map((mensajes: Mensaje[]) => {
+  //     console.log(mensajes);
+
+  //     this.chats = [];
+
+  //     for (let mensaje of mensajes) {
+  //       this.chats.unshift(mensaje);
+  //     }
+
+  //     return this.chats;
+  //   });
+  // }
   // getConversacion(usuarioEmisor: string, usuarioReceptor: string) {
   //   return this.firestore.collection('chat', (ref) =>
   //     ref

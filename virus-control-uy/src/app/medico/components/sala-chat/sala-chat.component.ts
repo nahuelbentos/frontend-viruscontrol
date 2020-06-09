@@ -5,6 +5,8 @@ import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { Chat } from '@shared/model/chat/chat.model';
 import { JsonPipe } from '@angular/common';
 import { Conversacion } from '@shared/model/chat/conversacion.model';
+import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
+import { Mensaje } from '@shared/model/chat/mensaje.model';
 
 @Component({
   selector: 'app-sala-chat',
@@ -72,8 +74,10 @@ export class SalaChatComponent implements OnInit {
 
       querySnapshot.forEach((doc) => {
         // Chat del currentUser
-        if ( doc.data().usuarioReceptor === usuario.username &&
-          doc.data().usuarioEmisor === this.currentUser.username) {
+        if (
+          doc.data().usuarioReceptor === usuario.username &&
+          doc.data().usuarioEmisor === this.currentUser.username
+        ) {
           chatCurrent = {
             idChat: doc.id, // data().idChat,
             usuarioEmisor: doc.data().usuarioEmisor,
@@ -81,7 +85,7 @@ export class SalaChatComponent implements OnInit {
           };
           console.log('1) chat: ', chatCurrent);
           return;
-        } else{
+        } else {
           // Chat donde el currentUser es receptor
           if (
             doc.data().usuarioEmisor === usuario.username &&
@@ -97,16 +101,16 @@ export class SalaChatComponent implements OnInit {
           }
           console.log('3) chat: ', chatCurrent);
           // const usuario: Usuario = doc.data().usuarioReceptor;
-          console.log('doc.data().usuarioReceptor: ', doc.data().usuarioReceptor);
+          console.log(
+            'doc.data().usuarioReceptor: ',
+            doc.data().usuarioReceptor
+          );
           console.log('doc.data().usuarioEmisor: ', doc.data().usuarioEmisor);
-
         }
-
 
         // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
       });
       console.log('chatCurrent: ', chatCurrent);
-
 
       if (!chatCurrent) {
         this.chatService.createChat(chat).then((ref) => {
@@ -121,35 +125,45 @@ export class SalaChatComponent implements OnInit {
             const conv: Conversacion = {
               idChat: conversacion.idChat,
               mensajes: [],
-              idConversacion: refConv.id
+              idConversacion: refConv.id,
             };
             console.log('seteo la conv');
             this.chatService.setCurrentConversacion(conv);
+
+            this.chatService.cargarMensajes().subscribe((data) => {
+              console.log('data>? ', data);
+              console.log('mensajes>? ', data.mensajes);
+              this.mensajes = data.mensajes;
+            });
           });
         });
       } else {
         let convCurrent: Conversacion;
-        this.chatService.getConversaciones().subscribe( ( querySnapshot ) => {
-              console.log('querySnapshot: ', querySnapshot);
+        this.chatService.getConversaciones().subscribe((querySnapshot) => {
+          console.log('querySnapshot: ', querySnapshot);
 
-              querySnapshot.forEach((doc) => {
-                // Conversacion del currentUser
-                if ( doc.data().idChat === chatCurrent.idChat ) {
-                  convCurrent = {
-                    idConversacion: doc.id, // data().idChat,
-                    idChat: doc.data().idChat,
-                    mensajes: doc.data().mensajes,
-                  };
-                  console.log('1) convCurrent: ', convCurrent);
-          
-                  this.mensajes = convCurrent.mensajes;
-                  this.chatService.setCurrentConversacion(convCurrent);
-                  return;
-                }
+          querySnapshot.forEach((doc) => {
+            // Conversacion del currentUser
+            if (doc.data().idChat === chatCurrent.idChat) {
+              convCurrent = {
+                idConversacion: doc.id, // data().idChat,
+                idChat: doc.data().idChat,
+                mensajes: doc.data().mensajes,
+              };
+              console.log('1) convCurrent: ', convCurrent);
 
+              this.mensajes = convCurrent.mensajes;
+              this.chatService.setCurrentConversacion(convCurrent);
+
+              this.chatService.cargarMensajes().subscribe((data) => {
+                console.log('data>? ', data);
+                console.log('mensajes>? ', data.mensajes);
+                this.mensajes = data.mensajes;
               });
+              return;
+            }
+          });
         });
-
       }
 
       this.showMensajes = true;
