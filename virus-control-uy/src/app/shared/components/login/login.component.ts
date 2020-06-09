@@ -6,6 +6,7 @@ import { Usuario } from '@shared/model/Usuario';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuxiliaresService } from '@shared/services/auxiliares.service';
 import { Country } from '@shared/model/Country';
+import { ChatService } from '@shared/services/chat.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private autenticacionService: AutenticacionService,
     private router: Router,
     private fb: FormBuilder,
-    private auxiliaresService: AuxiliaresService
+    private auxiliaresService: AuxiliaresService,
+    private chatService: ChatService
   ) {
 
   }
@@ -143,6 +145,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
       if (this.tipoUsuarioSelected === 'ciudadano' && res.response === 'PRIMERINGRESO') {
         this.getPaises(res.usuario, res.response);
       } else {
+
+        if (this.tipoUsuarioSelected === 'medico'){
+          console.log('agrego a firebase usuario: ', usuario);
+          
+          this.chatService.createUsuario(usuario).then( (res) => {
+            console.log('Response de firebase: ', res);
+            
+          })
+          .catch( (err) => {
+            console.error('Error de firebase: ', err);
+            
+          });
+        }
+        
         this.goHome(this.tipoUsuarioSelected, res.usuario);
 
       }

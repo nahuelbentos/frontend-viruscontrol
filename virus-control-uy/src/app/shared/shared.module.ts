@@ -16,8 +16,13 @@ import { AgmCoreModule } from '@agm/core';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 
 import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
+
 // Import ngx-twitter-timeline
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '@environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+
 
 @NgModule({
   declarations: [
@@ -41,6 +46,8 @@ import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
     LayoutModule,
     // Specify library as an import
     NgxTwitterTimelineModule
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   exports: [
     HeaderComponent,

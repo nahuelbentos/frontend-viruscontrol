@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "virus-control-uy-gr14": {
+      "hosting": {
+        "virus-control-uy": [
+          "virus-control-uy-gr14"
+        ]
+      }
+    }
+  }
+}
