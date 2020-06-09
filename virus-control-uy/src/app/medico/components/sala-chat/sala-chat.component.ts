@@ -191,6 +191,7 @@ export class SalaChatComponent implements OnInit {
     const msg = {
       usuarioEmisor: this.currentUser.username,
       emisorNombre: this.currentUser.nombre,
+      emisorFoto: this.currentUser.photoUrl,
       timestamp: new Date(),
       fecha: new Date(),
       contenido: this.mensaje,

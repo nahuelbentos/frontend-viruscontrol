@@ -44,7 +44,7 @@
             <div class="incoming_msg" *ngIf="mensaje.usuarioEmisor !== currentUser.username">
               <div class="incoming_msg_img">
                 <img
-                  src="https://ptetutorials.com/images/user-profile.png"
+                  [src]="mensaje.emisorFoto ? mensaje.emisorFoto : 'https://ptetutorials.com/images/user-profile.png'"
                   alt="sunil"
                 />
               </div>

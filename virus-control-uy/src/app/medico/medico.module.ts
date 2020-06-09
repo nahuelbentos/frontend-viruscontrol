@@ -15,6 +15,7 @@ import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { HomePublicModule } from '../home-public/home-public.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     ScrollToModule.forRoot(),
     FormsModule,
     FilterPipeModule,
+    HomePublicModule,
   ],
   providers: [MedicoService],
 })

@@ -128,18 +128,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
       nombre: response.firstName,
       apellido: response.lastName,
       correo: response.email,
-      username: response.email
+      username: response.email,
     };
 
     this.autenticacionService.loginBackend(usuario, this.tipoUsuarioSelected).subscribe((res: any) => {
       console.log('res backend: ', res);
-
       localStorage.setItem('loggedIn', 'true');
       localStorage.setItem('tipoUsuario', this.tipoUsuarioSelected);
-      this.autenticacionService.setloggedIn(true);
+      
+      
+      this.autenticacionService.setloggedIn(true)
       this.setUser(response, this.autenticacionService.getLoggedIn());
       const usuario: Usuario = res.usuario;
       usuario.sessionToken = res.sessionToken;
+      usuario.photoUrl = response.photoUrl;
       this.autenticacionService.setUser(usuario);
       // si el usuario es ciudadano y es primer ingreso => voy al perfil
       if (this.tipoUsuarioSelected === 'ciudadano' && res.response === 'PRIMERINGRESO') {
