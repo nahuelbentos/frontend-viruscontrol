@@ -31,15 +31,15 @@ export class HomePublicComponent implements OnInit {
           { id: 1, title: 'Mapa', cols: 1, rows: 1 },
           { id: 2, title: 'Card 2', cols: 1, rows: 1 },
           { id: 3, title: 'Lista de Recursos disponibles', cols: 1, rows: 1 },
-          { id: 4, title: 'Card 4', cols: 1, rows: 1 },
+          //{ id: 4, title: 'Card 4', cols: 1, rows: 1 },
         ];
       }
 
       return [
         { id: 1, title: 'Mapa', cols: 2, rows: 2 },
         { id: 2, title: 'Novedades de enfermedades', cols: 2, rows: 2 },
-        { id: 3, title: 'Lista de recursos disponibles', cols: 1, rows: 2 },
-        { id: 4, title: 'Card 4', cols: 1, rows: 1 },
+        { id: 3, title: 'Lista de recursos disponibles', cols: 2, rows: 2 },
+        //{ id: 4, title: 'Card 4', cols: 1, rows: 1 },
       ];
     })
   );
