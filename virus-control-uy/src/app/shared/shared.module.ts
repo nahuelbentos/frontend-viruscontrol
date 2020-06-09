@@ -45,7 +45,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     }),
     LayoutModule,
     // Specify library as an import
-    NgxTwitterTimelineModule
+    NgxTwitterTimelineModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
   ],
