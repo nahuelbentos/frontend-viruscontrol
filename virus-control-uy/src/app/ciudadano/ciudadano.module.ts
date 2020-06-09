@@ -18,10 +18,12 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@material/material.module';
 import { ResultadosExamenesComponent } from './components/resultados-examenes/resultados-examenes.component';
+import { SuscripcionRecursosComponent } from './components/suscripcion-recursos/suscripcion-recursos.component'
 
 
 @NgModule({
-  declarations: [HomeCiudadanoComponent, NavCiudadanoComponent, PerfilCiudadanoComponent, ResultadosExamenesComponent],
+  declarations: [
+    HomeCiudadanoComponent, NavCiudadanoComponent, PerfilCiudadanoComponent, ResultadosExamenesComponent, SuscripcionRecursosComponent],
   imports: [
     CommonModule,
     CiudadanoRoutingModule,
