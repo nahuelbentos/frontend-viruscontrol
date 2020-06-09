@@ -181,6 +181,7 @@ export class SalaChatComponent implements OnInit {
       usuarioEmisor: this.currentUser.username,
       emisorNombre: this.currentUser.nombre,
       timestamp: new Date(),
+      fecha: new Date(),
       contenido: this.mensaje,
     };
     // empty mensaje
@@ -193,4 +194,7 @@ export class SalaChatComponent implements OnInit {
       console.log('sent');
     });
   }
+
+
+  
 }
