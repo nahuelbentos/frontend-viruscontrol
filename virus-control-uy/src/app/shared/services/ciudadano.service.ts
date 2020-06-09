@@ -20,6 +20,6 @@ export class CiudadanoService {
 export interface RequestSuscripcionRecursos {
   idUsuario: number;
   barrio: string;
-  departamento: string;
-  tipoNotificacion: string;
+  tipoRecurso: string;
+  formaNotificacion: string;
 }
