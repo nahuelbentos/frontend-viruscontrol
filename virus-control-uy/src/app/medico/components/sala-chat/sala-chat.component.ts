@@ -23,6 +23,8 @@ export class SalaChatComponent implements OnInit {
   public mensajes: Array<any> = []; // messages array/
   mensaje = ''; // the  message to be sent
 
+  userFilter = { nombre: '' };
+
   constructor(
     private chatService: ChatService,
     private scrollToService: ScrollToService,
@@ -137,9 +139,9 @@ export class SalaChatComponent implements OnInit {
               console.log('data>? ', data);
               console.log('mensajes>? ', data.mensajes);
               this.mensajes = data.mensajes;
-                setTimeout(() => {
-                  this.triggerScrollTo(); // scroll to bottom
-                }, 1000);
+              setTimeout(() => {
+                this.triggerScrollTo(); // scroll to bottom
+              }, 1000);
             });
           });
         });

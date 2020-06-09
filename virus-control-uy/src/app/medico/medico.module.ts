@@ -14,6 +14,7 @@ import { MedicoService } from '../shared/services/medico.service';
 import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     MaterialModule,
     ScrollToModule.forRoot(),
     FormsModule,
+    FilterPipeModule,
   ],
   providers: [MedicoService],
 })
