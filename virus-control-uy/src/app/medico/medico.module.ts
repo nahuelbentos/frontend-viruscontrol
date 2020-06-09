@@ -13,17 +13,27 @@ import { FormsModule } from '@angular/forms';
 import { MedicoService } from '../shared/services/medico.service';
 import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 @NgModule({
-  declarations: [ HomeMedicoComponent, NavMedicoComponent, ListarVisitasComponent, SolicitarExamenComponent, SalaChatComponent],
+  declarations: [
+    HomeMedicoComponent,
+    NavMedicoComponent,
+    ListarVisitasComponent,
+    SolicitarExamenComponent,
+    SalaChatComponent,
+  ],
   imports: [
     CommonModule,
     MedicoRoutingModule,
     LayoutModule,
     ReactiveFormsModule,
     MaterialModule,
-    FormsModule
+    ScrollToModule.forRoot(),
+    FormsModule,
+    FilterPipeModule,
   ],
-  providers: [MedicoService]
+  providers: [MedicoService],
 })
-export class MedicoModule { }
+export class MedicoModule {}

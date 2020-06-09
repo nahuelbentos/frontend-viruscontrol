@@ -8,6 +8,8 @@ import { Conversacion } from '@shared/model/chat/conversacion.model';
 import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 import { Mensaje } from '@shared/model/chat/mensaje.model';
 
+import { ScrollToService,  ScrollToConfigOptions} from '@nicky-lenaers/ngx-scroll-to';
+
 @Component({
   selector: 'app-sala-chat',
   templateUrl: './sala-chat.component.html',
@@ -21,8 +23,11 @@ export class SalaChatComponent implements OnInit {
   public mensajes: Array<any> = []; // messages array/
   mensaje = ''; // the  message to be sent
 
+  userFilter = { nombre: '' };
+
   constructor(
     private chatService: ChatService,
+    private scrollToService: ScrollToService,
     private autenticacionService: AutenticacionService
   ) {}
 
@@ -134,6 +139,9 @@ export class SalaChatComponent implements OnInit {
               console.log('data>? ', data);
               console.log('mensajes>? ', data.mensajes);
               this.mensajes = data.mensajes;
+              setTimeout(() => {
+                this.triggerScrollTo(); // scroll to bottom
+              }, 1000);
             });
           });
         });
@@ -159,6 +167,9 @@ export class SalaChatComponent implements OnInit {
                 console.log('data>? ', data);
                 console.log('mensajes>? ', data.mensajes);
                 this.mensajes = data.mensajes;
+                setTimeout(() => {
+                  this.triggerScrollTo(); // scroll to bottom
+                }, 1000);
               });
               return;
             }
@@ -181,6 +192,7 @@ export class SalaChatComponent implements OnInit {
       usuarioEmisor: this.currentUser.username,
       emisorNombre: this.currentUser.nombre,
       timestamp: new Date(),
+      fecha: new Date(),
       contenido: this.mensaje,
     };
     // empty mensaje
@@ -192,5 +204,13 @@ export class SalaChatComponent implements OnInit {
     this.chatService.enviarMensaje(this.mensajes).then(() => {
       console.log('sent');
     });
+  }
+
+  // Scroll to the bottom
+  public triggerScrollTo() {
+    const config: ScrollToConfigOptions = {
+      target: 'destination',
+    };
+    this.scrollToService.scrollTo(config);
   }
 }

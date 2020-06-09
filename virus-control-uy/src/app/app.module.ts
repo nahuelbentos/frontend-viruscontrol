@@ -14,6 +14,7 @@ import { SocialLoginModule, AuthServiceConfig, FacebookLoginProvider, GoogleLogi
 import { environment } from '@environments/environment';
 import { AgmCoreModule } from '@agm/core';
 import { AuthInterceptor } from '@shared/services/auth.interceptor';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 
 
