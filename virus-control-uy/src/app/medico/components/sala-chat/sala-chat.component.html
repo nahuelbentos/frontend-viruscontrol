@@ -12,14 +12,14 @@
       <mat-form-field>
         
         <!-- [(ngModel)]="userFilter.nombre" -->
-        <input matInput placeholder="Buscar Conversaciones"  
+        <input matInput placeholder="Buscar Conversaciones"  [(ngModel)]="userFilter.nombre"
         />
       </mat-form-field>
       <mat-list cdk-virtual-scroll-viewport itemSize="50" >
       <!-- 
         *ngIf="firebaseService.currentUser && firebaseService.currentUser.conversaciones"
         | filterBy: userFilter" -->
-        <mat-list-item *ngFor="let usuario of usuarios " (click)="seleccionarUsuario(usuario)" >
+        <mat-list-item *ngFor="let usuario of usuarios | filterBy: userFilter" (click)="seleccionarUsuario(usuario)" >
           <mat-icon matListIcon>folder</mat-icon>
           <h3 matLine class="text-primary">{{ usuario?.nombre }}</h3>
           <p matLine>
@@ -44,7 +44,7 @@
             <div class="incoming_msg" *ngIf="mensaje.usuarioEmisor !== currentUser.username">
               <div class="incoming_msg_img">
                 <img
-                  src="https://ptetutorials.com/images/user-profile.png"
+                  [src]="mensaje.emisorFoto ? mensaje.emisorFoto : 'https://ptetutorials.com/images/user-profile.png'"
                   alt="sunil"
                 />
               </div>
@@ -56,8 +56,7 @@
                     id="{{ i == mensajes.length - 3 ? 'destination' : 'abc' }}"
                   >
                     
-                {{mensaje.timestamp}} </span>
-                  <!-- {{ mensaje.timestamp | date: "dd MMM hh:mm" }} -->
+                {{mensaje.timestamp.toDate() | date: "dd MMM hh:mm"}} </span>
                 </div>
               </div>
             </div>
@@ -69,8 +68,7 @@
                   class="time_date"
                   id="{{ i == mensajes.length - 3 ? 'destination' : 'abc' }}"
                 >
-                {{mensaje.timestamp}} </span>
-                  <!-- {{ mensaje.timestamp | date: "dd MMM hh:mm" }} -->
+                {{mensaje.timestamp.toDate() | date: "dd MMM hh:mm" }} </span>
               </div>
             </div>
           </div>

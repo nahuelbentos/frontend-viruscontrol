@@ -19,6 +19,9 @@ import { LayoutModule } from '@angular/cdk/layout';
     SharedModule,
     MaterialModule,
     LayoutModule,
+  ],
+  exports: [
+    HomePublicComponent
   ]
 })
 export class HomePublicModule { }

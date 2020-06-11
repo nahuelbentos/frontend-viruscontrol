@@ -33,4 +33,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-//   url_backend: 'http://192.168.1.31:8080/viruscontrol-web/rest'
+// url_backend: 'http://192.168.0.101:8080/viruscontrol-web/rest',
