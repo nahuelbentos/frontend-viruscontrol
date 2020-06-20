@@ -28,9 +28,9 @@ export class HomePublicComponent implements OnInit {
     map(({ matches }) => {
       if (matches) {
         return [
-          { id: 1, title: 'Mapa', cols: 1, rows: 1 },
-          { id: 2, title: 'Card 2', cols: 1, rows: 1 },
-          { id: 3, title: 'Lista de Recursos disponibles', cols: 1, rows: 1 },
+          { id: 1, title: 'Mapa', cols: 2, rows: 2 },
+          { id: 2, title: 'Card 2', cols: 2, rows: 2 },
+          { id: 3, title: 'Lista de Recursos disponibles', cols: 2, rows: 2 },
           //{ id: 4, title: 'Card 4', cols: 1, rows: 1 },
         ];
       }
