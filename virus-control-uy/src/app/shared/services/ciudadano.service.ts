@@ -14,12 +14,24 @@ export class CiudadanoService {
   public getResultadosExamenes() {
     return this.http.get(`${this.baseUrl}/obtenerexamenes/${this.autenticacionService.user.idUsuario}`);
   }
+
+  public getBarrios() {
+    return this.http.get(`${environment.url_backend}/home/barrios`);
+  }
+
+  public getTipoRecursos() {
+    return this.http.get(`${environment.url_backend}/home/tipo-recursos`);
+  }
+
+  public postSuscripcionRecurso(suscripcionRecurso: RequestSuscripcionRecursos) {
+    console.log(suscripcionRecurso);
+    return this.http.post(`${this.baseUrl}/suscribirseARecurso`, suscripcionRecurso);
+  }
 }
 
 
 export interface RequestSuscripcionRecursos {
-  idUsuario: number;
+  ciudadanoId: number;
   barrio: string;
-  tipoRecurso: string;
-  formaNotificacion: string;
+  recurso: string;
 }
