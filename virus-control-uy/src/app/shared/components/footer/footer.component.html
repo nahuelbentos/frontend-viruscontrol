@@ -37,25 +37,14 @@
                             <a routerLink="/products" [queryParams]="{ type: 'latest' }">Últimos productos</a>
                         </li>
                     </ul>
-                </div> 
+                </div>
             </div> -->
             <div class="col-xs-12 col-md-4">
                 <div class="box">
                     <h3>Acerca de VirusControl-UY</h3>
                     <ul>
                         <li><a routerLink="/about-us">Sobre nosotros</a></li>
-                        <li><a routerLink="/proveedores">Nuestros proveedores</a></li>
-                        <li><a routerLink="/prestadoras">Nuestras prestadoras de salud</a></li>
                     </ul>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="box">
-                    <h3>Contacto</h3>
-                    <mat-form-field>
-                        <input matInput placeholder="Digite su correo" [formControl]="emailField" type="email">
-                    </mat-form-field>
-                    <button mat-raised-button [disabled]="emailField.invalid" (click)="sendMail()">enviar</button>
                 </div>
             </div>
 
