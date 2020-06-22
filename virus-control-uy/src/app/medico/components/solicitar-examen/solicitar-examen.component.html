@@ -1,100 +1,157 @@
-<div class="container">
-    <h1 class="mat-h1">Seleccione el exámen a realizar</h1>
-    <form [formGroup]="ExamForm" (ngSubmit)="onExamSubmit()">
-
-
+<div class="row" style="margin: 0px;">
+  <div class="col-xs-12">
+    <div class="box">
+      <h1 class="mat-h1">Seleccione el exámen a realizar</h1>
+      <form [formGroup]="ExamForm" (ngSubmit)="onExamSubmit()">
         <div class="row">
-          <div class="col">
+          <div class="col-xs-12">
+            <div class="box">
               <h4>Enfermedad</h4>
               <mat-form-field>
-              <mat-label>Seleccionar enfermedad</mat-label>
-              <mat-select formControlName="enfermedadSeleccionada" (blur)='obtenerExamenesDeEnfermedad(enfermedadSelected)' [(ngModel)]="enfermedadSelected">
-                  <mat-option *ngFor="let enfermedad of enfermedades" [value]="enfermedad.id">
-                  {{enfermedad.nombre}}
+                <mat-label>Seleccionar enfermedad</mat-label>
+                <mat-select
+                  formControlName="enfermedadSeleccionada"
+                  (blur)="obtenerExamenesDeEnfermedad(enfermedadSelected)"
+                  [(ngModel)]="enfermedadSelected"
+                >
+                  <mat-option
+                    *ngFor="let enfermedad of enfermedades"
+                    [value]="enfermedad.id"
+                  >
+                    {{ enfermedad.nombre }}
                   </mat-option>
-              </mat-select>
-              <mat-error *ngIf="enfermedadSeleccionadaFiled.hasError('required')">
+                </mat-select>
+                <mat-error
+                  *ngIf="enfermedadSeleccionadaFiled.hasError('required')"
+                >
                   Debe seleccionar una enfermedad de la lista.
-              </mat-error>
+                </mat-error>
               </mat-form-field>
+            </div>
           </div>
-      </div>
+        </div>
 
         <div class="row">
-            <div class="col">
-                <h4>Exámen a realizar</h4>
-                <mat-form-field>
+          <div class="col-xs-12">
+            <div class="box">
+              <h4>Exámen a realizar</h4>
+              <mat-form-field>
                 <mat-label>Exámen a realizar</mat-label>
                 <!-- <mat-select formControlName="examenSeleccionado"  (blur)='obtenerProveedores(examenSelected)' [(ngModel)]="examenSelected" > -->
-                <mat-select formControlName="examenSeleccionado"  [(ngModel)]="examenSelected" >
-                    <mat-option *ngFor="let examen of examenes" [value]="examen.id">
-                    {{examen.nombreEnfermedad}}
-                    </mat-option>
+                <mat-select
+                  formControlName="examenSeleccionado"
+                  [(ngModel)]="examenSelected"
+                >
+                  <mat-option
+                    *ngFor="let examen of examenes"
+                    [value]="examen.id"
+                  >
+                    {{ examen.nombreEnfermedad }}
+                  </mat-option>
                 </mat-select>
                 <mat-error *ngIf="examenSeleccionadoFiled.hasError('required')">
-                    Debe seleccionar un examen de la lista.
+                  Debe seleccionar un examen de la lista.
                 </mat-error>
-                </mat-form-field>
+              </mat-form-field>
             </div>
+          </div>
         </div>
 
         <div class="row">
-            <div class="col">
-                <h4>Ciudadano al cual realizar el exámen</h4>
-                <mat-form-field>
+          <div class="col-xs-12">
+            <div class="box">
+              <h4>Ciudadano al cual realizar el exámen</h4>
+              <mat-form-field>
                 <mat-label>Ciudadano</mat-label>
                 <mat-select formControlName="ciudadanoSeleccionado">
-                    <mat-option *ngFor="let ciudadano of ciudadanos" [value]="ciudadano.idUsuario">
-                    {{ciudadano.nombre}} {{ciudadano.apellido}}
-                    </mat-option>
+                  <mat-option
+                    *ngFor="let ciudadano of ciudadanos"
+                    [value]="ciudadano.idUsuario"
+                  >
+                    {{ ciudadano.nombre }} {{ ciudadano.apellido }}
+                  </mat-option>
                 </mat-select>
-                <mat-error *ngIf="ExamForm.controls['ciudadanoSeleccionado'].hasError('required')">
-                    Debe seleccionar un ciudadano de la lista.
+                <mat-error
+                  *ngIf="
+                    ExamForm.controls['ciudadanoSeleccionado'].hasError(
+                      'required'
+                    )
+                  "
+                >
+                  Debe seleccionar un ciudadano de la lista.
                 </mat-error>
-                </mat-form-field>
+              </mat-form-field>
             </div>
+          </div>
         </div>
 
         <div class="row">
-            <div class="col">
-                <h4>Laboratorio en el cual realizar exámen</h4>
-                <mat-form-field>
+          <div class="col-xs-12">
+            <div class="box">
+              <h4>Laboratorio en el cual realizar exámen</h4>
+              <mat-form-field>
                 <mat-label>Laborariorio</mat-label>
                 <mat-select formControlName="proveedorSeleccionado">
-                    <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.id">
-                    {{proveedor.nombre}}
-                    </mat-option>
+                  <mat-option
+                    *ngFor="let proveedor of proveedores"
+                    [value]="proveedor.id"
+                  >
+                    {{ proveedor.nombre }}
+                  </mat-option>
                 </mat-select>
-                <mat-error *ngIf="ExamForm.controls['proveedorSeleccionado'].hasError('required')">
-                    Debe seleccionar un proveedor de la lista.
+                <mat-error
+                  *ngIf="
+                    ExamForm.controls['proveedorSeleccionado'].hasError(
+                      'required'
+                    )
+                  "
+                >
+                  Debe seleccionar un proveedor de la lista.
                 </mat-error>
-                </mat-form-field>
-
+              </mat-form-field>
             </div>
+          </div>
         </div>
 
         <div class="row">
-          <div class="col">
+          <div class="col-xs-12">
+            <div class="box">
               <h4>Departamento del paciente</h4>
               <mat-form-field>
-              <mat-label>Departamento</mat-label>
-              <mat-select formControlName="departamentoSeleccionado">
-                  <mat-option *ngFor="let departamento of departamentos" [value]="departamento.id">
-                  {{departamento.nombre}}
+                <mat-label>Departamento</mat-label>
+                <mat-select formControlName="departamentoSeleccionado">
+                  <mat-option
+                    *ngFor="let departamento of departamentos"
+                    [value]="departamento.id"
+                  >
+                    {{ departamento.nombre }}
                   </mat-option>
-              </mat-select>
-              <mat-error *ngIf="ExamForm.controls['departamentoSeleccionado'].hasError('required')">
+                </mat-select>
+                <mat-error
+                  *ngIf="
+                    ExamForm.controls['departamentoSeleccionado'].hasError(
+                      'required'
+                    )
+                  "
+                >
                   Debe seleccionar un departamento de la lista.
-              </mat-error>
+                </mat-error>
               </mat-form-field>
+            </div>
           </div>
-      </div>
-
-        <div>
-            <button mat-raised-button color="primary" type="submit">Confirmar</button>
         </div>
 
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <button mat-raised-button color="primary" type="submit">
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
-      <div *ngIf="isExamSubmitted">
+      <div *ngIf="isExamSubmitted"></div>
     </div>
+  </div>
 </div>

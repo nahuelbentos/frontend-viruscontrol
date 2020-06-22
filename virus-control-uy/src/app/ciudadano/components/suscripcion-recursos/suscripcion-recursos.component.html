@@ -1,62 +1,98 @@
-<div class="container">
-  <h1 class="mat-h1">Suscribirse a un recurso</h1>
-  <form [formGroup]="SuscripcionForm" (ngSubmit)="onFormSubmit()">
+<div class="row" style="margin: 0; padding: 0px;">
+  <div class="col-xs-12">
+    <div class="box">
+      <h1 class="mat-h1">Suscribirse a un recurso</h1>
+      <form [formGroup]="SuscripcionForm" (ngSubmit)="onFormSubmit()">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box">
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>Barrio</h4>
+                  <mat-form-field>
+                    <mat-label>Seleccionar barrio</mat-label>
+                    <mat-select
+                      formControlName="barrioSeleccionado"
+                      (blur)="obtenerRecursosDeBarrio(barrioSelected)"
+                      [(ngModel)]="barrioSelected"
+                    >
+                      <mat-option
+                        *ngFor="let barrio of barrios"
+                        [value]="barrio"
+                      >
+                        {{ barrio }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="barrioSeleccionadoFiled.hasError('required')"
+                    >
+                      Debe seleccionar un barrio de la lista.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>Recurso al que desea suscribirse</h4>
+                  <mat-form-field>
+                    <mat-label>Recurso</mat-label>
+                    <mat-select formControlName="tipoRecursoSeleccionado">
+                      <mat-option
+                        *ngFor="let recurso of recursos"
+                        [value]="recurso"
+                      >
+                        {{ recurso }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="tipoRecursoSeleccionadoFiled.hasError('required')"
+                    >
+                      Debe seleccionar un recurso de la lista.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
 
-      <div class="row">
-        <div class="col">
-            <h4>Barrio</h4>
-            <mat-form-field>
-            <mat-label>Seleccionar barrio</mat-label>
-            <mat-select formControlName="barrioSeleccionado" (blur)='obtenerRecursosDeBarrio(barrioSelected)' [(ngModel)]="barrioSelected">
-                <mat-option *ngFor="let barrio of barrios" [value]="barrio">
-                {{barrio}}
-                </mat-option>
-            </mat-select>
-            <mat-error *ngIf="barrioSeleccionadoFiled.hasError('required')">
-                Debe seleccionar un barrio de la lista.
-            </mat-error>
-            </mat-form-field>
+              <div class="row">
+                <div class="col-xs-12">
+                  <h4>Forma de notificación</h4>
+                  <mat-form-field>
+                    <mat-label>Forma de notificación</mat-label>
+                    <mat-select formControlName="formaNotificacionSeleccionada">
+                      <mat-option
+                        *ngFor="let formaNotificacion of formaNotificaciones"
+                        [value]="formaNotificacion"
+                      >
+                        {{ formaNotificacion }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error
+                      *ngIf="
+                        SuscripcionForm.controls[
+                          'formaNotificacionSeleccionada'
+                        ].hasError('required')
+                      "
+                    >
+                      Debe seleccionar una forma de notificación de la lista.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="box" style="margin: 10px;">
+              <button mat-raised-button color="primary" type="submit">
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
-
-      <div class="row">
-          <div class="col">
-              <h4>Recurso al que desea suscribirse</h4>
-              <mat-form-field>
-              <mat-label>Recurso</mat-label>
-              <mat-select formControlName="tipoRecursoSeleccionado" >
-                  <mat-option *ngFor="let recurso of recursos" [value]="recurso">
-                  {{recurso}}
-                  </mat-option>
-              </mat-select>
-              <mat-error *ngIf="tipoRecursoSeleccionadoFiled.hasError('required')">
-                  Debe seleccionar un recurso de la lista.
-              </mat-error>
-              </mat-form-field>
-          </div>
-      </div>
-
-      <div class="row">
-          <div class="col">
-              <h4>Forma de notificación</h4>
-              <mat-form-field>
-              <mat-label>Forma de notificación</mat-label>
-              <mat-select formControlName="formaNotificacionSeleccionada">
-                  <mat-option *ngFor="let formaNotificacion of formaNotificaciones" [value]="formaNotificacion">
-                  {{formaNotificacion}}
-                  </mat-option>
-              </mat-select>
-              <mat-error *ngIf="SuscripcionForm.controls['formaNotificacionSeleccionada'].hasError('required')">
-                  Debe seleccionar una forma de notificación de la lista.
-              </mat-error>
-              </mat-form-field>
-          </div>
-      </div>
-
-      <div>
-          <button mat-raised-button color="primary" type="submit">Confirmar</button>
-      </div>
-
-    </form>
+  </div>
 </div>
