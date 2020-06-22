@@ -15,28 +15,41 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '@material/material.module';
 import { ResultadosExamenesComponent } from './components/resultados-examenes/resultados-examenes.component';
-import { SuscripcionRecursosComponent } from './components/suscripcion-recursos/suscripcion-recursos.component'
+import { SuscripcionRecursosComponent } from './components/suscripcion-recursos/suscripcion-recursos.component';
 import { HomePublicModule } from '../home-public/home-public.module';
-
+import { ChatMedicoComponent } from './components/chat-medico/chat-medico.component';
+import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
+import { SharedModule } from '@shared/shared.module';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
-    HomeCiudadanoComponent, NavCiudadanoComponent, PerfilCiudadanoComponent, ResultadosExamenesComponent, SuscripcionRecursosComponent],
+    HomeCiudadanoComponent,
+    NavCiudadanoComponent,
+    PerfilCiudadanoComponent,
+    ResultadosExamenesComponent,
+    SuscripcionRecursosComponent,
+    ChatMedicoComponent,
+    SalaChatComponent,
+  ],
   imports: [
     CommonModule,
     CiudadanoRoutingModule,
     LayoutModule,
     MaterialModule,
     ReactiveFormsModule,
-    HomePublicModule
-  ]
+    HomePublicModule,
+    SharedModule,
+    FilterPipeModule,
+    ScrollToModule.forRoot(),
+    FormsModule,
+  ],
 })
-export class CiudadanoModule { }
-
-
+export class CiudadanoModule {}
 
 // MatToolbarModule,
 // MatButtonModule,

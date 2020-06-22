@@ -113,7 +113,6 @@ export class SalaChatComponent implements OnInit {
           console.log('doc.data().usuarioEmisor: ', doc.data().usuarioEmisor);
         }
 
-        // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
       });
       console.log('chatCurrent: ', chatCurrent);
 

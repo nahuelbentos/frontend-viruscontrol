@@ -5,6 +5,7 @@ import { NavCiudadanoComponent } from './components/nav-ciudadano/nav-ciudadano.
 import { PerfilCiudadanoComponent } from './components/perfil-ciudadano/perfil-ciudadano.component';
 import { ResultadosExamenesComponent } from './components/resultados-examenes/resultados-examenes.component';
 import { SuscripcionRecursosComponent } from './components/suscripcion-recursos/suscripcion-recursos.component';
+import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 
 
 
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeCiudadanoComponent,
+      },
+      {
+        path: 'chat',
+        component: SalaChatComponent,
       },
       {
         path: 'perfil',
