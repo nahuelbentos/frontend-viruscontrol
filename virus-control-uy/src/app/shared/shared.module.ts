@@ -19,11 +19,14 @@ import { GoogleMapsModule } from '@angular/google-maps';
 
 import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
 
+
 // Import ngx-twitter-timeline
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '@environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { DonacionesComponent } from './components/donaciones/donaciones.component';
 import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
 
 
@@ -36,7 +39,8 @@ import { GoogleMapsComponent } from './components/google-maps/google-maps.compon
     MapaComponent,
     NovedadesComponent,
     ListaRecursosDisponiblesComponent,
-    GoogleMapsComponent,
+    DonacionesComponent,
+    GoogleMapsComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +56,9 @@ import { GoogleMapsComponent } from './components/google-maps/google-maps.compon
     NgxTwitterTimelineModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    AngularFireDatabaseModule
+
   ],
   exports: [
     HeaderComponent,
@@ -61,6 +67,7 @@ import { GoogleMapsComponent } from './components/google-maps/google-maps.compon
     MapaComponent,
     ListaRecursosDisponiblesComponent,
     NovedadesComponent,
+    DonacionesComponent,
     GoogleMapsComponent
   ],
 })
