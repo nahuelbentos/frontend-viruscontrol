@@ -15,6 +15,8 @@ import { environment } from '@environments/environment';
 import { AgmCoreModule } from '@agm/core';
 import { AuthInterceptor } from '@shared/services/auth.interceptor';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -45,7 +47,9 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    GoogleMapsModule,
+    LayoutModule
   ],
   providers: [
     {

@@ -1,0 +1,34 @@
+<!--<google-map height="200px"
+            width="400px"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="addMarker($event)"
+            (mapMousemove)="move($event)"
+            (mapRightclick)="removeLastMarker()">
+  <map-marker #marker
+              *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"
+              (mapClick)="openInfoWindow(marker)"></map-marker>
+  <map-info-window>Info Window content</map-info-window>
+</google-map>
+
+<div>Latitude: {{display?.lat}}</div>
+<div>Longitude: {{display?.lng}}</div> -->
+
+
+ <google-map width="400" 
+            height="200"
+            
+            (center)="center"
+            (mapClick)="addMarker($event)"
+            (mapMousemove)="move($event)"
+            >
+    <map-marker #marker
+                (position) = "coords"
+                [options]="markerOptions"
+                (mapClick)="openInfoWindow(marker)"></map-marker>
+    
+</google-map>
+
+    

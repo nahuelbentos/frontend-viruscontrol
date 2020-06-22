@@ -5,6 +5,8 @@ import {
 } from '@shared/services/ciudadano.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
+import { TipoRecurso } from '@shared/model/TipoRecurso';
+import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
 
 @Component({
   selector: 'app-suscripcion-recursos',
@@ -13,8 +15,8 @@ import { AutenticacionService } from '@shared/services/autenticacion.service';
 })
 export class SuscripcionRecursosComponent implements OnInit {
   barrios: string[];
-  tipoRecursos: string[];
-  formaNotificaciones: string[];
+  tipoRecursos: TipoRecurso[];
+  formaNotificaciones: string[]  = ["Email"];
   formSubmitted = false;
 
   constructor(
@@ -37,14 +39,44 @@ export class SuscripcionRecursosComponent implements OnInit {
     }
 
     const SuscripcionRecurso: RequestSuscripcionRecursos = {
-      idUsuario: this.autenticacionService.user.idUsuario,
+      ciudadanoId: this.autenticacionService.user.idUsuario,
       barrio: this.barrioSeleccionadoFiled.value,
-      tipoRecurso: this.tipoRecursoSeleccionadoFiled.value,
-      formaNotificacion: this.formaNotificacionSeleccionadaFiled.value,
+      recurso: this.tipoRecursoSeleccionadoFiled.value,
     };
+
+    this.ciudadanoService.postSuscripcionRecurso(SuscripcionRecurso).subscribe( ok => {
+      console.log('ok: ', ok);
+      if(ok){
+        mensajeConfirmacion('Excelente!', 'Le notificaremos cuando los recursos estén disponibles en su barrio.');
+      }
+    });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(){
+    this.ciudadanoService.getBarrios()
+    .subscribe(
+      (barrios: string[]) => { // Success
+        console.log(this.barrios);
+        this.barrios = barrios;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+    this.ciudadanoService.getTipoRecursos()
+    .subscribe(
+      (tipoRecursos: TipoRecurso[]) => { // Success
+        console.log(this.tipoRecursos);
+        this.tipoRecursos = tipoRecursos;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+
+
+  }
 
   get barrioSeleccionadoFiled() {
     return this.SuscripcionForm.get('barrioSeleccionado');

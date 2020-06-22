@@ -7,4 +7,5 @@ export interface Ciudadano{
     direccion: string;
     fecha: Date;
     sintomas?: Sintoma[];
+    coords?: {lat: number, lng: number};
     }

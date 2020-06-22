@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-6">
+  <mat-slider
+    thumbLabel
+    [(ngModel)]="finalAmount"
+    step="10"
+    min="10"
+    max="2000"
+  ></mat-slider>
+  <button mat-raised-button color="primary"(click)="donar()" *ngIf="mostrarDonar" >Donar</button>
+  </div>
+  <div class="col-md-6">
+    <div [hidden]="paidFor" #paypal></div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <!-- <button mat-raised-button color="primary"(click)="verDonaciones()"  >Ver donaciones</button> -->
+    <h2>Total donado hasta el momento: U$S {{ montoTotal }}</h2>
+  </div>
+</div>

@@ -51,6 +51,19 @@
                         <mat-nav-list>
                             <h4>Sintomas:</h4>
                             <h5 mat-list-item *ngFor="let sintoma of ciudadano.sintomas"> - {{sintoma.nombre}}</h5>
+                            <div *ngIf="expandedElement">
+                                <agm-map
+                                    [latitude]="ciudadano.coords.lat"
+                                    [longitude]="ciudadano.coords.lng"
+                                    [zoom]="15" 
+                                    >
+                                    <agm-marker 
+                                        [latitude]="ciudadano.coords.lat"
+                                        [longitude]="ciudadano.coords.lng"
+                                    >
+                                    </agm-marker>
+                                </agm-map>
+                            </div>
                         </mat-nav-list>
                     </div>
                 </td>
@@ -68,5 +81,4 @@
 
 
     </div>
-
 </div>

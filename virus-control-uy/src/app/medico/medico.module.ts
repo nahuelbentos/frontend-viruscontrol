@@ -16,6 +16,9 @@ import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { HomePublicModule } from '../home-public/home-public.module';
+import { SharedModule } from '@shared/shared.module';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,11 @@ import { HomePublicModule } from '../home-public/home-public.module';
     FormsModule,
     FilterPipeModule,
     HomePublicModule,
+    SharedModule,
+    GoogleMapsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDNOu2JQ001PxZY-GVwFvVou0_6h_Sj-14',
+    }),
   ],
   providers: [MedicoService],
 })

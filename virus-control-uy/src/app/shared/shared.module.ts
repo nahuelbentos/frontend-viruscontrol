@@ -15,13 +15,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 
+import { GoogleMapsModule } from '@angular/google-maps';
+
 import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
+
 
 // Import ngx-twitter-timeline
 import { NgxTwitterTimelineModule } from 'ngx-twitter-timeline';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '@environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { DonacionesComponent } from './components/donaciones/donaciones.component';
+import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
 
 
 @NgModule({
@@ -33,6 +39,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     MapaComponent,
     NovedadesComponent,
     ListaRecursosDisponiblesComponent,
+    DonacionesComponent,
+    GoogleMapsComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +56,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     NgxTwitterTimelineModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    GoogleMapsModule,
+    AngularFireDatabaseModule
+
   ],
   exports: [
     HeaderComponent,
@@ -55,7 +66,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     PageNotFoundComponent,
     MapaComponent,
     ListaRecursosDisponiblesComponent,
-    NovedadesComponent
+    NovedadesComponent,
+    DonacionesComponent,
+    GoogleMapsComponent
   ],
 })
 export class SharedModule {}
