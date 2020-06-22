@@ -1,5 +1,5 @@
 <div class="container">
-  <h1 class="mat-h1">Seleccione el exámen a realizar</h1>
+  <h1 class="mat-h1">Suscribirse a un recurso</h1>
   <form [formGroup]="SuscripcionForm" (ngSubmit)="onFormSubmit()">
 
 
@@ -8,7 +8,7 @@
             <h4>Barrio</h4>
             <mat-form-field>
             <mat-label>Seleccionar barrio</mat-label>
-            <mat-select formControlName="barrioSeleccionado" >
+            <mat-select formControlName="barrioSeleccionado" (blur)='obtenerRecursosDeBarrio(barrioSelected)' [(ngModel)]="barrioSelected">
                 <mat-option *ngFor="let barrio of barrios" [value]="barrio">
                 {{barrio}}
                 </mat-option>
@@ -22,16 +22,16 @@
 
       <div class="row">
           <div class="col">
-              <h4>Tipo de recurso al que desea suscribirse</h4>
+              <h4>Recurso al que desea suscribirse</h4>
               <mat-form-field>
-              <mat-label>Tipo de recurso</mat-label>
+              <mat-label>Recurso</mat-label>
               <mat-select formControlName="tipoRecursoSeleccionado" >
-                  <mat-option *ngFor="let tiporecurso of tipoRecursos" [value]="tiporecurso.id">
-                  {{tiporecurso.nombre}}
+                  <mat-option *ngFor="let recurso of recursos" [value]="recurso">
+                  {{recurso}}
                   </mat-option>
               </mat-select>
               <mat-error *ngIf="tipoRecursoSeleccionadoFiled.hasError('required')">
-                  Debe seleccionar un tipo de recurso de la lista.
+                  Debe seleccionar un recurso de la lista.
               </mat-error>
               </mat-form-field>
           </div>

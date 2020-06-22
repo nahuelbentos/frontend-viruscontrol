@@ -15,9 +15,10 @@ import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
 })
 export class SuscripcionRecursosComponent implements OnInit {
   barrios: string[];
-  tipoRecursos: TipoRecurso[];
+  recursos = [];
   formaNotificaciones: string[]  = ["Email"];
   formSubmitted = false;
+  barrioSelected: string;
 
   constructor(
     public fb: FormBuilder,
@@ -39,16 +40,13 @@ export class SuscripcionRecursosComponent implements OnInit {
     }
 
     const SuscripcionRecurso: RequestSuscripcionRecursos = {
-      ciudadanoId: this.autenticacionService.user.idUsuario,
       barrio: this.barrioSeleccionadoFiled.value,
       recurso: this.tipoRecursoSeleccionadoFiled.value,
     };
 
     this.ciudadanoService.postSuscripcionRecurso(SuscripcionRecurso).subscribe( ok => {
       console.log('ok: ', ok);
-      if(ok){
         mensajeConfirmacion('Excelente!', 'Le notificaremos cuando los recursos estén disponibles en su barrio.');
-      }
     });
   }
 
@@ -64,19 +62,29 @@ export class SuscripcionRecursosComponent implements OnInit {
       }
     );
 
-    this.ciudadanoService.getTipoRecursos()
-    .subscribe(
-      (tipoRecursos: TipoRecurso[]) => { // Success
-        console.log(this.tipoRecursos);
-        this.tipoRecursos = tipoRecursos;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-
 
   }
+
+
+  obtenerRecursosDeBarrio(nombreBarrio: string){
+    if(nombreBarrio){
+      this.ciudadanoService.getRecursosDeBarrio (nombreBarrio)
+      .subscribe(
+        (res: any) => { // Success
+          console.log(res);
+          this.recursos = [];
+          for (const recurso of res[0].recurso) {
+            this.recursos.push(recurso.nombre);
+          }
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    }
+  }
+
+
 
   get barrioSeleccionadoFiled() {
     return this.SuscripcionForm.get('barrioSeleccionado');

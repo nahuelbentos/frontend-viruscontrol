@@ -21,7 +21,6 @@
                     </ng-container>
                     <ng-template #elseTemplate>
                     </ng-template>
-
                     <ng-container *ngIf="card.id === 3; else elseTemplate">
                         <div *ngIf="existeRecursos">
                             <app-lista-recursos-disponibles [dataSource]="dataSource" ></app-lista-recursos-disponibles>

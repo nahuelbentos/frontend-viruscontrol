@@ -16,11 +16,11 @@ export class CiudadanoService {
   }
 
   public getBarrios() {
-    return this.http.get(`${environment.url_backend}/home/barrios`);
+    return this.http.get(`${this.baseUrl}/obtenerBarrios`);
   }
 
-  public getTipoRecursos() {
-    return this.http.get(`${environment.url_backend}/home/tipo-recursos`);
+  public getRecursosDeBarrio(barrio: string) {
+    return this.http.get(`${environment.url_backend}/recursos/disponibles/ciudad/-/barrio/${barrio}`);
   }
 
   public postSuscripcionRecurso(suscripcionRecurso: RequestSuscripcionRecursos) {
@@ -31,7 +31,6 @@ export class CiudadanoService {
 
 
 export interface RequestSuscripcionRecursos {
-  ciudadanoId: number;
   barrio: string;
   recurso: string;
 }
