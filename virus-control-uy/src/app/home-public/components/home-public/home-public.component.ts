@@ -29,7 +29,7 @@ export class HomePublicComponent implements OnInit {
       if (matches) {
         return [
           { id: 1, title: 'Mapa', cols: 2, rows: 2 },
-          { id: 2, title: 'Card 2', cols: 2, rows: 2 },
+          { id: 2, title: 'Novedades de enfermedades', cols: 2, rows: 2 },
           { id: 3, title: 'Lista de Recursos disponibles', cols: 2, rows: 2 },
           { id: 4, title: 'Donaciones', cols: 2, rows: 1 },
         ];

@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuxiliaresService } from '@shared/services/auxiliares.service';
 import { Country } from '@shared/model/Country';
 import { ChatService } from '@shared/services/chat.service';
+import { errorMensaje } from '@shared/utils/sweet-alert';
 
 @Component({
   selector: 'app-login',
@@ -69,7 +70,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.autenticacionService
       .loginWithFB()
       .then((res) => {
-
         this.loginBackend(res);
       })
       .catch((reject) => {
@@ -110,6 +110,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.autenticacionService
       .logout()
       .then((res) => {
+        this.showSppiner = false;
         console.log('res logut: ', res);
         this.setUser(null, false);
       })
@@ -130,38 +131,46 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.autenticacionService
       .loginBackend(usuario, this.tipoUsuarioSelected)
       .subscribe((res: any) => {
-        localStorage.setItem('loggedIn', 'true');
-        localStorage.setItem('tipoUsuario', this.tipoUsuarioSelected);
-
-        this.autenticacionService.setloggedIn(true);
-        this.setUser(response, this.autenticacionService.getLoggedIn());
-        
-        const usuario: Usuario = res.usuario;
-        usuario.sessionToken = res.sessionToken;
-        usuario.photoUrl = response.photoUrl;
-        usuario.fechaNacimiento = new  Date(res.usuario.fechaNacimiento);
-        console.log('res usuario.fechaNacimiento: ', usuario.fechaNacimiento);
-        this.autenticacionService.setUser(usuario);
         // si el usuario es ciudadano y es primer ingreso => voy al perfil
-        if (
-          this.tipoUsuarioSelected === 'ciudadano' &&
-          res.response === 'PRIMERINGRESO'
-        ) {
-          this.getPaises(res.usuario, res.response);
+        if (res.response === 'FAILED') {
+          this.logout();
+          errorMensaje(
+            'Cuenta ya registrada',
+            'La cuenta que está ingresando, ya esta registrada en la plataforma como Médico, ingrese con otra.'
+          );
         } else {
-          if (this.tipoUsuarioSelected === 'medico') {
+          localStorage.setItem('loggedIn', 'true');
+          localStorage.setItem('tipoUsuario', this.tipoUsuarioSelected);
 
-            this.chatService
-              .createUsuario(usuario)
-              .then((res) => {
-                console.log('Response de firebase: ', res);
-              })
-              .catch((err) => {
-                console.error('Error de firebase: ', err);
-              });
+          this.autenticacionService.setloggedIn(true);
+          this.setUser(response, this.autenticacionService.getLoggedIn());
+
+          const usuario: Usuario = res.usuario;
+          usuario.sessionToken = res.sessionToken;
+          usuario.photoUrl = response.photoUrl;
+          usuario.fechaNacimiento = new Date(res.usuario.fechaNacimiento);
+          console.log('res usuario.fechaNacimiento: ', usuario.fechaNacimiento);
+          this.autenticacionService.setUser(usuario);
+
+          if (
+            this.tipoUsuarioSelected === 'ciudadano' &&
+            res.response === 'PRIMERINGRESO'
+          ) {
+            this.getPaises(res.usuario, res.response);
+          } else {
+            if (this.tipoUsuarioSelected === 'medico') {
+              this.chatService
+                .createUsuario(usuario)
+                .then((res) => {
+                  console.log('Response de firebase: ', res);
+                })
+                .catch((err) => {
+                  console.error('Error de firebase: ', err);
+                });
+            }
+
+            this.goHome(this.tipoUsuarioSelected, res.usuario);
           }
-
-          this.goHome(this.tipoUsuarioSelected, res.usuario);
         }
       });
   }
@@ -182,7 +191,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   getPaises(usuario, response) {
     this.auxiliaresService.getCountries().subscribe((res: Country[]) => {
-      
       // const reformattedArray
       const paises = res.map((obj) => {
         const rObj = {};
