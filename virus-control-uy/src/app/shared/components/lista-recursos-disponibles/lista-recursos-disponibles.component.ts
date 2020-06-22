@@ -32,7 +32,7 @@ export class ListaRecursosDisponiblesComponent implements OnInit{
     .subscribe((state: BreakpointState) => {
       if (state.matches) {
         this.showContainer = true;
-        this.displayedColumns = ['Nombre', 'Tipo de Recurso', 'Enfermedad'];
+        this.displayedColumns = ['Nombre', 'Tipo de Recurso'];
       } else {
         this.showContainer = false;
         this.displayedColumns = ['Nombre', 'Tipo de Recurso', 'Enfermedad', 'Direccion', 'Barrio', 'Ciudad'];
