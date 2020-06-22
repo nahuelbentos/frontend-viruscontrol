@@ -15,6 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmCoreModule } from '@agm/core';
 import { NovedadesComponent } from './components/novedades/novedades.component';
 
+import { GoogleMapsModule } from '@angular/google-maps';
+
 import { ListaRecursosDisponiblesComponent } from './components/lista-recursos-disponibles/lista-recursos-disponibles.component';
 
 
@@ -25,6 +27,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '@environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { DonacionesComponent } from './components/donaciones/donaciones.component';
+import { GoogleMapsComponent } from './components/google-maps/google-maps.component';
 
 
 @NgModule({
@@ -37,6 +40,7 @@ import { DonacionesComponent } from './components/donaciones/donaciones.componen
     NovedadesComponent,
     ListaRecursosDisponiblesComponent,
     DonacionesComponent,
+    GoogleMapsComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +56,7 @@ import { DonacionesComponent } from './components/donaciones/donaciones.componen
     NgxTwitterTimelineModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    GoogleMapsModule,
     AngularFireDatabaseModule
 
   ],
@@ -62,7 +67,8 @@ import { DonacionesComponent } from './components/donaciones/donaciones.componen
     MapaComponent,
     ListaRecursosDisponiblesComponent,
     NovedadesComponent,
-    DonacionesComponent
+    DonacionesComponent,
+    GoogleMapsComponent
   ],
 })
 export class SharedModule {}

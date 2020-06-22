@@ -21,10 +21,16 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addToken(request: HttpRequest<any>) {
-    
     // console.log('request', request);
-    if ( request.url !==
-      'https://restcountries.eu/rest/v2/all?fields=name;capital;currencies;alpha2Code;alpha3Code;demonym'
+    const urlGoogle = request.url.substring(0, 27);
+
+    console.log('urlGoogle: ', urlGoogle);
+    console.log('es igual: ', urlGoogle === 'https://maps.googleapis.com');
+
+    if (
+      request.url !==
+        'https://restcountries.eu/rest/v2/all?fields=name;capital;currencies;alpha2Code;alpha3Code;demonym' &&
+      urlGoogle !== 'https://maps.googleapis.com'
     ) {
       if (this.autenticacionService.user) {
         const token = this.autenticacionService.user.sessionToken;
@@ -39,11 +45,18 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       }
       return request;
-    }else{
+    } else {
       return request;
-
     }
-    
   }
 
+  private validarUrl(url: string): boolean {
+    console.log('validar url: ', url);
+    console.log(
+      'valida: ',
+      url.substring(0, 27) !== 'https://maps.googleapis.com'
+    );
+
+    return url.substring(0, 27) !== 'https://maps.googleapis.com';
+  }
 }

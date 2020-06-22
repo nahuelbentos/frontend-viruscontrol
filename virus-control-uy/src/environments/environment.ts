@@ -12,7 +12,7 @@ export const environment = {
     clientId: '539037543041-lj1s52blklduqff1ee7qcorjh92g50i6.apps.googleusercontent.com',
     clientSecret: 'nXnukOI3wHJjPFh8fOcgZDtv'
   },
-  url_backend: 'http://localhost:8080/viruscontrol-web/rest',
+  url_backend: 'https://viruscontroluy.xyz:8443/viruscontrol-web/rest',
   firebase: {
     apiKey: 'AIzaSyAEFI0IB3lsyB4oc9btLYfeegmnx-n7Q60',
     authDomain: 'virus-control-uy-gr14.firebaseapp.com',
@@ -22,7 +22,8 @@ export const environment = {
     messagingSenderId: '339927537433',
     appId: '1:339927537433:web:cc50f95f899110f0369788',
     measurementId: 'G-YS4MGBY9H1'
-  }
+  },
+  googleMapsKey: 'AIzaSyD38dBuTFAh_xGH8SWEpPMyc7-bBeVVSfo'
 };
 
 /*
