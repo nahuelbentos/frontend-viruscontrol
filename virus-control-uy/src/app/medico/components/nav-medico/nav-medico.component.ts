@@ -11,42 +11,44 @@ import { Ciudadano } from '@shared/model/Ciudadano';
 @Component({
   selector: 'app-nav-medico',
   templateUrl: './nav-medico.component.html',
-  styleUrls: ['./nav-medico.component.scss']
+  styleUrls: ['./nav-medico.component.scss'],
 })
 export class NavMedicoComponent {
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
-      map(result => result.matches),
+      map((result) => result.matches),
       shareReplay()
     );
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private autenticacionService: AutenticacionService,
-    private router: Router,  private medicoService: MedicoService,
-    private auxiliarService: AuxiliaresService) { }
-
+    private router: Router,
+    private medicoService: MedicoService,
+    private auxiliarService: AuxiliaresService
+  ) {}
 
   logout() {
-    this.autenticacionService.logoutBackend()
-      .subscribe(res => {
-        console.log('res logutbackend: ', res);
-        this.autenticacionService.logout().then(response => {
+    this.autenticacionService.logoutBackend().subscribe((res) => {
+      console.log('res logutbackend: ', res);
+      this.autenticacionService
+        .logout()
+        .then((response) => {
           console.log('response: ', response);
-          this.autenticacionService.setUser(null);          
+          this.autenticacionService.setUser(null);
           this.autenticacionService.setloggedIn(false);
           localStorage.setItem('loggedIn', 'false');
-          this.router.navigate(['/home']);
 
+          this.router.navigate(['/home']);
         })
-          .catch(reject => {
-            console.log('reject logut: ', reject);
-          });
-      });
+        .catch((reject) => {
+          console.log('reject logut: ', reject);
+        });
+    });
   }
 
-  getUsuariosCoordenadas(){
+  getUsuariosCoordenadas() {
     this.medicoService
       .getVisitasPendientes()
       .subscribe((ciudadanos: Ciudadano[]) => {
@@ -64,7 +66,10 @@ export class NavMedicoComponent {
                 lat: res.results[0].geometry.location.lat,
                 lng: res.results[0].geometry.location.lng,
               };
-              localStorage.setItem('usuariosCoordenadas', JSON.stringify(ciudadanos));
+              localStorage.setItem(
+                'usuariosCoordenadas',
+                JSON.stringify(ciudadanos)
+              );
             });
         });
         console.log('2) ciudadanos: ', ciudadanos);
@@ -72,6 +77,6 @@ export class NavMedicoComponent {
 
         // localStorage.setItem('usuariosCoordenadas', JSON.stringify(ciudadanos));
         this.router.navigate(['medico/listar-visitas']);
-    });
+      });
   }
 }
