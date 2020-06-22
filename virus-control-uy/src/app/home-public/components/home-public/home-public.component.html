@@ -34,6 +34,9 @@
                             <app-lista-recursos-disponibles [dataSource]="dataSource" ></app-lista-recursos-disponibles>
                         </div>
                     </ng-container>
+                    <ng-container *ngIf="card.id === 4; else elseTemplate">
+                      <app-donaciones></app-donaciones>
+                    </ng-container>
                     <ng-template #elseTemplate>
 
                         <div>Card Content Here</div>

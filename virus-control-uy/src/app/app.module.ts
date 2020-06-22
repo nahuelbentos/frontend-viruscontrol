@@ -45,7 +45,8 @@ export function provideConfig() {
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+
   ],
   providers: [
     {
