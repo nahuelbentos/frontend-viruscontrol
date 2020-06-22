@@ -8,11 +8,12 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MaterialModule } from '@material/material.module';
 import { SharedModule } from '@shared/shared.module';
 import { LayoutModule } from '@angular/cdk/layout';
+import { AboutUsComponent } from './components/about-us/about-us.component';
 
 
 
 @NgModule({
-  declarations: [HomePublicComponent, LayoutComponent],
+  declarations: [HomePublicComponent, LayoutComponent, AboutUsComponent],
   imports: [
     CommonModule,
     HomePublicRoutingModule,
