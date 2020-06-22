@@ -167,6 +167,15 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 .catch((err) => {
                   console.error('Error de firebase: ', err);
                 });
+            }else {
+              this.chatService
+                .createCiudadano(usuario)
+                .then((res) => {
+                  console.log('Response de firebase: ', res);
+                })
+                .catch((err) => {
+                  console.error('Error de firebase: ', err);
+                });
             }
 
             this.goHome(this.tipoUsuarioSelected, res.usuario);

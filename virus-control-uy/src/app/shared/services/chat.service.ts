@@ -49,6 +49,21 @@ export class ChatService {
     return this.firestore.collection('usuarios').snapshotChanges();
   }
 
+  // Ciudadano
+  createCiudadano(usuario: Usuario) {
+    return this.firestore.doc('ciudadanos/' + usuario.username).set(usuario);
+  }
+
+  updateCiudadano(usuario: Usuario) {
+    return this.firestore
+      .doc<Usuario>('ciudadanos/' + usuario.username)
+      .update(usuario);
+  }
+
+  getCiudadanos() {
+    return this.firestore.collection('ciudadanos').snapshotChanges();
+  }
+
   // Chat
   createChat(chat: Chat) {
     return this.firestore.collection('chat').add(chat);
@@ -86,10 +101,9 @@ export class ChatService {
   // Mensajes
 
   cargarMensajes() {
-    return this.firestore.doc<Conversacion>('conversacion/' + this.conversacion.idConversacion).valueChanges();
-    
-
-    
+    return this.firestore
+      .doc<Conversacion>('conversacion/' + this.conversacion.idConversacion)
+      .valueChanges();
   }
 
   // cargarMensajes() {
