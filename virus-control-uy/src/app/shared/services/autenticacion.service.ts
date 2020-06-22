@@ -51,6 +51,9 @@ export class AutenticacionService {
   }
 
   setUser(user: Usuario) {
+    localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+    console.log('seteo el usuario: ', user);
+    
     this.user = user;
   }
 

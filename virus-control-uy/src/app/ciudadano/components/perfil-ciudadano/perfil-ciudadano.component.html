@@ -59,7 +59,7 @@
         <div class="col">
           <mat-form-field class="full-width" color="accent">
             <mat-label>Télefono</mat-label>
-            <input matInput formControlName="fechaNacimiento" formControlName="telefono">
+            <input matInput formControlName="telefono">
             <mat-error *ngIf="telefonoField.hasError('required')">
               Télefono es <strong>requerido</strong>
             </mat-error>
@@ -86,7 +86,9 @@
         <div class="col">
           <mat-form-field class="full-width" color="accent">
             <mat-label>Fecha de Nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+            <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento"
+            (dateInput)="cambiarDiaFecha('input', $event)"
+                            (dateChange)="cambiarDiaFecha('change', $event)"> 
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
 
