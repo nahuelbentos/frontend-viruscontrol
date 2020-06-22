@@ -81,6 +81,8 @@ export class PerfilCiudadanoComponent implements OnInit {
 
       direccion: this.direccionField.value,
       correo: this.emailField.value,
+      nroTelefono: this.telefonoField.value,
+      documento: this.cedulaField.value
     };
 
     this.autenticacionService.validaDatos(usuario).subscribe((res) => {
