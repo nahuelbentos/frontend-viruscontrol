@@ -1,13 +1,13 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>Menú</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink='/ciudadano/home'>Home</a>
       <a mat-list-item routerLink='/ciudadano/resultados-examenes'>Ver resultados de exámenes</a>
-      <a mat-list-item routerLink='/ciudadano/suscripcion-recursos'>Suscribirse a un tipo de recurso</a>
+      <a mat-list-item routerLink='/ciudadano/suscripcion-recursos'>Suscribirse a un recurso</a>
       <a mat-list-item (click)="goPerfil()">Perfil</a>
-      <a mat-list-item (click)="logout()">Cerrar Sesion</a>
+      <a mat-list-item (click)="logout()">Cerrar Sesión</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -16,7 +16,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>virus-control-uy</span>
+      <span>Virus Control UY</span>
     </mat-toolbar>
     <!-- Add Content Here -->
     <router-outlet></router-outlet>

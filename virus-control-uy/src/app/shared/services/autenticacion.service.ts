@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AuthService, FacebookLoginProvider, SocialUser, GoogleLoginProvider } from 'angularx-social-login';
+import {
+  AuthService,
+  FacebookLoginProvider,
+  SocialUser,
+  GoogleLoginProvider,
+} from 'angularx-social-login';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
@@ -29,6 +34,7 @@ export class AutenticacionService {
   }
 
   logout() {
+    this.clearStorage();
     return this.authService.signOut();
   }
 
@@ -51,15 +57,28 @@ export class AutenticacionService {
   }
 
   setUser(user: Usuario) {
+    localStorage.setItem('usuarioLogueado', JSON.stringify(user));
+    console.log('seteo el usuario: ', user);
+
     this.user = user;
   }
 
-  getLoggedIn(){
+  getLoggedIn() {
     return this.loggedIn;
   }
 
-  setloggedIn(loggedIn: boolean){
+  setloggedIn(loggedIn: boolean) {
     this.loggedIn = loggedIn;
   }
-}
 
+  clearStorage() {
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('uid');
+    localStorage.removeItem('usuarioId');
+    localStorage.removeItem('usuarioLogueado');
+    localStorage.removeItem('tipoUsuario');
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('paises');
+
+  }
+}

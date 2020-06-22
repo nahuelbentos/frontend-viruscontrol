@@ -21,7 +21,7 @@ declare var paypal;
 export class DonacionesComponent implements OnInit {
   constructor(private auxiliaresServices: AuxiliaresService) {}
 
-  finalAmount: number = 1;
+  finalAmount: number = 10;
   aux: number;
 
   @ViewChild('paypal', { static: true }) paypalElement: ElementRef;

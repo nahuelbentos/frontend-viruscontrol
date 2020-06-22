@@ -28,16 +28,23 @@ export class ListaRecursosDisponiblesComponent implements OnInit{
     this.dataSource.sort = this.sort;
 
     this.breakpointObserver
-    .observe(['(max-width: 400px)'])
-    .subscribe((state: BreakpointState) => {
-      if (state.matches) {
-        this.showContainer = true;
-        this.displayedColumns = ['Nombre', 'Tipo de Recurso'];
-      } else {
-        this.showContainer = false;
-        this.displayedColumns = ['Nombre', 'Tipo de Recurso', 'Enfermedad', 'Direccion', 'Barrio', 'Ciudad'];
-      }
-    });
+      .observe(['(max-width: 700px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.showContainer = true;
+          this.displayedColumns = ['Nombre', 'Tipo de Recurso', 'Ciudad'];
+        } else {
+          this.showContainer = false;
+          this.displayedColumns = [
+            'Nombre',
+            'Tipo de Recurso',
+            'Enfermedad',
+            'Direccion',
+            'Barrio',
+            'Ciudad',
+          ];
+        }
+      });
   }
 
   applyFilter(filterValue: string) {

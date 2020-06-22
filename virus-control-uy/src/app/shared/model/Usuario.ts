@@ -13,4 +13,7 @@ export interface Usuario {
   primerIngreso?: boolean;
   sessionToken?: string;
   photoUrl?: string;
+
+  nroTelefono?: number;
+  documento?: number;
 }

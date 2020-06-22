@@ -9,13 +9,6 @@
                 <mat-card-header>
                     <mat-card-title>
                         {{card.title}}
-                        <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu" xPosition="before">
-                            <button mat-menu-item>Expand</button>
-                            <button mat-menu-item>Remove</button>
-                        </mat-menu>
                     </mat-card-title>
                 </mat-card-header>
                 <mat-card-content class="dashboard-card-content">
@@ -28,7 +21,6 @@
                     </ng-container>
                     <ng-template #elseTemplate>
                     </ng-template>
-
                     <ng-container *ngIf="card.id === 3; else elseTemplate">
                         <div *ngIf="existeRecursos">
                             <app-lista-recursos-disponibles [dataSource]="dataSource" ></app-lista-recursos-disponibles>
