@@ -76,6 +76,13 @@ export class ChatService {
     //     .where('usuarioRecptor', '==', usuarioReceptor)).valueChanges();
   }
 
+  getChatsCiudadanos() {
+    return this.firestore.collection('chat').snapshotChanges();
+    // return this.firestore.doc('chat').ref() collection('chat', (ref) => ref
+    //     .where('usuarioEmisor', '==', usuarioEmisor)
+    //     .where('usuarioRecptor', '==', usuarioReceptor)).valueChanges();
+  }
+
   // Conversacion
   createConversacion(conversacion: Conversacion) {
     return this.firestore.collection('conversacion').add(conversacion);

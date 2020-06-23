@@ -1,0 +1,102 @@
+
+<!-- Topbar  -->
+<mat-toolbar >
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon matSuffix>menu</mat-icon>
+  </button>
+  <span> Chat - Bienvenido {{currentUser.nombre}} {{currentUser.apellido}}!  </span>
+   
+</mat-toolbar>
+<!-- Usuarios sidebar - start -->
+  <mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <mat-form-field>
+        
+        <!-- [(ngModel)]="userFilter.nombre" -->
+        <input matInput placeholder="Buscar Conversaciones"  [(ngModel)]="userFilter.nombre"
+        />
+      </mat-form-field>
+      <mat-list cdk-virtual-scroll-viewport itemSize="50" >
+      <!-- 
+        *ngIf="firebaseService.currentUser && firebaseService.currentUser.conversaciones"
+        | filterBy: userFilter" -->
+        <mat-list-item *ngFor="let usuario of usuarios | filterBy: userFilter" (click)="seleccionarUsuario(usuario)" >
+          <mat-icon matListIcon>folder</mat-icon>
+          <h3 matLine class="text-primary">{{ usuario?.nombre }}</h3>
+          <p matLine>
+            <span class="small text-muted"> Nuevo Mensaje </span><br />
+            <!-- <span class="demo-2 text-muted small">
+              {{ usuario.timestamp?.toDate() | date: "dd MMM hh:mm" }}</span> -->
+          </p>
+        </mat-list-item>
+      </mat-list>
+    </mat-drawer>
+    
+<!-- Chat Screen Main Content - start -->
+    <div class="example-sidenav-content">
+      <div class="mesgs" id="container">
+        <cdk-virtual-scroll-viewport
+          itemSize="40"
+          class="msg_history "
+          *ngIf="showMensajes"
+        >
+        <!-- *cdkVirtualFor="let mensaje of mensajes; let i = index" -->
+          <div *ngFor="let mensaje of mensajes; let i = index"  >
+            <div class="incoming_msg" *ngIf="mensaje.usuarioEmisor !== currentUser.username">
+              <div class="incoming_msg_img">
+                <img
+                  [src]="mensaje.emisorFoto ? mensaje.emisorFoto : 'https://ptetutorials.com/images/user-profile.png'"
+                  alt="sunil"
+                />
+              </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>{{ mensaje.contenido }}</p>
+                  <span
+                    class="time_date"
+                    id="{{ i == mensajes.length - 3 ? 'destination' : 'abc' }}"
+                  >
+                    
+                {{mensaje.timestamp.toDate() | date: "dd MMM hh:mm"}} </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="outgoing_msg" *ngIf="mensaje.usuarioEmisor === currentUser.username">
+              <div class="sent_msg">
+                <p>{{ mensaje.contenido }}</p>
+                <span
+                  class="time_date"
+                  id="{{ i == mensajes.length - 3 ? 'destination' : 'abc' }}"
+                >
+                {{mensaje.timestamp.toDate() | date: "dd MMM hh:mm" }} </span>
+              </div>
+            </div>
+          </div>
+        </cdk-virtual-scroll-viewport>
+
+        <div class="type_msg" *ngIf="showMensajes">
+          <div class="input_msg_write">
+            <input
+              mat-input
+              type="text"
+              placeholder="Escribe un mensaje aquí"
+              [(ngModel)]="mensaje"
+              (keydown.enter)="enviarMensaje()"
+            />
+            <button
+              class="msg_send_btn"
+              type="button"
+              (click)="enviarMensaje()"
+              (keydown.enter)="enviarMensaje()"
+            >
+              <mat-icon matSuffix>send</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Chat Screen Main Content - ends -->
+
+  </mat-drawer-container>
+    <!-- Usuarios sidebar - ends -->
