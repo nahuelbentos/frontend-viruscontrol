@@ -61,10 +61,22 @@ export class HomePublicComponent implements OnInit {
         const listaAux: any[] = [];
         const recursoTemp: Recurso[] = [];
         const proveedorTemp: any[] = [];
+
+
         for (const item of res) {
           for (const rec of item.recurso) {
-            // obj.enfermedad = rec.recurso.enfermedad[0];
+            console.log('rec.enfermedades[0] ', rec.enfermedades[0]);
             let obj1 = new ConcatProvRec();
+            
+            let enfermedades = '';
+            for(const enfermedad of rec.enfermedades){
+              if(!enfermedades.includes(enfermedad.nombre)){
+                enfermedades += ` ${enfermedad.nombre}`;              
+              }
+            }
+            console.log('enfermedades ', enfermedades);
+
+            obj1.enfermedad = enfermedades; // rec.enfermedades[0];
             obj1.nombre = rec.nombre;
             obj1.tipoRecurso = rec.tipoRecurso.nombre;
             obj1.barrio = item.proveedor.barrio;
