@@ -8,14 +8,17 @@ import { Conversacion } from '@shared/model/chat/conversacion.model';
 import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
 import { Mensaje } from '@shared/model/chat/mensaje.model';
 
-import { ScrollToService,  ScrollToConfigOptions} from '@nicky-lenaers/ngx-scroll-to';
+import {
+  ScrollToService,
+  ScrollToConfigOptions,
+} from '@nicky-lenaers/ngx-scroll-to';
 
 @Component({
-  selector: 'app-sala-chat',
-  templateUrl: './sala-chat.component.html',
-  styleUrls: ['./sala-chat.component.scss'],
+  selector: 'app-chat-ciudadano',
+  templateUrl: './chat-ciudadano.component.html',
+  styleUrls: ['./chat-ciudadano.component.scss'],
 })
-export class SalaChatComponent implements OnInit {
+export class ChatCiudadanoComponent implements OnInit {
   currentUser: Usuario;
   usuarios: Usuario[] = [];
 
@@ -32,32 +35,47 @@ export class SalaChatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.chatService.getUsuarios().subscribe((data) => {
-      const usersFirebase: any = data.map((e) => {
+    this.chatService.getCiudadanos().subscribe((data) => {
+      const ciudadanosFirebase: any = data.map((e) => {
         console.log('data: ', e.payload.doc.data());
         return e.payload.doc.data();
       });
 
-      const temp = usersFirebase.filter(
-        (usuario) =>
-          usuario.username !== this.autenticacionService.user.username
-      );
+      this.chatService.getChatsCiudadanos().subscribe((data) => {
+        const chatsFirebase: any = data.map((e) => {
+          console.log('data: ', e.payload.doc.data());
+          return e.payload.doc.data();
+        });
+
+        const chatsMedico = chatsFirebase.filter(
+          (chat) =>
+            chat.usuarioEmisor === this.autenticacionService.user.username ||
+            chat.usuarioReceptor === this.autenticacionService.user.username
+        );
+
       this.usuarios = [];
-      for (const user of temp) {
-        const usuario: Usuario = {
-          nombre: user.nombre,
-          apellido: user.apellido,
-          correo: user.correo,
-          username: user.username,
-          idUsuario: user.idUsuario,
-        };
-        this.usuarios.push(usuario);
-      }
-      console.log('this.usuarios: ', this.usuarios);
+        for (const ciudadano of ciudadanosFirebase) {
+          for (const chat of chatsMedico) {
+            if (
+              chat.usuarioEmisor === ciudadano.username ||
+              chat.usuarioReceptor === ciudadano.username
+            ) {
+              this.usuarios.push(ciudadano);
+            }
+          }
+        }
+
+        // const temp = ciudadanosFirebase.filter((usuario) => {
+        //   usuario.username !== this.autenticacionService.user.username;
+        // });
+
+        console.log('this.usuarios: ', this.usuarios);
+      });
     });
 
     this.currentUser = this.autenticacionService.user;
   }
+
 
   seleccionarUsuario(usuario: Usuario) {
     console.log(usuario);
@@ -112,7 +130,6 @@ export class SalaChatComponent implements OnInit {
           );
           console.log('doc.data().usuarioEmisor: ', doc.data().usuarioEmisor);
         }
-
       });
       console.log('chatCurrent: ', chatCurrent);
 

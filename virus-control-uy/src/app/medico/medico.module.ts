@@ -19,6 +19,7 @@ import { HomePublicModule } from '../home-public/home-public.module';
 import { SharedModule } from '@shared/shared.module';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AgmCoreModule } from '@agm/core';
+import { ChatCiudadanoComponent } from './components/chat-ciudadano/chat-ciudadano.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AgmCoreModule } from '@agm/core';
     ListarVisitasComponent,
     SolicitarExamenComponent,
     SalaChatComponent,
+    ChatCiudadanoComponent,
   ],
   imports: [
     CommonModule,

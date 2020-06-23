@@ -42,6 +42,7 @@ export class SalaChatComponent implements OnInit {
         (usuario) =>
           usuario.username !== this.autenticacionService.user.username
       );
+
       this.usuarios = [];
       for (const user of temp) {
         const usuario: Usuario = {
@@ -113,6 +114,7 @@ export class SalaChatComponent implements OnInit {
           console.log('doc.data().usuarioEmisor: ', doc.data().usuarioEmisor);
         }
 
+        // console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
       });
       console.log('chatCurrent: ', chatCurrent);
 
