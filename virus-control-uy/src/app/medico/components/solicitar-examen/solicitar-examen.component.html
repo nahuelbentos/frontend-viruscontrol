@@ -46,7 +46,7 @@
                     *ngFor="let examen of examenes"
                     [value]="examen.id"
                   >
-                    {{ examen.nombreEnfermedad }}
+                    {{ examen.nombre }}
                   </mat-option>
                 </mat-select>
                 <mat-error *ngIf="examenSeleccionadoFiled.hasError('required')">

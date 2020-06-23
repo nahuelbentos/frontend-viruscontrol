@@ -13,7 +13,7 @@ export class MedicoService {
   baseUrl = `${environment.url_backend}/medico`;
 
   private mensajesCollection: AngularFirestoreCollection<Mensaje>;
-  
+
   constructor(
     private http: HttpClient,
     private autenticacionService: AutenticacionService
@@ -23,7 +23,7 @@ export class MedicoService {
     console.log(
       'this.autenticacionService.user.email',
       this.autenticacionService.user
-    ); 
+    );
 
     // let headers = new Headers({ 'Content-Type': 'application/json' });
     // headers.append('Authorization', 'Bearer ');
@@ -33,7 +33,7 @@ export class MedicoService {
       `${environment.url_backend}/medico/visita_pendiente/all`
     );
   }
- 
+
 
   public getEnfermedades() {
     return this.http.get(`${this.baseUrl}/enfermedadesaprobadas`);
