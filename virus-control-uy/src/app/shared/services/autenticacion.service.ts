@@ -42,6 +42,9 @@ export class AutenticacionService {
     return this.authService.authState;
   }
 
+  estaLogueadoBackend(username: string){
+    return this.http.get(`${this.baseUrl}/esta-logueado/${username}`);
+  }
   logoutBackend() {
     return this.http.delete(`${this.baseUrl}/salir/`);
   }
@@ -57,7 +60,6 @@ export class AutenticacionService {
   }
 
   setUser(user: Usuario) {
-    localStorage.setItem('usuarioLogueado', JSON.stringify(user));
     console.log('seteo el usuario: ', user);
 
     this.user = user;
@@ -67,7 +69,8 @@ export class AutenticacionService {
     return this.loggedIn;
   }
 
-  setloggedIn(loggedIn: boolean) {
+  setloggedIn(loggedIn: boolean) {    
+    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
     this.loggedIn = loggedIn;
   }
 

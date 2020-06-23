@@ -47,7 +47,7 @@ export class ResultadosExamenesComponent implements OnInit {
 
       var link = document.createElement('a');
       link.href = data;
-      link.download = 'Je kar.pdf';
+      link.download = `resultado_${idCaso}.pdf`;
       // this is necessary as link.click() does not work on the latest firefox
       link.dispatchEvent(
         new MouseEvent('click', {

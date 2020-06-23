@@ -16,4 +16,5 @@ export interface Usuario {
 
   nroTelefono?: number;
   documento?: number;
+  tipoUsuario?: string;
 }

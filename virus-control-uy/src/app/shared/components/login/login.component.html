@@ -10,21 +10,7 @@
             <mat-card-title>Iniciar Sesión!</mat-card-title>
           </mat-card-header>
 
-          <!-- <form class="example-form">
-            <mat-card-content>
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Username">
-              </mat-form-field>
-
-              <mat-form-field class="example-full-width">
-                <input matInput placeholder="Password">
-              </mat-form-field>
-            </mat-card-content>
-
-            <button mat-stroked-button color="accent" class="btn-block">Log in</button>
-
-          </form> -->
-
+         
 
           <div id="tipo-usuario" style="margin: 10px 0px; text-align: left;">
 
@@ -41,21 +27,6 @@
               </mat-error>
             </mat-form-field>
 
-            <!-- <mat-form-field>
-              <label id="example-radio-group-label">Selecioná tu tipo de usuario</label>
-              
-              <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
-                [(ngModel)]="tipoUsuarioSelected" formControlName="selectTipoUsuario">
-                <mat-radio-button class="example-radio-button" *ngFor="let tipoUsuario of tipoUsuarios"
-                  [value]="tipoUsuario.value">
-                  {{tipoUsuario.description}}
-                </mat-radio-button>
-                <mat-error
-                  *ngIf="selectTipoUsuarioField.hasError('required') && selectTipoUsuarioField.dirty && selectTipoUsuarioField.errors">
-                  El número del alumno <strong>es requerido.</strong>
-                </mat-error>
-              </mat-radio-group>
-            </mat-form-field> -->
 
           </div>
 
@@ -106,6 +77,7 @@
         </mat-card>
 
       </div>
+      
       <div id="spinner" class="login-wrapper" *ngIf="showSppiner">
         <h2 class="example-h2">Iniciando sesión...</h2>
         <mat-progress-spinner class="example-margin" color="accent" mode="indeterminate" style="margin: 0px auto;">

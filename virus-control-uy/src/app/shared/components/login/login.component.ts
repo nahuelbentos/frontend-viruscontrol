@@ -51,8 +51,23 @@ export class LoginComponent implements OnInit, AfterViewInit {
     });
 
     this.autenticacionService.authStateFB().subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
+      if (user != null) {
+        this.autenticacionService
+          .estaLogueadoBackend(user.email)
+          .subscribe((estaLogueado: boolean) => {
+            console.log('Esta logueado estaLogueado: ', estaLogueado);
+            if (!estaLogueado) {
+              this.logout();
+            } else {
+
+              this.autenticacionService.setloggedIn(estaLogueado);
+              this.user = user;
+              this.loggedIn = user != null;
+              const usuario: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
+              this.goHome(usuario.tipoUsuario, usuario);
+            }
+          });
+      }
     });
   }
 
@@ -77,8 +92,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
         console.log('reject login: ', reject);
 
         this.showSppiner = false;
-        // this.user = null;
-        // this.loggedIn = false;
       });
   }
 
@@ -149,6 +162,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           usuario.sessionToken = res.sessionToken;
           usuario.photoUrl = response.photoUrl;
           usuario.fechaNacimiento = new Date(res.usuario.fechaNacimiento);
+          
+          usuario.tipoUsuario = this.tipoUsuarioSelected;
+
           console.log('res usuario.fechaNacimiento: ', usuario.fechaNacimiento);
           this.autenticacionService.setUser(usuario);
 
@@ -167,7 +183,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
                 .catch((err) => {
                   console.error('Error de firebase: ', err);
                 });
-            }else {
+            } else {
               this.chatService
                 .createCiudadano(usuario)
                 .then((res) => {
