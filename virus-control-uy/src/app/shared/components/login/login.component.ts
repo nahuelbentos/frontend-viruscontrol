@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.loginForm = this.fb.group({
       selectTipoUsuario: [null, [Validators.required]],
     });
-
+    this.loggedIn = false;
     this.autenticacionService.authStateFB().subscribe((user) => {
       if (user != null) {
         this.autenticacionService
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
               this.autenticacionService.setloggedIn(estaLogueado);
               this.user = user;
-              this.loggedIn = user != null;
+              this.loggedIn = true;
               const usuario: Usuario = JSON.parse(localStorage.getItem('usuarioLogueado'));
               this.goHome(usuario.tipoUsuario, usuario);
             }
