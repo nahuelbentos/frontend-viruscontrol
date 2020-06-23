@@ -53,6 +53,7 @@ export class ChatCiudadanoComponent implements OnInit {
             chat.usuarioReceptor === this.autenticacionService.user.username
         );
 
+      this.usuarios = [];
         for (const ciudadano of ciudadanosFirebase) {
           for (const chat of chatsMedico) {
             if (
@@ -75,19 +76,6 @@ export class ChatCiudadanoComponent implements OnInit {
     this.currentUser = this.autenticacionService.user;
   }
 
-  setearCiudadanosDelMedico(ciudadanosFirebase) {
-    for (const user of ciudadanosFirebase) {
-      const usuario: Usuario = {
-        nombre: user.nombre,
-        apellido: user.apellido,
-        correo: user.correo,
-        username: user.username,
-        idUsuario: user.idUsuario,
-      };
-      this.usuarios.push(usuario);
-    }
-    console.log('this.usuarios: ', this.usuarios);
-  }
 
   seleccionarUsuario(usuario: Usuario) {
     console.log(usuario);

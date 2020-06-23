@@ -43,6 +43,7 @@ export class SalaChatComponent implements OnInit {
           usuario.username !== this.autenticacionService.user.username
       );
 
+      this.usuarios = [];
       for (const user of temp) {
         const usuario: Usuario = {
           nombre: user.nombre,
