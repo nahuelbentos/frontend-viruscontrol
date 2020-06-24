@@ -11,7 +11,7 @@
                 <mat-label>Seleccionar enfermedad</mat-label>
                 <mat-select
                   formControlName="enfermedadSeleccionada"
-                  (blur)="obtenerExamenesDeEnfermedad(enfermedadSelected)"
+                  (selectionChange)="obtenerExamenesDeEnfermedad(enfermedadSelected)"
                   [(ngModel)]="enfermedadSelected"
                 >
                   <mat-option

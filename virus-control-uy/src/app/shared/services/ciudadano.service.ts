@@ -62,5 +62,5 @@ export class CiudadanoService {
 
 export interface RequestSuscripcionRecursos {
   barrio: string;
-  recurso: string;
+  recurso: number;
 }

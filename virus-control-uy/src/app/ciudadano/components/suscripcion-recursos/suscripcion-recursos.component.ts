@@ -7,6 +7,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { TipoRecurso } from '@shared/model/TipoRecurso';
 import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
+import { Recurso } from '@shared/model/Recurso';
+import { RecursoPorBarrio } from '@shared/model/RecursoPorBarrio';
 
 @Component({
   selector: 'app-suscripcion-recursos',
@@ -15,10 +17,11 @@ import { mensajeConfirmacion } from '@shared/utils/sweet-alert';
 })
 export class SuscripcionRecursosComponent implements OnInit {
   barrios: string[];
-  recursos = [];
-  formaNotificaciones: string[]  = ["Email"];
+  recursos: Recurso[];
+  formaNotificaciones: string[] = ['Email'];
   formSubmitted = false;
   barrioSelected: string;
+  showSppiner = false;
 
   constructor(
     public fb: FormBuilder,
@@ -44,16 +47,21 @@ export class SuscripcionRecursosComponent implements OnInit {
       recurso: this.tipoRecursoSeleccionadoFiled.value,
     };
 
-    this.ciudadanoService.postSuscripcionRecurso(SuscripcionRecurso).subscribe( ok => {
-      console.log('ok: ', ok);
-        mensajeConfirmacion('Excelente!', 'Le notificaremos cuando los recursos estén disponibles en su barrio.');
-    });
+    this.ciudadanoService
+      .postSuscripcionRecurso(SuscripcionRecurso)
+      .subscribe((ok) => {
+        console.log('ok: ', ok);
+        mensajeConfirmacion(
+          'Excelente!',
+          'Le notificaremos cuando los recursos estén disponibles en su barrio.'
+        );
+      });
   }
 
-  ngOnInit(){
-    this.ciudadanoService.getBarrios()
-    .subscribe(
-      (barrios: string[]) => { // Success
+  ngOnInit() {
+    this.ciudadanoService.getBarrios().subscribe(
+      (barrios: string[]) => {
+        // Success
         console.log(this.barrios);
         this.barrios = barrios;
       },
@@ -61,21 +69,31 @@ export class SuscripcionRecursosComponent implements OnInit {
         console.error(error);
       }
     );
-
-
   }
 
+  obtenerRecursosDeBarrio(nombreBarrio: string) {
+    if (nombreBarrio) {
 
-  obtenerRecursosDeBarrio(nombreBarrio: string){
-    if(nombreBarrio){
-      this.ciudadanoService.getRecursosDeBarrio (nombreBarrio)
-      .subscribe(
-        (res: any) => { // Success
-          console.log(res);
+      this.showSppiner = true;
+      this.ciudadanoService.getRecursosDeBarrio(nombreBarrio).subscribe(
+        (recursoPorBarrio: RecursoPorBarrio[]) => {
+          // Success
+          console.log(recursoPorBarrio);
+
           this.recursos = [];
-          for (const recurso of res[0].recurso) {
-            this.recursos.push(recurso.nombre);
-          }
+          // este aux no lo borres porque es el que hace la magia jaja
+          const aux: any = recursoPorBarrio.map((item) => {
+            return item.recurso.map((itemRecurso) => {
+              const exist = this.recursos.find(recurso => recurso.id === itemRecurso.id);
+
+              if (!exist){
+                this.recursos.push(itemRecurso);
+              }
+              return itemRecurso;
+            });
+          });
+
+        this.showSppiner = false;
         },
         (error) => {
           console.error(error);
@@ -83,8 +101,6 @@ export class SuscripcionRecursosComponent implements OnInit {
       );
     }
   }
-
-
 
   get barrioSeleccionadoFiled() {
     return this.SuscripcionForm.get('barrioSeleccionado');

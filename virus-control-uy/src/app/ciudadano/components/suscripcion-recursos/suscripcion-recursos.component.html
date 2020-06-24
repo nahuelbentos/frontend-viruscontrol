@@ -1,4 +1,5 @@
-<div class="row" style="margin: 0; padding: 0px;">
+
+<div class="row" style="margin: 0; padding: 0px;" *ngIf="!showSppiner">
   <div class="col-xs-12">
     <div class="box">
       <h1 class="mat-h1">Suscribirse a un recurso</h1>
@@ -13,7 +14,8 @@
                     <mat-label>Seleccionar barrio</mat-label>
                     <mat-select
                       formControlName="barrioSeleccionado"
-                      (blur)="obtenerRecursosDeBarrio(barrioSelected)"
+                      (selectionChange)="obtenerRecursosDeBarrio(barrioSelected)"
+
                       [(ngModel)]="barrioSelected"
                     >
                       <mat-option
@@ -40,9 +42,9 @@
                     <mat-select formControlName="tipoRecursoSeleccionado">
                       <mat-option
                         *ngFor="let recurso of recursos"
-                        [value]="recurso"
+                        [value]="recurso.id"
                       >
-                        {{ recurso }}
+                        {{ recurso.nombre }}
                       </mat-option>
                     </mat-select>
                     <mat-error
@@ -93,6 +95,23 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin: 0; padding: 0px;" *ngIf="showSppiner">
+  <div class="col-xs-12">
+    <div class="box">
+      <div id="spinner" class="login-wrapper">
+        <h2 class="example-h2">Buscando datos...</h2>
+        <mat-progress-spinner
+          class="example-margin"
+          color="accent"
+          mode="indeterminate"
+          style="margin: 0px auto;"
+        >
+        </mat-progress-spinner>
+      </div>
     </div>
   </div>
 </div>
