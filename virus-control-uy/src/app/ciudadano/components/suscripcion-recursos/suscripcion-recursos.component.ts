@@ -44,13 +44,14 @@ export class SuscripcionRecursosComponent implements OnInit {
 
     const SuscripcionRecurso: RequestSuscripcionRecursos = {
       barrio: this.barrioSeleccionadoFiled.value,
-      recurso: this.tipoRecursoSeleccionadoFiled.value,
+      idRecurso: this.tipoRecursoSeleccionadoFiled.value,
     };
 
     this.ciudadanoService
       .postSuscripcionRecurso(SuscripcionRecurso)
       .subscribe((ok) => {
         console.log('ok: ', ok);
+        console.log("Post: ",SuscripcionRecurso);
         mensajeConfirmacion(
           'Excelente!',
           'Le notificaremos cuando los recursos estén disponibles en su barrio.'
