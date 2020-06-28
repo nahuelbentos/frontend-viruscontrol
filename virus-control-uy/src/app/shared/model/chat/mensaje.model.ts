@@ -4,4 +4,6 @@ export interface Mensaje {
   usuarioReceptor: string;
   contenido: string;
   timestamp?: Date;
+  mensajeVistoEmisor?: boolean;
+  mensajeReceptorVisto?: boolean;
 }

@@ -17,4 +17,7 @@ export interface Usuario {
   nroTelefono?: number;
   documento?: number;
   tipoUsuario?: string;
+
+  mensajeVisto?: boolean;
+  mensajeTimestamp?: Date;
 }

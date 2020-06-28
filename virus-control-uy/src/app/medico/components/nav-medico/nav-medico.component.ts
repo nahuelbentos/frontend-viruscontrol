@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
@@ -13,9 +13,9 @@ import { Ciudadano } from '@shared/model/Ciudadano';
   templateUrl: './nav-medico.component.html',
   styleUrls: ['./nav-medico.component.scss'],
 })
-export class NavMedicoComponent {
+export class NavMedicoComponent implements OnInit {
   isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
+    .observe(['(max-width: 1325px)'])
     .pipe(
       map((result) => result.matches),
       shareReplay()
@@ -29,6 +29,19 @@ export class NavMedicoComponent {
     private auxiliarService: AuxiliaresService
   ) {}
 
+  ngOnInit(): void {
+    this.breakpointObserver
+      .observe(['(max-width: 1200px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          
+          console.log('state ::::: ', state);
+        } else {
+          
+          console.log('else state ::::: ', state);
+        }
+      });
+  }
   logout() {
     this.autenticacionService.logoutBackend().subscribe((res) => {
       console.log('res logutbackend: ', res);
@@ -44,6 +57,7 @@ export class NavMedicoComponent {
         })
         .catch((reject) => {
           console.log('reject logut: ', reject);
+          this.router.navigate(['/home']);
         });
     });
   }

@@ -23,7 +23,8 @@
           <mat-icon matListIcon>account_circle</mat-icon>
           <h3 matLine class="text-primary">{{ usuario?.nombre }}</h3>
           <p matLine>
-            <!-- <span class="small text-muted"> Nuevo Mensaje </span><br /> -->
+            <span class="small text-muted"> {{ usuario?.correo }} </span><br />
+            <span class="small text-muted small" style="color: #00a9f4; font-size: 12px;" *ngIf="usuario?.mensajeVisto === false"> <strong> Nuevo Mensaje </strong> :: {{ usuario.mensajeTimestamp?.toDate() | date: "dd MMM hh:mm" }} </span>
             <!-- <span class="demo-2 text-muted small">
               {{ usuario.timestamp?.toDate() | date: "dd MMM hh:mm" }}</span> -->
           </p>
@@ -33,7 +34,7 @@
     
 <!-- Chat Screen Main Content - start -->
     <div class="example-sidenav-content">
-      <div class="mesgs" id="container">
+      <div class="mesgs" id="container" [class]="(isHandset$ | async) ? 'mesgs-100' : 'mesgs'" >
         <cdk-virtual-scroll-viewport
           itemSize="40"
           class="msg_history "
@@ -75,7 +76,30 @@
         </cdk-virtual-scroll-viewport>
 
         <div class="type_msg" *ngIf="showMensajes">
-          <div class="input_msg_write">
+          <div class="row">
+            <div class="col-xs-11 input_msg_write">
+              <input
+                mat-input
+                type="text"
+                placeholder="Escribe un mensaje aquí"
+                [(ngModel)]="mensaje"
+                (keydown.enter)="enviarMensaje()"
+              />
+
+            </div>
+            <div class="col-xs-1">
+            <button
+            [class]="(isHandset$ | async) ? 'msg_send_btn-absolute' : 'msg_send_btn-relative'"
+              class="msg_send_btn"
+              type="button"
+              (click)="enviarMensaje()"
+              (keydown.enter)="enviarMensaje()"
+            >
+              <mat-icon matSuffix>send</mat-icon>
+            </button></div>
+          </div>
+          
+          <!-- <div class="input_msg_write">
             <input
               mat-input
               type="text"
@@ -91,7 +115,8 @@
             >
               <mat-icon matSuffix>send</mat-icon>
             </button>
-          </div>
+          </div> -->
+
         </div>
       </div>
     </div>
