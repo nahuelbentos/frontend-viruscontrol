@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '@shared/model/Usuario';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
+import { Observable, merge } from 'rxjs';
+
 import { Chat } from '@shared/model/chat/chat.model';
 import { Conversacion } from '@shared/model/chat/conversacion.model';
 import { map } from 'rxjs/operators';
 import { Mensaje } from '@shared/model/chat/mensaje.model';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root',
@@ -108,48 +113,55 @@ export class ChatService {
   // Mensajes
 
   cargarMensajes() {
+    this.setMensajeLeido(
+      this.conversacion.idConversacion,
+      this.conversacion.mensajes
+    ).then((res) => console.log('setMensajeLeido, res: ', res));
     return this.firestore
       .doc<Conversacion>('conversacion/' + this.conversacion.idConversacion)
       .valueChanges();
   }
 
-  // cargarMensajes() {
-  //   this.mensajesCollection = this.firestore.collection<Mensaje>('chats', (ref) =>
-  //     ref.orderBy('fecha', 'desc').limit(5)
-  //   );
+  setMensajeLeido(idConversacion: string, mensajes) {
+    console.log('1)setMensaje leido, mensajes:  ', mensajes);
 
-  //   return this.itemsCollection.valueChanges().map((mensajes: Mensaje[]) => {
-  //     console.log(mensajes);
+    if (mensajes.length > 0) {
+      const index = mensajes.length - 1;
+      mensajes[index].mensajeReceptorVisto = true;
+    }
+    console.log('2)setMensaje leido, mensajes:  ', mensajes);
 
-  //     this.chats = [];
+    // Seteo todos los mensajes devuelta, con el mensaje leido porque arme mal la estructura en firebase
+    return this.firestore
+      .doc('conversacion/' + idConversacion)
+      .update({ mensajes });
+  }
 
-  //     for (let mensaje of mensajes) {
-  //       this.chats.unshift(mensaje);
-  //     }
+  getChatPorUsuario(usuario: Usuario, usuarioEmisor: Usuario) {
+    // const query1 = this.firestore.collection('chat', ref => ref.where('usuarioEmisor', '==', usuario.correo)).valueChanges();
+    return this.firestore
+      .collection(
+        'chat',
+        (ref) => ref.where('usuarioReceptor', '==', usuario.correo)
+        .where('usuarioEmisor', '==', usuarioEmisor.correo)
+      )
+      .snapshotChanges();
+  }
 
-  //     return this.chats;
-  //   });
-  // }
-  // getConversacion(usuarioEmisor: string, usuarioReceptor: string) {
-  //   return this.firestore.collection('chat', (ref) =>
-  //     ref
-  //       .where('usuarioEmisor', '==', usuarioEmisor)
-  //       .where('usuarioRecptor', '==', usuarioReceptor)
-  //   );
-  // }
+  getChatPorUsuarioEmisor(usuario: Usuario, usuarioEmisor: Usuario) {
+    // const query1 = this.firestore.collection('chat', ref => ref.where('usuarioEmisor', '==', usuario.correo)).valueChanges();
+    return this.firestore
+      .collection('chat', (ref) =>
+        ref
+          .where('usuarioEmisor', '==', usuario.correo)
+          .where('usuarioReceptor', '==', usuarioEmisor.correo)
+      )
+      .snapshotChanges();
+  }
 
-  // Usuarios
-  // createUsuario(usuario: Usuario) {
-  //   this.firestore.collection('usuarios').add(usuario);
-  // }
-
-  // getUsuarios() {
-  //   this.usuarios = this.firestore
-  //     .collection<Usuario>('usuarios')
-  //     .valueChanges();
-  // }
-
-  // updateUsuario(usuario: Usuario) {
-  //   this.firestore.doc<Usuario>('usuarios/' + usuario.username).update(usuario);
-  // }
+  getConversacionPorChat(idChat) {
+    return this.firestore
+      .collection('conversacion', (ref) => ref.where('idChat', '==', idChat))
+      .snapshotChanges();
+  }
 }

@@ -23,7 +23,8 @@
           <mat-icon matListIcon>account_circle</mat-icon>
           <h3 matLine class="text-primary">{{ usuario?.nombre }}</h3>
           <p matLine>
-            <!-- <span class="small text-muted"> Nuevo Mensaje </span><br /> -->
+            <span class="small text-muted"> {{ usuario?.correo }} </span><br />
+            <span class="small text-muted small" style="color: #00a9f4; font-size: 12px;" *ngIf="usuario?.mensajeVisto === false"> <strong> Nuevo Mensaje </strong> :: {{ usuario.mensajeTimestamp?.toDate() | date: "dd MMM hh:mm" }} </span>
             <!-- <span class="demo-2 text-muted small">
               {{ usuario.timestamp?.toDate() | date: "dd MMM hh:mm" }}</span> -->
           </p>

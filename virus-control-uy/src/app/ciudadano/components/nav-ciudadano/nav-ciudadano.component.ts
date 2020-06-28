@@ -70,6 +70,7 @@ export class NavCiudadanoComponent {
         })
         .catch((reject) => {
           console.log('reject logut: ', reject);
+          this.router.navigate(['/home']);
         });
     });
   }

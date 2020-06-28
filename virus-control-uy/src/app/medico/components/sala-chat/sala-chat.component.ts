@@ -51,6 +51,71 @@ export class SalaChatComponent implements OnInit {
           username: user.username,
           idUsuario: user.idUsuario,
         };
+        
+
+        this.chatService
+          .getChatPorUsuario(this.currentUser, usuario)
+          .subscribe((respChat) => {
+            // chat = respChat.algo;
+
+            if (respChat.length === 0) {
+              return;
+            }
+
+            const idChatArray: string[] = respChat.map((e) => {
+              return e.payload.doc.id;
+            });
+            // chanchada pero funciona
+            const idChat: string = idChatArray.find((e) => e);
+            console.log('1) idChat: ', idChat);
+
+            this.chatService
+              .getConversacionPorChat(idChat)
+              .subscribe((conversacionChanges) => {
+                console.log('2) conversacionChanges: ', conversacionChanges);
+                const temp: any = conversacionChanges.map((e) => {
+                  console.log('3) data conversacion :: ', e.payload.doc.data());
+                  return e.payload.doc.data();
+                });
+                console.log('4.0) conversacion: ', temp);
+                const element = temp.find((e) => e);
+                console.log('4.1) conversacion: ', element);
+                console.log('4.2) usuario: ', usuario);
+
+                const conversacion: Conversacion = {
+                  idChat: element.idChat,
+                  idConversacion: element.idConversacion,
+                  mensajes: element.mensajes,
+                };
+
+                if (conversacion.mensajes.length > 0) {
+                  const index = conversacion.mensajes.length - 1;
+                  if (!conversacion.mensajes[index].mensajeReceptorVisto) {
+                    console.log('4.3) this.usuarios: ', this.usuarios);
+                    this.usuarios = this.usuarios.map((u) => {
+                      if (u.username === usuario.username) {
+                        console.log(
+                          '4.3.1) conversacion.mensajes[index]: ',
+                          conversacion.mensajes[index]
+                        );
+                        u.mensajeVisto = conversacion.mensajes[index].mensajeReceptorVisto;
+                        u.mensajeTimestamp =
+                          conversacion.mensajes[index].timestamp;
+                      }
+                      return u;
+                    });
+                    console.log('4.4) this.usuarios: ', this.usuarios);
+                  }
+                }
+                console.log('4) conversacion: ', conversacion);
+                // this.usuarios = this.usuarios.map( usuario => {
+
+                // })
+                console.log('5) this.usuarios: ', this.usuarios);
+              });
+          });
+
+
         this.usuarios.push(usuario);
       }
       console.log('this.usuarios: ', this.usuarios);
@@ -66,6 +131,13 @@ export class SalaChatComponent implements OnInit {
       usuarioEmisor: this.currentUser.username,
       usuarioReceptor: usuario.username,
     };
+
+    this.usuarios = this.usuarios.map((u) => {
+      if (u.username === usuario.username) {
+        u.mensajeVisto = true;
+      }
+      return u;
+    });
 
     const chatReceptor: Chat = {
       // idChat: this.chatService.createId(),
@@ -194,6 +266,8 @@ export class SalaChatComponent implements OnInit {
       timestamp: new Date(),
       fecha: new Date(),
       contenido: this.mensaje,
+      mensajeEmisorVisto: true,
+      mensajeReceptorVisto: false,
     };
     // empty mensaje
     this.mensaje = '';

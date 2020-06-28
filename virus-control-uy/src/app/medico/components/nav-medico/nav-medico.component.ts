@@ -44,6 +44,7 @@ export class NavMedicoComponent {
         })
         .catch((reject) => {
           console.log('reject logut: ', reject);
+          this.router.navigate(['/home']);
         });
     });
   }

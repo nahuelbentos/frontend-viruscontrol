@@ -52,7 +52,8 @@ export class DonacionesComponent implements OnInit {
         // tslint:disable-next-line: radix
         this.montoTotal += parseInt(donacion.donacion) ;
       }
-
+       
+      
 
     });
 
