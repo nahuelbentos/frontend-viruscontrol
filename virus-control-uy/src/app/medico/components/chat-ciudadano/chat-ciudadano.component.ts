@@ -27,6 +27,13 @@ export class ChatCiudadanoComponent implements OnInit {
       map((result) => result.matches),
       shareReplay()
     );
+    
+  agrandarPadding$: Observable<boolean> = this.breakpointObserver
+    .observe(['(max-width: 800px)'])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
   currentUser: Usuario;
   usuarios: Usuario[] = [];
 

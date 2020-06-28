@@ -8,7 +8,7 @@
 </mat-toolbar>
 <!-- Usuarios sidebar - start -->
   <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened [class]="(agrandarPadding$ | async) ? 'padding-botton-35' : 'padding-botton-13'"> 
       <mat-form-field>
         
         <!-- [(ngModel)]="userFilter.nombre" -->
