@@ -20,7 +20,7 @@ import { MaterialModule } from '@material/material.module';
 import { ResultadosExamenesComponent } from './components/resultados-examenes/resultados-examenes.component';
 import { SuscripcionRecursosComponent } from './components/suscripcion-recursos/suscripcion-recursos.component';
 import { HomePublicModule } from '../home-public/home-public.module';
-import { ChatMedicoComponent } from './components/chat-medico/chat-medico.component';
+
 import { SalaChatComponent } from './components/sala-chat/sala-chat.component';
 import { SharedModule } from '@shared/shared.module';
 import { FilterPipeModule } from 'ngx-filter-pipe';
@@ -33,7 +33,6 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     PerfilCiudadanoComponent,
     ResultadosExamenesComponent,
     SuscripcionRecursosComponent,
-    ChatMedicoComponent,
     SalaChatComponent,
   ],
   imports: [
@@ -51,12 +50,3 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 })
 export class CiudadanoModule {}
 
-// MatToolbarModule,
-// MatButtonModule,
-// MatSidenavModule,
-// MatIconModule,
-// MatListModule,
-// MatInputModule,
-// MatSelectModule,
-// MatRadioModule,
-// MatCardModule,

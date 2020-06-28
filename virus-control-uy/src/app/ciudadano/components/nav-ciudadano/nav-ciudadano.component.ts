@@ -14,7 +14,7 @@ import { Country } from '@shared/model/Country';
 })
 export class NavCiudadanoComponent {
   isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
+    .observe(['(max-width: 1325px)'])
     .pipe(
       map((result) => result.matches),
       shareReplay()

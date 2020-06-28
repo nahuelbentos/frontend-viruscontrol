@@ -11,6 +11,9 @@ import {
   ScrollToService,
   ScrollToConfigOptions,
 } from '@nicky-lenaers/ngx-scroll-to';
+import { Observable } from 'rxjs';
+import { shareReplay, map } from 'rxjs/operators';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-sala-chat',
@@ -18,6 +21,12 @@ import {
   styleUrls: ['./sala-chat.component.scss'],
 })
 export class SalaChatComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(['(max-width: 1325px)'])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
   currentUser: Usuario;
   usuarios: Usuario[] = [];
 
@@ -30,6 +39,7 @@ export class SalaChatComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private scrollToService: ScrollToService,
+    private breakpointObserver: BreakpointObserver,
     private autenticacionService: AutenticacionService
   ) {}
 
@@ -68,13 +78,12 @@ export class SalaChatComponent implements OnInit {
             const idChatArray: string[] = respChat.map((e) => {
               return e.payload.doc.id;
             });
-            // chanchada pero funciona
+            // Me devuelve un array de un unico elemento, así que me quedo con el elemento.
             const idChat: string = idChatArray.find((e) => e);
 
             this.chatService
               .getConversacionPorChat(idChat)
               .subscribe((conversacionChanges) => {
-
                 // tslint:disable-next-line: no-shadowed-variable
                 const temp: any = conversacionChanges.map((e) => {
                   return e.payload.doc.data();
@@ -83,7 +92,6 @@ export class SalaChatComponent implements OnInit {
                 const element = temp.find((e) => e);
 
                 if (element) {
-
                   const conversacion: Conversacion = {
                     idChat: element.idChat,
                     idConversacion: element.idConversacion,
@@ -93,34 +101,32 @@ export class SalaChatComponent implements OnInit {
                   if (conversacion.mensajes.length > 0) {
                     const index = conversacion.mensajes.length - 1;
                     if (!conversacion.mensajes[index].mensajeReceptorVisto) {
-
                       this.usuarios = this.usuarios.map((u) => {
-                        if (u.username === usuario.username) {
-
-                          if ( conversacion.mensajes[index].usuarioEmisor === u.username) {
-                            u.mensajeVisto = conversacion.mensajes[index].mensajeReceptorVisto;
-                            u.mensajeTimestamp = conversacion.mensajes[index].timestamp;
-                          }
-
+                        if (
+                          u.username === usuario.username &&
+                          conversacion.mensajes[index].usuarioEmisor ===
+                            u.username
+                        ) {
+                          u.mensajeVisto =
+                            conversacion.mensajes[index].mensajeReceptorVisto;
+                          u.mensajeTimestamp =
+                            conversacion.mensajes[index].timestamp;
                         }
+
                         return u;
                       });
-
                     }
                   }
-
                 }
               });
           });
 
         this.usuarios.push(usuario);
       }
-
     });
   }
 
   seleccionarUsuario(usuario: Usuario) {
-
     const chat: Chat = {
       usuarioEmisor: this.currentUser.username,
       usuarioReceptor: usuario.username,
@@ -133,9 +139,7 @@ export class SalaChatComponent implements OnInit {
       return u;
     });
 
-
     this.chatService.getChats().subscribe((querySnapshot) => {
-
       let chatCurrent: Chat;
 
       querySnapshot.forEach((doc) => {
@@ -152,11 +156,11 @@ export class SalaChatComponent implements OnInit {
 
           return;
         } else {
-
           // Chat donde el currentUser es receptor
-          if (doc.data().usuarioEmisor === usuario.username &&
-            doc.data().usuarioReceptor === this.currentUser.username) {
-
+          if (
+            doc.data().usuarioEmisor === usuario.username &&
+            doc.data().usuarioReceptor === this.currentUser.username
+          ) {
             chatCurrent = {
               idChat: doc.id, // data().idChat,
               usuarioEmisor: doc.data().usuarioEmisor,
@@ -166,19 +170,16 @@ export class SalaChatComponent implements OnInit {
             return;
           }
         }
-
       });
 
       if (!chatCurrent) {
         this.chatService.createChat(chat).then((ref) => {
-
           const conversacion: Conversacion = {
             idChat: ref.id,
             mensajes: [],
           };
 
           this.chatService.createConversacion(conversacion).then((refConv) => {
-
             const conv: Conversacion = {
               idChat: conversacion.idChat,
               mensajes: [],
@@ -198,7 +199,6 @@ export class SalaChatComponent implements OnInit {
           });
         });
       } else {
-
         let convCurrent: Conversacion;
         // tslint:disable-next-line: no-shadowed-variable
         this.chatService.getConversaciones().subscribe((querySnapshot) => {

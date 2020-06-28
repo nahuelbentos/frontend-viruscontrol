@@ -3,12 +3,12 @@ import { ChatService } from '@shared/services/chat.service';
 import { Usuario } from '@shared/model/Usuario';
 import { AutenticacionService } from '@shared/services/autenticacion.service';
 import { Chat } from '@shared/model/chat/chat.model';
-import { JsonPipe } from '@angular/common';
-import { Conversacion } from '@shared/model/chat/conversacion.model';
-import { AngularFirestoreCollection } from '@angular/fire/firestore/public_api';
-import { Mensaje } from '@shared/model/chat/mensaje.model';
 
+import { Conversacion } from '@shared/model/chat/conversacion.model';
 import { ScrollToService,  ScrollToConfigOptions} from '@nicky-lenaers/ngx-scroll-to';
+import { BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sala-chat',
@@ -16,6 +16,12 @@ import { ScrollToService,  ScrollToConfigOptions} from '@nicky-lenaers/ngx-scrol
   styleUrls: ['./sala-chat.component.scss'],
 })
 export class SalaChatComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(['(max-width: 1325px)'])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
   currentUser: Usuario;
   usuarios: Usuario[] = [];
 
@@ -28,13 +34,25 @@ export class SalaChatComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private scrollToService: ScrollToService,
+    private breakpointObserver: BreakpointObserver,
     private autenticacionService: AutenticacionService
   ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.autenticacionService.user;
+
+    this.breakpointObserver
+      .observe(['(max-width: 1200px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          console.log('state ::::: ', state);
+        } else {
+          console.log('else state ::::: ', state);
+        }
+      });
+
     this.chatService.getUsuarios().subscribe((data) => {
       const usersFirebase: any = data.map((e) => {
-        console.log('data: ', e.payload.doc.data());
         return e.payload.doc.data();
       });
 
@@ -51,7 +69,6 @@ export class SalaChatComponent implements OnInit {
           username: user.username,
           idUsuario: user.idUsuario,
         };
-        
 
         this.chatService
           .getChatPorUsuario(this.currentUser, usuario)
@@ -59,69 +76,95 @@ export class SalaChatComponent implements OnInit {
             // chat = respChat.algo;
 
             if (respChat.length === 0) {
+              this.obtenerChatEmisor(usuario);
               return;
             }
 
             const idChatArray: string[] = respChat.map((e) => {
               return e.payload.doc.id;
             });
-            // chanchada pero funciona
+            // Me devuelve un array de un unico elemento, así que me quedo con el elemento.
             const idChat: string = idChatArray.find((e) => e);
             console.log('1) idChat: ', idChat);
 
             this.chatService
               .getConversacionPorChat(idChat)
               .subscribe((conversacionChanges) => {
-                console.log('2) conversacionChanges: ', conversacionChanges);
-                const temp: any = conversacionChanges.map((e) => {
-                  console.log('3) data conversacion :: ', e.payload.doc.data());
-                  return e.payload.doc.data();
-                });
-                console.log('4.0) conversacion: ', temp);
-                const element = temp.find((e) => e);
-                console.log('4.1) conversacion: ', element);
-                console.log('4.2) usuario: ', usuario);
-
-                const conversacion: Conversacion = {
-                  idChat: element.idChat,
-                  idConversacion: element.idConversacion,
-                  mensajes: element.mensajes,
-                };
-
-                if (conversacion.mensajes.length > 0) {
-                  const index = conversacion.mensajes.length - 1;
-                  if (!conversacion.mensajes[index].mensajeReceptorVisto) {
-                    console.log('4.3) this.usuarios: ', this.usuarios);
-                    this.usuarios = this.usuarios.map((u) => {
-                      if (u.username === usuario.username) {
-                        console.log(
-                          '4.3.1) conversacion.mensajes[index]: ',
-                          conversacion.mensajes[index]
-                        );
-                        u.mensajeVisto = conversacion.mensajes[index].mensajeReceptorVisto;
-                        u.mensajeTimestamp =
-                          conversacion.mensajes[index].timestamp;
-                      }
-                      return u;
-                    });
-                    console.log('4.4) this.usuarios: ', this.usuarios);
-                  }
+                console.log('conversacionChanges:: ', conversacionChanges);
+                if (conversacionChanges.length !== 0) {
+                  // tslint:disable-next-line: no-shadowed-variable
+                  const temp: any = conversacionChanges.map((e) => {
+                    return e.payload.doc.data();
+                  });
+                  console.log('temp:: ', temp);
+                  this.evaluarConversacion(temp, usuario);
                 }
-                console.log('4) conversacion: ', conversacion);
-                // this.usuarios = this.usuarios.map( usuario => {
-
-                // })
-                console.log('5) this.usuarios: ', this.usuarios);
               });
           });
 
-
         this.usuarios.push(usuario);
+        console.log('usuarios: ', this.usuarios);
       }
-      console.log('this.usuarios: ', this.usuarios);
     });
+  }
 
-    this.currentUser = this.autenticacionService.user;
+  obtenerChatEmisor(usuario) {
+    this.chatService
+      .getChatPorUsuarioEmisor(this.currentUser, usuario)
+      .subscribe((respChatEmisor) => {
+        if (respChatEmisor.length === 0) {
+          return;
+        }
+
+        const idChatArray: string[] = respChatEmisor.map((e) => {
+          return e.payload.doc.id;
+        });
+
+        // Me devuelve un array de un unico elemento, así que me quedo con el elemento.
+        const idChat: string = idChatArray.find((e) => e);
+
+        this.chatService
+          .getConversacionPorChat(idChat)
+          .subscribe((conversacionChanges) => {
+            if (conversacionChanges.length !== 0) {
+              const temp: any = conversacionChanges.map((e) => {
+                return e.payload.doc.data();
+              });
+              this.evaluarConversacion(temp, usuario);
+            }
+          });
+      });
+  }
+
+  evaluarConversacion(temp, usuario) {
+    const element = temp.find((e) => e);
+
+    if (element) {
+      const conversacion: Conversacion = {
+        idChat: element.idChat,
+        idConversacion: element.idConversacion,
+        mensajes: element.mensajes,
+      };
+
+      if (conversacion.mensajes.length > 0) {
+        const index = conversacion.mensajes.length - 1;
+        if (!conversacion.mensajes[index].mensajeReceptorVisto) {
+          this.usuarios = this.usuarios.map((u) => {
+            if (
+              u.username === usuario.username &&
+              conversacion.mensajes[index].usuarioEmisor === u.username
+            ) {
+              u.mensajeVisto =
+                conversacion.mensajes[index].mensajeReceptorVisto;
+              u.mensajeTimestamp = conversacion.mensajes[index].timestamp;
+            }
+            return u;
+          });
+
+          console.log('usuarios:: ', this.usuarios);
+        }
+      }
+    }
   }
 
   seleccionarUsuario(usuario: Usuario) {
@@ -139,14 +182,7 @@ export class SalaChatComponent implements OnInit {
       return u;
     });
 
-    const chatReceptor: Chat = {
-      // idChat: this.chatService.createId(),
-      usuarioReceptor: this.currentUser.username,
-      usuarioEmisor: usuario.username,
-    };
-
     this.chatService.getChats().subscribe((querySnapshot) => {
-      console.log('querySnapshot: ', querySnapshot);
       let chatCurrent: Chat;
 
       querySnapshot.forEach((doc) => {
@@ -160,7 +196,7 @@ export class SalaChatComponent implements OnInit {
             usuarioEmisor: doc.data().usuarioEmisor,
             usuarioReceptor: doc.data().usuarioReceptor,
           };
-          console.log('1) chat: ', chatCurrent);
+
           return;
         } else {
           // Chat donde el currentUser es receptor
@@ -173,37 +209,26 @@ export class SalaChatComponent implements OnInit {
               usuarioEmisor: doc.data().usuarioEmisor,
               usuarioReceptor: doc.data().usuarioReceptor,
             };
-            console.log('2) chat: ', chatCurrent);
+
             return;
           }
-          console.log('3) chat: ', chatCurrent);
-          // const usuario: Usuario = doc.data().usuarioReceptor;
-          console.log(
-            'doc.data().usuarioReceptor: ',
-            doc.data().usuarioReceptor
-          );
-          console.log('doc.data().usuarioEmisor: ', doc.data().usuarioEmisor);
         }
-
       });
-      console.log('chatCurrent: ', chatCurrent);
 
       if (!chatCurrent) {
         this.chatService.createChat(chat).then((ref) => {
-          console.log('create chat ref: ', ref);
           const conversacion: Conversacion = {
             idChat: ref.id,
             mensajes: [],
           };
 
           this.chatService.createConversacion(conversacion).then((refConv) => {
-            console.log('create conversacion ref: ', refConv);
             const conv: Conversacion = {
               idChat: conversacion.idChat,
               mensajes: [],
               idConversacion: refConv.id,
             };
-            console.log('seteo la conv');
+
             this.chatService.setCurrentConversacion(conv);
 
             this.chatService.cargarMensajes().subscribe((data) => {
@@ -219,8 +244,6 @@ export class SalaChatComponent implements OnInit {
       } else {
         let convCurrent: Conversacion;
         this.chatService.getConversaciones().subscribe((querySnapshot) => {
-          console.log('querySnapshot: ', querySnapshot);
-
           querySnapshot.forEach((doc) => {
             // Conversacion del currentUser
             if (doc.data().idChat === chatCurrent.idChat) {
@@ -229,7 +252,6 @@ export class SalaChatComponent implements OnInit {
                 idChat: doc.data().idChat,
                 mensajes: doc.data().mensajes,
               };
-              console.log('1) convCurrent: ', convCurrent);
 
               this.mensajes = convCurrent.mensajes;
               this.chatService.setCurrentConversacion(convCurrent);
@@ -255,7 +277,6 @@ export class SalaChatComponent implements OnInit {
   enviarMensaje() {
     // If message string is empty
     if (this.mensaje === '') {
-      alert('Enter mensaje');
       return;
     }
     // set the mensaje object
@@ -273,10 +294,9 @@ export class SalaChatComponent implements OnInit {
     this.mensaje = '';
     // update
     this.mensajes.push(msg);
-    console.log('list', this.mensajes);
 
     this.chatService.enviarMensaje(this.mensajes).then(() => {
-      console.log('sent');
+      console.log('enviado');
     });
   }
 

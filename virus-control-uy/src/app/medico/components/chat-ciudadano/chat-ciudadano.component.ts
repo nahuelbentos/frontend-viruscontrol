@@ -11,6 +11,9 @@ import {
   ScrollToService,
   ScrollToConfigOptions,
 } from '@nicky-lenaers/ngx-scroll-to';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-chat-ciudadano',
@@ -18,6 +21,12 @@ import {
   styleUrls: ['./chat-ciudadano.component.scss'],
 })
 export class ChatCiudadanoComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(['(max-width: 1325px)'])
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
   currentUser: Usuario;
   usuarios: Usuario[] = [];
 
@@ -30,6 +39,7 @@ export class ChatCiudadanoComponent implements OnInit {
   constructor(
     private chatService: ChatService,
     private scrollToService: ScrollToService,
+    private breakpointObserver: BreakpointObserver,
     private autenticacionService: AutenticacionService
   ) {}
 
@@ -61,12 +71,10 @@ export class ChatCiudadanoComponent implements OnInit {
               this.chatService
                 .getChatPorUsuario(this.currentUser, ciudadano)
                 .subscribe((respChat) => {
-
                   if (respChat.length === 0) {
                     this.obtenerChatEmisor(ciudadano);
                     return;
                   }
-
 
                   const idChatArray: string[] = respChat.map((e) => {
                     return e.payload.doc.id;
@@ -75,11 +83,9 @@ export class ChatCiudadanoComponent implements OnInit {
                   // Me devuelve un array de un unico elemento, así que me quedo con el elemento.
                   const idChat: string = idChatArray.find((e) => e);
 
-
                   this.chatService
                     .getConversacionPorChat(idChat)
                     .subscribe((conversacionChanges) => {
-
                       if (conversacionChanges.length !== 0) {
                         const temp: any = conversacionChanges.map((e) => {
                           return e.payload.doc.data();
@@ -100,11 +106,9 @@ export class ChatCiudadanoComponent implements OnInit {
   }
 
   obtenerChatEmisor(ciudadano) {
-
     this.chatService
       .getChatPorUsuarioEmisor(this.currentUser, ciudadano)
       .subscribe((respChatEmisor) => {
-
         if (respChatEmisor.length === 0) {
           return;
         }
@@ -112,7 +116,6 @@ export class ChatCiudadanoComponent implements OnInit {
         const idChatArray: string[] = respChatEmisor.map((e) => {
           return e.payload.doc.id;
         });
-
 
         // Me devuelve un array de un unico elemento, así que me quedo con el elemento.
         const idChat: string = idChatArray.find((e) => e);
@@ -146,7 +149,8 @@ export class ChatCiudadanoComponent implements OnInit {
           this.usuarios = this.usuarios.map((u) => {
             if (u.username === ciudadano.username) {
               if (conversacion.mensajes[index].usuarioEmisor === u.username) {
-                u.mensajeVisto = conversacion.mensajes[index].mensajeReceptorVisto;
+                u.mensajeVisto =
+                  conversacion.mensajes[index].mensajeReceptorVisto;
                 u.mensajeTimestamp = conversacion.mensajes[index].timestamp;
               }
             }
@@ -156,6 +160,7 @@ export class ChatCiudadanoComponent implements OnInit {
       }
     }
   }
+
   seleccionarUsuario(usuario: Usuario) {
     const chat: Chat = {
       // idChat: this.chatService.createId(),
@@ -171,13 +176,14 @@ export class ChatCiudadanoComponent implements OnInit {
     });
 
     this.chatService.getChats().subscribe((querySnapshot) => {
-
       let chatCurrent: Chat;
 
       querySnapshot.forEach((doc) => {
         // Chat del currentUser
-        if (doc.data().usuarioReceptor === usuario.username &&
-          doc.data().usuarioEmisor === this.currentUser.username) {
+        if (
+          doc.data().usuarioReceptor === usuario.username &&
+          doc.data().usuarioEmisor === this.currentUser.username
+        ) {
           chatCurrent = {
             idChat: doc.id, // data().idChat,
             usuarioEmisor: doc.data().usuarioEmisor,
